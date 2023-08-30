@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="Send_Invoice_end" role="rule" edgeids="false" edgemode="directed">
+        <node id="n85">
+            <attr name="layout">
+                <string>455 332 0 0</string>
+            </attr>
+        </node>
+        <edge from="n85" to="n85">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n85" to="n85">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n91">
+            <attr name="layout">
+                <string>422 582 0 0</string>
+            </attr>
+        </node>
+        <edge from="n91" to="n91">
+            <attr name="label">
+                <string>type:Message</string>
+            </attr>
+        </edge>
+        <edge from="n91" to="n91">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n83">
+            <attr name="layout">
+                <string>455 242 0 0</string>
+            </attr>
+        </node>
+        <edge from="n83" to="n83">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n83" to="n83">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n80">
+            <attr name="layout">
+                <string>62 87 0 0</string>
+            </attr>
+        </node>
+        <edge from="n80" to="n80">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n81">
+            <attr name="layout">
+                <string>402 152 0 0</string>
+            </attr>
+        </node>
+        <edge from="n81" to="n81">
+            <attr name="label">
+                <string>string:"Supplier"</string>
+            </attr>
+        </edge>
+        <node id="n82">
+            <attr name="layout">
+                <string>402 72 0 0</string>
+            </attr>
+        </node>
+        <edge from="n82" to="n82">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n84">
+            <attr name="layout">
+                <string>677 242 0 0</string>
+            </attr>
+        </node>
+        <edge from="n84" to="n84">
+            <attr name="label">
+                <string>string:"Send_Invoice"</string>
+            </attr>
+        </edge>
+        <node id="n86">
+            <attr name="layout">
+                <string>677 332 0 0</string>
+            </attr>
+        </node>
+        <edge from="n86" to="n86">
+            <attr name="label">
+                <string>string:"Send_Invoice_sEnd"</string>
+            </attr>
+        </edge>
+        <node id="n87">
+            <attr name="layout">
+                <string>657 654 0 0</string>
+            </attr>
+        </node>
+        <edge from="n87" to="n87">
+            <attr name="label">
+                <string>existsx:</string>
+            </attr>
+        </edge>
+        <node id="n88">
+            <attr name="layout">
+                <string>62 582 0 0</string>
+            </attr>
+        </node>
+        <edge from="n88" to="n88">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n89">
+            <attr name="layout">
+                <string>392 412 0 0</string>
+            </attr>
+        </node>
+        <edge from="n89" to="n89">
+            <attr name="label">
+                <string>string:"Client"</string>
+            </attr>
+        </edge>
+        <node id="n90">
+            <attr name="layout">
+                <string>415 669 0 0</string>
+            </attr>
+        </node>
+        <edge from="n90" to="n90">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n92">
+            <attr name="layout">
+                <string>657 574 0 0</string>
+            </attr>
+        </node>
+        <edge from="n92" to="n92">
+            <attr name="label">
+                <string>string:"invoice"</string>
+            </attr>
+        </edge>
+        <node id="n93">
+            <attr name="layout">
+                <string>442 492 0 0</string>
+            </attr>
+        </node>
+        <edge from="n93" to="n93">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <node id="n94">
+            <attr name="layout">
+                <string>657 484 0 0</string>
+            </attr>
+        </node>
+        <edge from="n94" to="n94">
+            <attr name="label">
+                <string>string:"Store_Request_Receive_Invoice"</string>
+            </attr>
+        </edge>
+        <edge from="n80" to="n85">
+            <attr name="label">
+                <string>new:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n85" to="n86">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n88" to="n91">
+            <attr name="label">
+                <string>new:messages</string>
+            </attr>
+        </edge>
+        <edge from="n91" to="n92">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n80" to="n83">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n83" to="n84">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n80" to="n81">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n80" to="n82">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+        <edge from="n88" to="n89">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n88" to="n90">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+        <edge from="n88" to="n87">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n90" to="n87">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n91" to="n87">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n88" to="n93">
+            <attr name="label">
+                <string>tokens</string>
+            </attr>
+        </edge>
+        <edge from="n93" to="n94">
+            <attr name="label">
+                <string>position</string>
+            </attr>
+        </edge>
+        <edge from="n93" to="n87">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>

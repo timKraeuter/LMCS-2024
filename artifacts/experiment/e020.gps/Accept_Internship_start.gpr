@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="Accept_Internship_start" role="rule" edgeids="false" edgemode="directed">
+        <node id="n250">
+            <attr name="layout">
+                <string>447 332 0 0</string>
+            </attr>
+        </node>
+        <edge from="n250" to="n250">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n250" to="n250">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n248">
+            <attr name="layout">
+                <string>447 242 0 0</string>
+            </attr>
+        </node>
+        <edge from="n248" to="n248">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n248" to="n248">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n245">
+            <attr name="layout">
+                <string>62 87 0 0</string>
+            </attr>
+        </node>
+        <edge from="n245" to="n245">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n246">
+            <attr name="layout">
+                <string>402 152 0 0</string>
+            </attr>
+        </node>
+        <edge from="n246" to="n246">
+            <attr name="label">
+                <string>string:"Company"</string>
+            </attr>
+        </edge>
+        <node id="n247">
+            <attr name="layout">
+                <string>402 72 0 0</string>
+            </attr>
+        </node>
+        <edge from="n247" to="n247">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n249">
+            <attr name="layout">
+                <string>662 242 0 0</string>
+            </attr>
+        </node>
+        <edge from="n249" to="n249">
+            <attr name="label">
+                <string>string:"Internship_Agreement_Accept_Internship"</string>
+            </attr>
+        </edge>
+        <node id="n251">
+            <attr name="layout">
+                <string>662 332 0 0</string>
+            </attr>
+        </node>
+        <edge from="n251" to="n251">
+            <attr name="label">
+                <string>string:"Accept_Internship"</string>
+            </attr>
+        </edge>
+        <edge from="n245" to="n250">
+            <attr name="label">
+                <string>new:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n250" to="n251">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n245" to="n248">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n248" to="n249">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n245" to="n246">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n245" to="n247">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>
