@@ -1,0 +1,75 @@
+\documentclass{lmcs} %%% last changed 2014-08-20
+
+%% mandatory lists of keywords
+\keywords{BPMN, Higher-order model transformation, Graph transformation, Model checking, Formalization}
+
+%% read in additional TeX-packages or personal macros here:
+%% e.g. \usepackage{tikz}
+\usepackage{hyperref}
+%%\input{myMacros.tex}
+%% define non-standard environments BEYOND the ones already supplied
+%% here, for example
+\theoremstyle{plain}\newtheorem{satz}[thm]{Satz} %\crefname{satz}{Satz}{S\"atze}
+%% Do NOT replace the proclamation environments lready provided by
+%% your own.
+
+\def\eg{{\em e.g.}}
+\def\cf{{\em cf.}}
+
+%% due to the dependence on amsart.cls, \begin{document} has to occur
+%% BEFORE the title and author information:
+
+\begin{document}
+
+\title[Instructions]{Instructions for Authors\\How to prepare papers
+  for LMCS using \texorpdfstring{\MakeLowercase{\texttt{lmcs.cls}}}{lmcs.cls}\rsuper*\\Version of
+  2022-04-01}
+\titlecomment{{\lsuper*}This paper is an extended version of \cite{krauterFormalizationAnalysisBPMN2023}}.
+\thanks{thanks, optional.}	%optional
+
+% affiliations are numbered automatically with a, b, c (see below)
+% use the optional argument to indicate the affiliation(s) of each author
+% omit the argument if there is only one author or only one affiliation
+\author[A.~Name1]{Alice Name1}[a]
+\author[B.~Name2]{Bob Name2}[a,b]
+\author[J.~Name3]{Josiah S.~Carberry\lmcsorcid{0000-0002-1825-0097}}[a]
+
+% affiliation 1 (automatically numbered a)
+\address{University 1, address1}	%optional
+% write emails for all authors having that affiliation
+\email{name1@email1, name2@email1, name3@email1}  %optional
+
+% affiliation 2 (automatically numbered b)
+\address{University 2, address2}	%optional
+\email{name2@email2}  %optional
+
+%% etc.
+
+%% required for running head on odd and even pages, use suitable
+%% abbreviations in case of long titles and many authors:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% the abstract has to PRECEDE the command \maketitle:
+%% be sure not to issue the \maketitle command twice!
+
+\begin{abstract}
+  \noindent
+The Business Process Modeling Notation (BPMN) is a widely used standard notation for defining intra- and inter-organizational workflows.
+However, the informal description of the BPMN execution semantics leads to different interpretations of BPMN elements and difficulties in checking behavioral properties.
+In this paper, we propose a formalization of the execution semantics of BPMN that, compared to existing approaches, covers more BPMN elements while facilitating property checking.
+Our approach is based on a higher-order transformation from BPMN models to graph transformation systems.
+As proof of concept, we have implemented our approach in an open-source web-based tool.
+\end{abstract}
+
+\maketitle
+\section*{Introduction}\label{S:one}
+
+% TODO: Add after review
+% \section*{Acknowledgment}
+%   \noindent We want to thank the anonymous reviewers for their valuable comments and helpful suggestions.
+  
+\bibliographystyle{alphaurl} 
+\bibliography{bib}
+
+\end{document}
