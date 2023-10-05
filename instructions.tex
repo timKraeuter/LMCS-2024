@@ -1,0 +1,437 @@
+\documentclass{lmcs} %%% last changed 2014-08-20
+
+%% mandatory lists of keywords
+\keywords{MANDATORY list of keywords}
+
+%% read in additional TeX-packages or personal macros here:
+%% e.g. \usepackage{tikz}
+\usepackage{hyperref}
+%%\input{myMacros.tex}
+%% define non-standard environments BEYOND the ones already supplied
+%% here, for example
+\theoremstyle{plain}\newtheorem{satz}[thm]{Satz} %\crefname{satz}{Satz}{S\"atze}
+%% Do NOT replace the proclamation environments lready provided by
+%% your own.
+
+\def\eg{{\em e.g.}}
+\def\cf{{\em cf.}}
+
+%% due to the dependence on amsart.cls, \begin{document} has to occur
+%% BEFORE the title and author information:
+
+\begin{document}
+
+\title[Instructions]{Instructions for Authors\\How to prepare papers
+  for LMCS using \texorpdfstring{\MakeLowercase{\texttt{lmcs.cls}}}{lmcs.cls}\rsuper*\\Version of
+  2022-04-01}
+\titlecomment{{\lsuper*}OPTIONAL comment concerning the title, \eg,
+  if a variant or an extended abstract of the paper has appeared elsewhere.}
+\thanks{thanks, optional.}	%optional
+
+% affiliations are numbered automatically with a, b, c (see below)
+% use the optional argument to indicate the affiliation(s) of each author
+% omit the argument if there is only one author, or only one affiliation
+\author[A.~Name1]{Alice Name1}[a]
+\author[B.~Name2]{Bob Name2}[a,b]
+\author[J.~Name3]{Josiah S.~Carberry\lmcsorcid{0000-0002-1825-0097}}[a]
+
+% affiliation 1 (automatically numbered a)
+\address{University 1, address1}	%optional
+% write emails for all authors having that affiliation
+\email{name1@email1, name2@email1, name3@email1}  %optional
+
+% affiliation 2 (automatically numbered b)
+\address{University 2, address2}	%optional
+\email{name2@email2}  %optional
+
+%% etc.
+
+%% required for running head on odd and even pages, use suitable
+%% abbreviations in case of long titles and many authors:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% the abstract has to PRECEDE the command \maketitle:
+%% be sure not to issue the \maketitle command twice!
+
+\begin{abstract}
+  \noindent The abstract has to precede the maketitle command.  Be
+  sure not to issue the maketitle command twice!  In the abstract,
+  mathematical expressions must be kept to the absolute minimum.
+  Otherwise it should consist of plain ASCII text, without
+  \TeX-commands, including explicit references using the
+  \texttt{\textbackslash cite} command.  Presently we are not able to
+  automatically extract an abstract containing such data and reliably
+  turn it into html code.  If you cannot meet these criteria, it is
+  your responsibility to provide us with an html-version of your
+  abstract.  Please keep the abstract fairy short to prevent it from
+  spilling over to the second page!
+\end{abstract}
+
+\maketitle
+
+%% start the paper here:
+\section*{Introduction}\label{S:one}
+
+  Logical Methods in Computer Science is a community effort. It is run
+  by scientists like you who devote their time and effort to make this
+  a high-class open access journal that is free of cost for readers
+  as well as authors.  To minimize the extra work for the layout
+  editor and to ensure smooth and fast publication of accepted
+  articles, authors are asked to strictly adhere to the instructions
+  for preparing their final version given in this document, which
+  takes the form of a sample paper.
+
+  These revised instructions distill the experience of running the
+  Journal for several years.  They address the most time-consuming
+  aspects of getting articles into publishable shape.  While most
+  articles require only minimal intervention, as the Journal's volume
+  increased, so did the amount of time needed to reformat
+  non-compliant articles.
+
+\subsection*{\TeX-nical matters}
+
+  Please be aware that the class-file {\bf lmcs.cls} supplied to
+  authors will be replaced by the Journal's master class-file before
+  publication of your article.  Hence it is not necessary, and is in
+  fact counterproductive, to emulate the appearance of published
+  articles by means of your personal macros.  Submissions not using
+  {\bf lmcs.cls} will be returned to the authors, as the reformatting
+  that usually results from changing the class-file is usually too
+  extensive and requires the original authors' intervention.
+
+  What authors \emph{can} do to help the layout editor is to make
+  their \TeX- source compatible with the {\bf hyperref}-package, which
+  is included by the master class-file.  In particular, care should be
+  taken to use the \texttt{\textbackslash texorpdfstring} macro for
+  mathematical expressions in section or subsection headings (see the hyperref
+  documentation for details: \url{https://ctan.org/pkg/hyperref}).
+
+  Authors must not (1) use unsupported fonts (like the
+  \texttt{times}-package or the \texttt{txfonts}-package), (2) change
+  the numbering style for theorems and definitions and the like, \eg,
+  by redefining the already provided proclamation environments for
+  Theorems, Propositions, Lemmata, Corollaries etc.\ (you can add
+  further environments, but those should comply with the default
+  numbering style), and (3) use the \texttt{\textbackslash sloppy}
+  option globally.  If it is impossible to achieve good line breaks by
+  other means once the article is finished (reformulating a sentence,
+  changing the word order, etc.), one can use \texttt{\textbackslash
+    sloppy} as a last resort \emph{locally} in a paragraph.
+
+  Using lengthy mathematical expressions inside running text can lead
+  to ugly breaks within formulae, even without producing overfull
+  hboxes.  If this is a persistent problem in your paper, please
+  consider using more displayed formulae, or changing your notation.
+
+  The use of different macro-packages for the purpose of creating
+  diagrams or other graphical displays is strongly discouraged.  In
+  the past that has led to papers that required different ways of
+  processing to display the graphics of one type or the other, but
+  could not easily be made to correctly display both types of graphics
+  simultaneously.  As a rule of thumb, as long as {\bf pdflatex}
+  correctly processes your paper, you should be in good shape. (Users
+  of the {\bf pstricks}-package and those used to including external
+  eps-files should transform the resulting PostScript files to pdf.)
+
+  Please be aware that the proofs may display different vertical
+  spacing in general, in particular different page breaks than the
+  version originally submitted.  If adjustments are deemed to be
+  necessary by the authors, they can be implemented on the basis of
+  the proofs, in collaboration with the layout editor, as a last step
+  before final publication.
+
+\subsection*{Matters of convenience}
+
+  Please submit {\bf only one file} containing the
+  TeX-source of your paper!  It is a major inconvenience when certain
+  changes have to be applied in several files separately.  Of course,
+  we understand that separating a TeX source into several files has
+  advantages during the creation of a paper, but please combine all
+  parts into a single file for your submission. You personal macros
+  can of course be contained in a separate file, as can be external
+  graphics.  For the latter a dedicated subdirectory is required.
+
+
+\subsection*{Matters of style}
+
+  Your article should start with an introduction.  This is the place
+  to employ mathematical notation and give references, as opposed to
+  the abstract.  It is up to the authors to decide, whether to assign
+  a section number to the introduction or not.
+
+\section{Multiple authors}
+
+  In papers with multiple authors several points need to be mentioned.
+  Do not worry about footnote signs that will link author $n$ to
+  address $n$ and the optional thanks $n$.  This will be taken care of
+  by the layout editor.  Even if authors share an affiliation and part
+  of an email address, they should follow the strict scheme outlined
+  above and list their data individually.  The layout editor will
+  notice duplication of data and can then arrange for more
+  space-efficient formatting.  Alternatively, Authors can write ``same
+  data as Author n'' into some field to alert the layout editor.
+  Unfortunately, so far we have not been able to devise a system that
+  automatically takes care of these issues.  But once the layout
+  editor is made aware of some duplication, he can take some fairly
+  simple measures to adjust the format accordingly.  Placing the
+  responsibility on the layout editor insures that these formatting
+  issues are handled uniformly in different papers and that the
+  authors do not have to second-guess the Journal's policy.
+
+\section{Use of  Definitions and Theorems etc.}
+
+  The numbering scheme for proclamations (Theorems, Definitions, etc.)
+  uses the section number followed by the number of the current
+  proclamation.  There are no different ``numbering threads'' for the
+  various types of proclamations, as then the relative position of,
+  \eg, Theorem 2.7 relative to, \eg, Definition 2.9 would not be clear.
+
+\begin{defi}\label{D:first}
+  This is a definition.
+\end{defi}
+
+  Please use the supplied proclamation environments (as well as
+  LaTeX's cross-referencing facilities), or extend them in the spirit
+  of the given ones, if necessary (\cf~\autoref{T:big} below).
+  Refrain from replacing the Journal's proclamation macros by your own
+  constructs, especially do not change the numbering scheme: all
+  proclamations are to be numbered consecutively!
+
+\subsection{First Subsection}
+
+  This is a test of subsectioning.  It works like numbering of
+  paragraphs but is not linked with the numbering of theorems.
+
+\begin{satz}\label{T:big}
+  This is a sample for a proclamation environment that can be added
+  along with your personal macros, \emph{in case the supplied
+    environments do not suffice}.  Please refrain from substituting
+  other environments for the supplied ones.  We distinguish those
+\begin{itemize}
+\item with italicised text:
+\begin{itemize}
+\item\emph{\texttt{\textbackslash
+    begin\{thm\}}\dots\texttt{\textbackslash end\{thm\}}} for a theorem;
+\item\emph{\texttt{\textbackslash
+    begin\{lem\}}\dots\texttt{\textbackslash end\{lem\}}} for a lemma;
+\item\emph{\texttt{\textbackslash
+    begin\{cor\}}\dots\texttt{\textbackslash end\{cor\}}} for a corollary;
+\item\emph{\texttt{\textbackslash
+    begin\{prop\}}\dots\texttt{\textbackslash end\{prop\}}} for a proposition;
+\item\emph{\texttt{\textbackslash
+    begin\{asm\}}\dots\texttt{\textbackslash end\{asm\}}} for an
+  assumption;
+\end{itemize}
+\item  and those with normal roman text:
+\begin{itemize}
+\item\emph{\texttt{\textbackslash
+    begin\{defi\}}\dots\texttt{\textbackslash end\{defi\}}} for a definition;
+\item\emph{\texttt{\textbackslash
+    begin\{conv\}}\dots\texttt{\textbackslash end\{conv\}}} for a convention;
+\item\emph{\texttt{\textbackslash
+    begin\{conj\}}\dots\texttt{\textbackslash end\{conj\}}} for a conjecture;
+\item\emph{\texttt{\textbackslash
+    begin\{fact\}}\dots\texttt{\textbackslash end\{fact\}}} for facts;
+\item\emph{\texttt{\textbackslash
+    begin\{algo\}}\dots\texttt{\textbackslash end\{algo\}}} for algorithms;
+\item\emph{\texttt{\textbackslash
+    begin\{pty\}}\dots\texttt{\textbackslash end\{pty\}}} for a property;
+\item\emph{\texttt{\textbackslash
+    begin\{clm\}}\dots\texttt{\textbackslash end\{clm\}}} for a claim;
+\item\emph{\texttt{\textbackslash
+    begin\{nota\}}\dots\texttt{\textbackslash end\{nota\}}} for a notation;
+\item\emph{\texttt{\textbackslash
+    begin\{exa\}}\dots\texttt{\textbackslash end\{exa\}}} for a single example;
+\item\emph{\texttt{\textbackslash
+    begin\{exas\}}\dots\texttt{\textbackslash end\{exas\}}} for a list of examples;
+\item\emph{\texttt{\textbackslash
+    begin\{rem\}}\dots\texttt{\textbackslash end\{rem\}}} for single remarks;
+\item\emph{\texttt{\textbackslash
+    begin\{rems\}}\dots\texttt{\textbackslash end\{rems\}}} for a list of remarks;
+\item\emph{\texttt{\textbackslash
+    begin\{prob\}}\dots\texttt{\textbackslash end\{prob\}}} for a
+  single problem;
+\item\emph{\texttt{\textbackslash
+  begin\{probs\}}\dots\texttt{\textbackslash end\{probs\}}} for a list
+  of problems;
+\item\emph{\texttt{\textbackslash
+    begin\{oprob\}}\dots\texttt{\textbackslash end\{oprob\}}} for a single open problem;
+\item\emph{\texttt{\textbackslash
+    begin\{oprobs\}}\dots\texttt{\textbackslash end\{oprobs\}}} for a
+  list of open problems;
+\item\emph{\texttt{\textbackslash begin\{obs\}}\dots\texttt{\textbackslash
+  end\{obs\}}} for a single observation;
+\item\emph{\texttt{\textbackslash begin\{obss\}}\dots\texttt{\textbackslash
+  end\{obss\}}} for a list of observations;
+\item\emph{\texttt{\textbackslash
+    begin\{qu\}}\dots\texttt{\textbackslash end\{qu\}}} for a single question;
+\item\emph{\texttt{\textbackslash
+    begin\{qus\}}\dots\texttt{\textbackslash end\{qus\}}} for a list of questions.
+\end{itemize}
+\end{itemize}
+  The present new environment \emph{\texttt{\textbackslash
+    begin\{satz\}}\dots\texttt{\textbackslash end\{satz\}}} was defined
+  by
+\begin{center}
+  \emph{\texttt{\textbackslash theoremstyle\{plain\}\textbackslash newtheorem\{satz\}[thm]\{Satz\}}}
+\end{center}
+\end{satz}
+
+\begin{proof} You can use the familiar \texttt{\textbackslash
+    begin\{proof\}}\dots\texttt{\textbackslash end\{proof\}}
+  construction.  Please do not insert a blank line before
+  \texttt{\textbackslash end\{proof\}}, as this moves the box to a new
+  line.
+
+  In case a proof ends with an itemization,
+  please issue the command \texttt{\textbackslash qedhere} at the end
+  of the final item, \emph{before} calling \texttt{\textbackslash
+    end\{enumerate\}} (or similar) and \texttt{\textbackslash end\{proof\}}.
+  Otherwise the end-of-proof box is put on a separate line
+  following the last item, which looks awkward, unless the last line
+  is too full to accommodate the box.
+
+  For options how to handle proofs ending in a displayed multi-line
+  equation or formula, see
+  \href{http://tex.stackexchange.com/questions/101929/qed-or-qedhere-at-the-end-of-split-environment}{this
+    discussion}.
+\end{proof}
+
+\begin{cor}\label{C:big}
+  If no proof is given, \texttt{lmcs.cls} provides Paul Taylor's
+  end-of-proof box \emph{\texttt{\textbackslash qed}} to conclude a
+  proclamation (Theorem, Proposition, Lemma, Corollary).  Please do
+  not redefine \emph{\texttt{\textbackslash qed}}!\qed
+\end{cor}
+
+\section{Itemization}\label{S:item}
+  \texttt{lmcs.cls} provides the familiar environments
+\begin{enumerate}
+\item\texttt{\textbackslash
+  begin\{itemize\}}\dots\texttt{\textbackslash end\{itemize\}} (see
+ \autoref{T:big} above)
+\item\texttt{\textbackslash
+  begin\{enumerate\}}\dots\texttt{\textbackslash end\{enumerate\}}
+  (see this listing)
+\item\texttt{\textbackslash
+    begin\{description\}}\dots\texttt{\textbackslash end\{description\}}
+\end{enumerate}
+  in a form based on the \texttt{enumitem}-package, version 3.5.2
+  (please update, if you have an earlier version).  This offers
+  considerable simplifications, both for authors and the Layout
+  Editor.  Modifying the spacing of these environments is strongly
+  discouraged.  If you wish to change the labels, please consult the
+  documentation of the \texttt{enumitem}-package.  A simple example is
+  found at the end of this document.
+
+  When proclamations or proofs start with an itemization without
+  preceding text, two possibilities exist:
+
+\begin{thm}\label{T:m}\hfill  %% \hfill pushes the first item to a new line
+\begin{enumerate}
+\item
+  Issuing an {\em\texttt{\textbackslash hfill}}-command before the
+  beginning of the list environment will push the first item to a new
+  line, like in this case.
+\item
+  This is the second item.
+\end{enumerate}
+\end{thm}
+
+\proof\hfill  %% \hfill pushes the first item to a new line
+\begin{enumerate}
+\item
+  The same behavior occurs in proofs; to start the first item on a
+  new line an explicit \texttt{\textbackslash hfill}-command is necessary.
+\item
+  The journal's bibliography style is \texttt{alphaurl}, as exemplified
+  by this citation \cite{koslowski:mib}. Please use bibtex, i.e.\ supply a
+  \verb|.bib| file with the references in bibtex format along with your submission. \qed
+\end{enumerate}
+
+  \noindent We strongly recommend using this variant since it produces
+  rather orderly output.  The space-saving variant, in contrast, can
+  look quite awful, \cf~\autoref{T:en} below.  Please notice that
+  this paragraph is not indented, since it is following a proclamation
+  that ended with a list environment.  This can be achieved by
+  starting the paragraph directly after the end of that environment,
+  without inserting a blank line, or by explicit use of the
+  noindent-command at the beginning of the paragraph.  The effect
+  indentation may have after a list environment is demonstrated after
+  the proof of \autoref{T:en}.
+
+\begin{thm}\label{T:en} %% without \hfill the first item is indented
+
+\begin{enumerate}%[\em(1)]
+\item
+  Without the \emph{\texttt{\textbackslash hfill}}-command the first item
+  starts in the same line as the title for the proclamation.
+\item
+  This may be useful when space needs to be conserved, but not in an
+  electronic journal.
+\end{enumerate}
+\end{thm}
+
+\proof %% without \hfill the first item is indented
+\begin{enumerate}%[(1)]
+\item
+  As you can see, the second option produces a somewhat unpleasant effect.
+\item
+  Hence we would urge authors to use the first variant.  Perhaps a
+  \TeX-guru can help us to make that the default, without the need for
+  the \texttt{\textbackslash hfill}-command.\qed
+\end{enumerate}
+
+  Here we started a new paragraph without suppressing its
+  indentation.  This adds to the rather disorienting appearance
+  produced by not turning off the space-saving measures built into
+  amsart.cls, on which this style is based.  Please do issue the
+  \hbox{\textbackslash noindent} command in such situations, just as
+  after the proof of \autoref{T:m} above.
+
+\section*{Acknowledgment}
+  \noindent The authors wish to acknowledge fruitful discussions with
+  A and B.
+
+  %% the following bibliography is gererated manually for the sake of brevity
+  %% only; please use a separate .bib file in your submission
+
+\begin{thebibliography}{Kos97}
+
+\bibitem[Kos97]{koslowski:mib}
+J{\"u}rgen Koslowski.
+\newblock Monads and interpolads in bicategories.
+\newblock {\em Theory Appl. Categ.}, 3(8):182--212, 1997.
+
+\end{thebibliography}
+
+\appendix
+\section{}
+  Here is a check-list to be completed before submitting the paper to
+  LMCS:
+\begin{itemize}[label=$\triangleright$]
+\item your submission includes the latest version of lmcs.cls, that is, it does
+  not rely on the version of the class file provided by arXiv
+\item the text of your submission is contained in a single file,
+  except for macros and graphics
+\item your graphics use only one format
+\item you have employed the Journal's original proclamation environments,
+  or suitable extensions thereof
+\item you have loaded the hyperref package
+\item you have \emph{not} loaded the times package
+\item you have not routinely adjusted vertical spacing manually by issuing
+  \texttt{\textbackslash vspace} or \texttt{\textbackslash vskip} commands
+\item you have used the command \texttt{\textbackslash sloppy} only
+  locally and in emergency cases
+\item your displayed equations use the
+  \texttt{\textbackslash[\dots\textbackslash]} construct
+\item your abstract only contains as few math-expressions as possible and no
+  references
+\item your references are supplied in bibtex format in a separate \verb|.bib| file
+\end{itemize}
+
+  This listing also shows how to override the default bullet $\bullet$
+  of the \texttt{itemize}-envronment by a different symbol, in this
+  case \texttt{\textbackslash triangleright}.
+\end{document}
