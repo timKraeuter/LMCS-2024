@@ -177,7 +177,7 @@ We do not repeat them to instead focus on our practical contribution.
 The approach supports all the \gls*{bpmn} elements depicted in \autoref{fig:bpmnelementsOverview}.
 These \gls*{bpmn} elements are divided into \textsf{Events}, \textsf{Gateways}, \textsf{Activities}, and \textsf{Edges}.
 \textsf{Events} and \textsf{Activities} are further divided into subgroups.
-Although all these elements have been implemented and tested (see \cite{krauterArtifactsICGT2023}), due to space limitations, we only explain the realization of the elements marked with a green background.
+Although all these elements have been implemented and tested (see \cite{krauterArtifactsLMCS2023}), due to space limitations, we only explain the realization of the elements marked with a green background.
 In the following, first, we define the \gls*{bpmn} execution metamodel to represent the \gls*{bpmn} state structure, then we explain our formalization of the elements in \autoref{fig:bpmnelementsOverview}.
 
 
@@ -424,7 +424,7 @@ Our concrete syntax is always used with a given BPMN model.
 % Option to complete
 \textit{Option to complete} is specified using the CTL property defined in \eqref{eq:optionToComplete}.
 The atomic proposition \textsf{AllTerminated} is true if there exists no process snapshot in the state \textsf{Running}, i.e., all process snapshots are \textsf{Terminated}.
-\textsf{AllTerminated} is given in \cite{krauterArtifactsICGT2023}.
+\textsf{AllTerminated} is given in \cite{krauterArtifactsLMCS2023}.
 
 \noindent\begin{minipage}{.5\linewidth}
 \begin{equation} \label{eq:safeness}
@@ -438,7 +438,7 @@ The atomic proposition \textsf{AllTerminated} is true if there exists no process
 \end{minipage}
 \vskip.3\baselineskip
 
-Checking the properties \textit{Safeness}, \textit{Option to Complete}, and \textit{No Dead Activities} is implemented in our tool \cite{krauterArtifactsICGT2023}.
+Checking the properties \textit{Safeness}, \textit{Option to Complete}, and \textit{No Dead Activities} is implemented in our tool \cite{krauterArtifactsLMCS2023}.
 The property \textit{Proper Completion} is not yet implemented, but all the information needed can be found in the \gls*{gt} systems state space.
 
 \subsection{Custom properties} \label{subsec:customProperties}
@@ -468,12 +468,12 @@ In this section, we will present our tool and then describe experiments regardin
 
 \subsection{BPMN Analyzer tool}
 
-Our approach is implemented in a web-based tool called \textit{\gls*{bpmn} Analyzer}, which is open-source, publicly available, and does not require any installation \cite{krauterArtifactsICGT2023}.
+Our approach is implemented in a web-based tool called \textit{\gls*{bpmn} Analyzer}, which is open-source, publicly available, and does not require any installation \cite{krauterArtifactsLMCS2023}.
 \autoref{fig:implScreenshot} depicts a screenshot of the \gls*{bpmn} Analyzer.
 
 The modeler can create or upload a \gls*{bpmn} model, which can then be verified using either \gls*{bpmn}-specific properties or custom CTL properties in the verification section.
 BPMN Analyzer can generate a \gls*{gt} system for the supplied \gls*{bpmn} model and run model checking in Groove \cite{kastenbergModelCheckingDynamic2006}. 
-To evaluate the correctness of our \gls*{hot}, we have created a comprehensive test suite \cite{krauterArtifactsICGT2023}.
+To evaluate the correctness of our \gls*{hot}, we have created a comprehensive test suite \cite{krauterArtifactsLMCS2023}.
 It verifies that rules are generated as defined by the rule generation templates in the previous section for each \gls*{bpmn} element.
 Additionally, we have conducted performance experiments for our approach, as described in the next section.
 
@@ -494,7 +494,7 @@ We picked the models at random, besides disregarding some models that were simil
 The models include realistic business process models (001, 002, and 020) \cite{houhouFirstOrderLogicVerification2022}.
 
 To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2022} (version 1.15.0), which ran state space exploration for each \gls*{bpmn} model ten times.
-The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 5.8.1 \cite{krauterArtifactsICGT2023}.
+The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 5.8.1 \cite{krauterArtifactsLMCS2023}.
 
 First, we ran our \gls*{hot} for the \gls*{bpmn} models.
 The \gls*{hot} took less than one second to generate a \gls*{gt} system for each model.
