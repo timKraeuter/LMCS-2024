@@ -452,7 +452,7 @@ A modeler could use this atomic proposition, for example, to check if, eventuall
 Thus, a modeler does not need to know the \gls*{gt} semantics used for execution.
 
 However, the modeler must still know the temporal logic, such as LTL and CTL, to express his properties.
-In the future, a domain-specific property language for \gls*{bpmn} would further lessen the amount of knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}. 
+In the future, a domain-specific property language for \gls*{bpmn} would further lessen the knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}. 
 
 
 \begin{figure}[ht]
@@ -464,11 +464,29 @@ In the future, a domain-specific property language for \gls*{bpmn} would further
 
 
 \section{Implementation} \label{sec:impl}
-In this section, we will present our tool and then describe experiments regarding its performance.
+In this section, we will present our tool and the improvements we made since \cite{krauterFormalizationAnalysisBPMN2023}.
+In addition, we describe experiments regarding its performance.
 
 \subsection{BPMN Analyzer tool}
 
-Our approach is implemented in a web-based tool called \textit{\gls*{bpmn} Analyzer}, which is open-source, publicly available, and does not require any installation \cite{krauterArtifactsLMCS2023}.
+Our approach is implemented in a web-based tool called \textit{\gls*{bpmn} Analyzer}, which is open-source, publicly available, and does not require any installation \cite{krauterArtifactsLMCS2023, krauterFormalizationAnalysisBPMN2023}.
+We significantly improved the \gls*{bpmn} Analyzer tool for this extended version.
+First, we improved the usability of the tool in different ways.
+We restructured the user interface, previously contained on one page, into three distinct steps.
+
+(1) The \textbf{Modeling} step lets a user upload or define his \gls{bpmn} model.
+We integrated a properties panel into the modeling step such that a user does not need another tool to view and edit the IDs of \gls*{bpmn} elements.
+This allows for better traceability between \gls*{bpmn} elements and generated \gls*{gt} rules when a user chooses to inspect the \gls*{gt} system.
+
+(2) \textbf{Custom Propositions}.
+
+(3) \textbf{Analysis}.
+The user is transparently guided through these three steps by the application flow.
+Second, the tool now supports defining custom propositions, which can be used for defining temporal logic properties.
+% Are downloaded or used directly in model checking
+Third, reusable published libraries.
+
+
 \autoref{fig:implScreenshot} depicts a screenshot of the \gls*{bpmn} Analyzer.
 
 The modeler can create or upload a \gls*{bpmn} model, which can then be verified using either \gls*{bpmn}-specific properties or custom CTL properties in the verification section.
