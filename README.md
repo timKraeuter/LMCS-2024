@@ -7,7 +7,7 @@ This paper is an extended version of a paper published at [ICSME-2023](https://d
 
 # Published libraries for reuse
 
-1. An editor library for defining a snapshot/state of a running BPMN process using tokens and process snapshots: [**_token-bpmn_** (npm)](npmjs.com)
+1. An editor library for defining a snapshot/state of a running BPMN process using tokens and process snapshots: [**_token-bpmn_** (npm)](https://www.npmjs.com/package/bpmn-token)
 2. An extension of the BPMN metamodel, adding process snapshots and tokens, i.e., our BPMN execution metamodel: [**_token-bpmn-moddle_** (npm)](https://www.npmjs.com/package/token-bpmn-moddle)
 3. A library to generate graph transformations systems currently implemented for Groove: [**_graph rule generation_** (Maven central)](tbd) 
 
