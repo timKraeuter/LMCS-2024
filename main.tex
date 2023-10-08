@@ -472,22 +472,29 @@ In addition, we describe experiments regarding its performance.
 Our approach is implemented in a web-based tool called \textit{\gls*{bpmn} Analyzer}, which is open-source, publicly available, and does not require any installation \cite{krauterArtifactsLMCS2023, krauterFormalizationAnalysisBPMN2023}.
 We significantly improved the \gls*{bpmn} Analyzer tool for this extended version.
 First, we improved the usability of the tool in different ways.
-We restructured the user interface, previously contained on one page, into three distinct steps.
+We restructured the user interface, previously contained on one page, into three distinct steps while adding new features.
+The user is transparently guided through these three steps by the application flow.
 
 (1) The \textbf{Modeling} step lets a user upload or define his \gls{bpmn} model.
 We integrated a properties panel into the modeling step such that a user does not need another tool to view and edit the IDs of \gls*{bpmn} elements.
 This allows for better traceability between \gls*{bpmn} elements and generated \gls*{gt} rules when a user chooses to inspect the \gls*{gt} system.
 
-(2) \textbf{Custom Propositions}.
+(2) The \textbf{Custom Propositions} steps contains the new proposition editor.
+In this step, a user can create as many propositions as needed for custom temporal logic properties.
+If a user is only interested in general \gls*{bpmn} properties, he can skip this step.
+Each proposition is created using the introduced visual concrete syntax.
+To create a proposition, a user attaches tokens and process snapshots to the \gls*{bpmn} model created in the modeling step.
+We implemented a custom diagram editor for this step to achieve the best possible usability.
 
-(3) \textbf{Analysis}.
-The user is transparently guided through these three steps by the application flow.
-Second, the tool now supports defining custom propositions, which can be used for defining temporal logic properties.
-% Are downloaded or used directly in model checking
-Third, reusable published libraries.
-% npm BPMN stuff: token metamodel, token modeler --> provide links in the artifacts
-% GT generation library? --> do and provide links in the artifacts
+(3) In the final \textbf{Analysis} step the user can check the mentioned general \gls*{bpmn} properties and write CTL properties.
+The propositions defined in the second step are listed and available for the CTL model checking.
+If a user chooses to download the generated \gls*{gt} system, it will also contain the defined propositions converted to graph conditions.
 
+Second, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{krauterArtifactsLMCS2023}.
+The \gls*{bpmn} execution metamodel needed for the definition of custom propositions is published as an npm module (\textit{token-bpmn-moddle}).
+In addition, the token-based proposition editor is also published as an npm module (\textit{token-bpmn}).
+Finally, we published the \gls*{gt} rule generation library we implemented to the maven central repository (\textit{graph-rule-generation}).
+The library currently contains an implementation to generate \gls*{gt} rule for Groove but could also be used for other graph transformation tools in the future.
 
 \autoref{fig:implScreenshot} depicts a screenshot of the \gls*{bpmn} Analyzer.
 
