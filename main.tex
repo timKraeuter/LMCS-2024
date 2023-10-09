@@ -470,8 +470,22 @@ In addition, we describe experiments regarding its performance.
 \subsection{BPMN Analyzer tool}
 
 Our approach is implemented in a web-based tool called \textit{\gls*{bpmn} Analyzer}, which is open-source, publicly available, and does not require any installation \cite{krauterArtifactsLMCS2023, krauterFormalizationAnalysisBPMN2023}.
+\autoref{fig:implScreenshot} depicts a screenshot of the \gls*{bpmn} Analyzer.
+
+The modeler can create or upload a \gls*{bpmn} model, which can then be verified using either general \gls*{bpmn} properties or custom CTL properties.
+BPMN Analyzer can generate a \gls*{gt} system for the supplied \gls*{bpmn} model and run model checking in Groove \cite{kastenbergModelCheckingDynamic2006}. 
+To evaluate the correctness of our \gls*{hot}, we have created a comprehensive test suite \cite{krauterArtifactsLMCS2023}.
+It verifies that rules are generated as defined by the rule generation templates in the previous section for each \gls*{bpmn} element.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{images/impl_step3.png}
+    \caption{Screenshot of the BPMN Analyzer tool}
+    \label{fig:implScreenshot}
+\end{figure}
+
 We significantly improved the \gls*{bpmn} Analyzer tool for this extended version.
-First, we improved the usability of the tool in different ways.
+First, we improved the usability of the tool.
 We restructured the user interface, previously contained on one page, into three distinct steps while adding new features.
 The user is transparently guided through these three steps by the application flow.
 
@@ -493,24 +507,10 @@ If a user chooses to download the generated \gls*{gt} system, it will also conta
 Second, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{krauterArtifactsLMCS2023}.
 The \gls*{bpmn} execution metamodel needed for the definition of custom propositions is published as an npm module (\textit{token-bpmn-moddle}).
 In addition, the token-based proposition editor is also published as an npm module (\textit{token-bpmn}).
-Finally, we published the \gls*{gt} rule generation library we implemented to the maven central repository (\textit{graph-rule-generation}).
+Finally, we published our \gls*{gt} rule generation library to the maven central repository (\textit{graph-rule-generation}).
 The library currently contains an implementation to generate \gls*{gt} rule for Groove but could also be used for other graph transformation tools in the future.
 
-\autoref{fig:implScreenshot} depicts a screenshot of the \gls*{bpmn} Analyzer.
-
-The modeler can create or upload a \gls*{bpmn} model, which can then be verified using either \gls*{bpmn}-specific properties or custom CTL properties in the verification section.
-BPMN Analyzer can generate a \gls*{gt} system for the supplied \gls*{bpmn} model and run model checking in Groove \cite{kastenbergModelCheckingDynamic2006}. 
-To evaluate the correctness of our \gls*{hot}, we have created a comprehensive test suite \cite{krauterArtifactsLMCS2023}.
-It verifies that rules are generated as defined by the rule generation templates in the previous section for each \gls*{bpmn} element.
-Additionally, we have conducted performance experiments for our approach, as described in the next section.
-
-% Use impl/impl_short/impl_very_short
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=1\textwidth]{images/impl_very_short.png}
-    \caption{Screenshot of the BPMN Analyzer tool}
-    \label{fig:implScreenshot}
-\end{figure}
+Third, compared to \cite{krauterFormalizationAnalysisBPMN2023}, we have conducted a more detailed performance investigation of our approach, which is described in the next section.
 
 \subsection{Experiments}
 
