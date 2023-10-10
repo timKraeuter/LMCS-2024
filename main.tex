@@ -483,8 +483,9 @@ Thus, when defining a proposition editor, there is a clear tradeoff between \tex
 Currently, we favor simplicity in our tool and recommend defining propositions in \gls*{gt} semantics if more powerful constructs are needed.
 In addition, expressibility varies and is achieved differently in \gls*{gt} tools, and we try to stay as independent as possible from specific \gls*{gt} tools.
 
-% TODO: Same idea about the tradeoff. Maybe some "CTL"/temporal logic templates for ease of use. Never reached and can reach.
 Finally, the modeler must still know the temporal logic, such as LTL and CTL, to express his properties.
+To combat this problem, we added temporal logic templates to our tool to generate commonly occurring propositions without knowledge about temporal logic.
+This feature is discussed in detail in the implementation section.
 In the future, a domain-specific property language for \gls*{bpmn} would further lessen the knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}.
 
 \section{Implementation} \label{sec:impl}
@@ -531,7 +532,13 @@ We implemented a custom diagram editor for this step to achieve the best possibl
 The propositions defined in the second step are listed and available for the CTL model checking.
 If a user chooses to download the generated \gls*{gt} system, it will also contain the defined propositions converted to graph conditions.
 
-Second, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{krauterArtifactsLMCS2023}.
+Second, we added CTL templates to the analysis of the step such that a modeler can generate commonly occurring CTL propositions.
+He selects a template and a proposition to generate a CTL property.
+So far, we have added two templates for checking if a state (described by a proposition) can be reached or is never reached.
+Thus, simple safety and liveness properties can be checked using these templates.
+Model-checking experts in an organization can define more templates in the future and share them for reuse. 
+
+Third, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{krauterArtifactsLMCS2023}.
 The \gls*{bpmn} execution metamodel needed for the definition of custom propositions is published as an npm module (\textit{token-bpmn-moddle}).
 In addition, the token-based proposition editor is also published as an npm module (\textit{token-bpmn}).
 Finally, we published our \gls*{gt} rule generation library to the maven central repository (\textit{graph-rule-generation}).
