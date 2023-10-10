@@ -444,26 +444,38 @@ The property \textit{Proper Completion} is not yet implemented, but all the info
 \subsection{Custom properties} \label{subsec:customProperties}
 % Defining atomic propositions in BPMN is a novelty.
 To make model checking user-friendly, we envision modelers defining atomic propositions based on the extended \gls*{bpmn} syntax, i.e., the concrete syntax introduced in \autoref{fig:typeGraph}.
-Therefore, to define an atomic proposition, a modeler adds process snapshots and tokens to a \gls*{bpmn} model, which we can automatically convert to a graph representing an atomic proposition.
+Therefore, to define an atomic proposition, a modeler adds process snapshots and tokens to a \gls*{bpmn} model, which we can automatically convert to a \gls*{gt} rule representing an atomic proposition.
+\gls*{gt} rules representing atomic propositions are not allowed to delete or add elements and are called graph conditions in Groove.
+Furthermore, a modeler can define that a token should not exist at a given position, which leads to NAC's in the graph condition. 
 
-For example, the token distribution shown in \autoref{fig:atomicProposition} defines a process snapshot with two tokens at activity \textit{Ship goods}.
-For example, a modeler could use this atomic proposition to check if the activity \textit{Ship goods} is executed twice by creating an appropriate LTL/CTL property.
+For example, the token distribution shown in \autoref{fig:shippedTwiceProposition} defines a process snapshot with two tokens at activity \textit{Ship goods}.
+A modeler could use this atomic proposition to check if the activity \textit{Ship goods} is executed twice by creating an appropriate LTL/CTL property.
 Shipping goods twice but only receiving one payment during an order-handling process would be a critical error for a business.
-The order handling process in \autoref{fig:atomicProposition} is taken from \cite{ruckerPracticalProcessAutomation2021} but changed to contain the wrong gateway before the \textit{Ship goods} activity.
-This leads to shipping goods twice if the process is not corrected before deployment.
+The order handling process in \autoref{fig:shippedTwiceProposition} is taken from \cite{ruckerPracticalProcessAutomation2021} but changed to contain a modeling error.
+The modeling error leads to potentially shipping goods twice if the process is not corrected before deployment.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/shippedTwiceProposition.pdf}
-    \caption{Token distribution defining an atomic proposition.}
-    \label{fig:atomicProposition}
+    \includegraphics[width=0.6\textwidth]{images/shippedTwiceProposition.pdf}
+    \caption{Atomic proposition defining shipping goods twice.}
+    \label{fig:shippedTwiceProposition}
 \end{figure}
 
+Another proposition for the same erroneous process is shown in \autoref{fig:shippingAfterPayment}.
+The proposition defines that when the activity \textit{Ship goods} runs (has a token) the activity \textit{Retrieve payment} should not run (has no token).
+\enquote{Has no token} is depicted by crossing out the token symbol and represents an extension of our concrete syntax introduced for defining propositions.
+This proposition can be used to define a property to check if shipping ever occurs while retrieving payments has not been completed yet.
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/shippingAfterPayment.pdf}
+    \caption{Atomic proposition defining shipping after retrieving payment.}
+    \label{fig:shippingAfterPayment}
+\end{figure}
 
-Using such a proposition editor, a modeler can work with \gls*{bpmn}, which is well-known to him.
+Using a proposition editor based on our concrete syntax, a modeler can work with \gls*{bpmn}, which is well-known to him.
 He does not need to define his propositions in the \gls*{gt} semantics used for execution since each proposition is automatically transformed as described earlier.
-% TODO: Tradeoff simplicity vs. expressability
+% TODO: Tradeoff simplicity vs. expressibility
 
 However, the modeler must still know the temporal logic, such as LTL and CTL, to express his properties.
 In the future, a domain-specific property language for \gls*{bpmn} would further lessen the knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}.
@@ -477,6 +489,7 @@ In addition, we describe experiments regarding its performance.
 Our approach is implemented in a web-based tool called \textit{\gls*{bpmn} Analyzer}, which is open-source, publicly available, and does not require any installation \cite{krauterArtifactsLMCS2023, krauterFormalizationAnalysisBPMN2023}.
 \autoref{fig:implScreenshot} depicts a screenshot of the \gls*{bpmn} Analyzer.
 We use the order handling process from \cite{ruckerPracticalProcessAutomation2021} as an example.
+It is the same \gls*{bpmn} model as in \autoref{fig:shippedTwiceProposition} and \autoref{fig:shippingAfterPayment} but without modeling errors.
 
 The modeler can create or upload a \gls*{bpmn} model, which can then be verified using either general \gls*{bpmn} properties or custom CTL properties.
 BPMN Analyzer can generate a \gls*{gt} system for the supplied \gls*{bpmn} model and run model checking in Groove \cite{kastenbergModelCheckingDynamic2006}. 
@@ -485,7 +498,8 @@ It verifies that rules are generated as defined by the rule generation templates
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{images/impl_step3.png}
+    \frame{\includegraphics[width=1\textwidth]{images/impl_step3.png}}
+    % \includegraphics[width=1\textwidth]{images/impl_step3.png}
     \caption{Screenshot of the \textit{analysis step} in the BPMN Analyzer tool}
     \label{fig:implScreenshot}
 \end{figure}
