@@ -16,11 +16,11 @@
       <lane id="lane">
         <flowNodeRef>start-event</flowNodeRef>
         <flowNodeRef>Gateway_0eef44j</flowNodeRef>
-        <flowNodeRef>Gateway_1x8m4ws</flowNodeRef>
         <flowNodeRef>Event_0qcvv2g</flowNodeRef>
         <flowNodeRef>Activity_1jgyh05</flowNodeRef>
         <flowNodeRef>Activity_1up8xq1</flowNodeRef>
         <flowNodeRef>Activity_0lgvp3u</flowNodeRef>
+        <flowNodeRef>Gateway_1x8m4ws</flowNodeRef>
       </lane>
     </laneSet>
     <startEvent id="start-event" name="Order placed">
@@ -30,11 +30,6 @@
       <incoming>Flow_0wq8dog</incoming>
       <outgoing>Flow_0u9a0g3</outgoing>
       <outgoing>Flow_1mtm8jg</outgoing>
-    </parallelGateway>
-    <parallelGateway id="Gateway_1x8m4ws">
-      <incoming>Flow_1flhoxp</incoming>
-      <incoming>Flow_1n9ng49</incoming>
-      <outgoing>Flow_14i9c18</outgoing>
     </parallelGateway>
     <endEvent id="Event_0qcvv2g" name="Order delivered">
       <incoming>Flow_14fhivy</incoming>
@@ -58,6 +53,11 @@
     <sequenceFlow id="Flow_1n9ng49" sourceRef="Activity_1up8xq1" targetRef="Gateway_1x8m4ws" />
     <sequenceFlow id="Flow_14i9c18" sourceRef="Gateway_1x8m4ws" targetRef="Activity_0lgvp3u" />
     <sequenceFlow id="Flow_14fhivy" sourceRef="Activity_0lgvp3u" targetRef="Event_0qcvv2g" />
+    <exclusiveGateway id="Gateway_1x8m4ws">
+      <incoming>Flow_1flhoxp</incoming>
+      <incoming>Flow_1n9ng49</incoming>
+      <outgoing>Flow_14i9c18</outgoing>
+    </exclusiveGateway>
     <association id="Association_16v6evf" sourceRef="Activity_0lgvp3u" targetRef="Token_0ivmuzw" />
     <association id="Association_0dfhmz9" sourceRef="Activity_0lgvp3u" targetRef="Token_0vjy03m" />
   </process>
@@ -78,9 +78,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1iluv37_di" bpmnElement="Gateway_0eef44j">
         <omgdc:Bounds x="194" y="115" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0j0fumn_di" bpmnElement="Gateway_1x8m4ws">
-        <omgdc:Bounds x="394" y="115" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0qcvv2g_di" bpmnElement="Event_0qcvv2g">
         <omgdc:Bounds x="591" y="122" width="36" height="36" />
@@ -103,6 +100,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Token_0vjy03m_di" bpmnElement="Token_0vjy03m" bioc:fill="#3cba0b" color:background-color="#3cba0b">
         <omgdc:Bounds x="559" y="230" width="20" height="20" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0uj2c99_di" bpmnElement="Gateway_1x8m4ws" isMarkerVisible="true">
+        <omgdc:Bounds x="394" y="115" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0wq8dog_di" bpmnElement="Flow_0wq8dog">
         <omgdi:waypoint x="167" y="140" />

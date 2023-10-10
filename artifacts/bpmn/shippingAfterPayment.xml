@@ -17,10 +17,10 @@
         <flowNodeRef>start-event</flowNodeRef>
         <flowNodeRef>Event_0qcvv2g</flowNodeRef>
         <flowNodeRef>Activity_0lgvp3u</flowNodeRef>
-        <flowNodeRef>Gateway_1x8m4ws</flowNodeRef>
         <flowNodeRef>Activity_1up8xq1</flowNodeRef>
         <flowNodeRef>Activity_1jgyh05</flowNodeRef>
         <flowNodeRef>Gateway_0eef44j</flowNodeRef>
+        <flowNodeRef>Gateway_1x8m4ws</flowNodeRef>
       </lane>
     </laneSet>
     <startEvent id="start-event" name="Order placed">
@@ -40,11 +40,6 @@
       <incoming>Flow_14i9c18</incoming>
       <outgoing>Flow_14fhivy</outgoing>
     </userTask>
-    <parallelGateway id="Gateway_1x8m4ws">
-      <incoming>Flow_1flhoxp</incoming>
-      <incoming>Flow_1n9ng49</incoming>
-      <outgoing>Flow_14i9c18</outgoing>
-    </parallelGateway>
     <userTask id="Activity_1up8xq1" name="Fetch goods">
       <incoming>Flow_1mtm8jg</incoming>
       <outgoing>Flow_1n9ng49</outgoing>
@@ -58,6 +53,11 @@
       <outgoing>Flow_0u9a0g3</outgoing>
       <outgoing>Flow_1mtm8jg</outgoing>
     </parallelGateway>
+    <exclusiveGateway id="Gateway_1x8m4ws">
+      <incoming>Flow_1flhoxp</incoming>
+      <incoming>Flow_1n9ng49</incoming>
+      <outgoing>Flow_14i9c18</outgoing>
+    </exclusiveGateway>
     <association id="Association_0s147m0" sourceRef="Activity_0lgvp3u" targetRef="Token_0e9twjk" />
     <association id="Association_1njl3za" sourceRef="Activity_1jgyh05" targetRef="Token_0dcgvmh" />
   </process>
@@ -85,9 +85,6 @@
       <bpmndi:BPMNShape id="Activity_1w8qyby_di" bpmnElement="Activity_0lgvp3u">
         <omgdc:Bounds x="630" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0j0fumn_di" bpmnElement="Gateway_1x8m4ws">
-        <omgdc:Bounds x="545" y="95" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_11kif52_di" bpmnElement="Activity_1up8xq1">
         <omgdc:Bounds x="380" y="190" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -98,11 +95,14 @@
       <bpmndi:BPMNShape id="Gateway_1iluv37_di" bpmnElement="Gateway_0eef44j">
         <omgdc:Bounds x="295" y="95" width="50" height="50" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Token_0e9twjk_di" bpmnElement="Token_0e9twjk" bioc:fill="#6bc0ea" color:background-color="#6bc0ea">
+        <omgdc:Bounds x="670" y="210" width="20" height="20" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Token_0dcgvmh_di" bpmnElement="Token_0dcgvmh" bioc:fill="#6bc0ea" color:background-color="#6bc0ea">
         <omgdc:Bounds x="420" y="40" width="20" height="20" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Token_0e9twjk_di" bpmnElement="Token_0e9twjk" bioc:fill="#6bc0ea" color:background-color="#6bc0ea">
-        <omgdc:Bounds x="670" y="210" width="20" height="20" />
+      <bpmndi:BPMNShape id="Gateway_18uvpbt_di" bpmnElement="Gateway_1x8m4ws" isMarkerVisible="true">
+        <omgdc:Bounds x="545" y="95" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0wq8dog_di" bpmnElement="Flow_0wq8dog">
         <omgdi:waypoint x="257" y="120" />
@@ -134,13 +134,13 @@
         <omgdi:waypoint x="730" y="120" />
         <omgdi:waypoint x="772" y="120" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1njl3za_di" bpmnElement="Association_1njl3za">
-        <omgdi:waypoint x="430" y="80" />
-        <omgdi:waypoint x="430" y="60" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0s147m0_di" bpmnElement="Association_0s147m0">
         <omgdi:waypoint x="680" y="160" />
         <omgdi:waypoint x="680" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1njl3za_di" bpmnElement="Association_1njl3za">
+        <omgdi:waypoint x="430" y="80" />
+        <omgdi:waypoint x="430" y="60" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ProcessSnapshot_0095t7u_di" bpmnElement="ProcessSnapshot_0095t7u" bioc:fill="#6bc0ea" color:background-color="#6bc0ea">
         <omgdc:Bounds x="520" y="340" width="20" height="20" />
