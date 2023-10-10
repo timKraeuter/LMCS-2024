@@ -31,6 +31,8 @@ The source code of the BPMN Analyzer is available [here](https://github.com/timK
 
 
 ### Published libraries for reuse
+The BPMN Analyzer is build using different libraries we have created.
+These libraries are also useful in other contexts and have thus been shared independently of the tool:
 
 1. An editor library for defining a snapshot/state of a running BPMN process using tokens and process snapshots: [**_token-bpmn_** (npm)](https://www.npmjs.com/package/bpmn-token)
 2. An extension of the BPMN metamodel, adding process snapshots and tokens, i.e., our BPMN execution metamodel: [**_token-bpmn-moddle_** (npm)](https://www.npmjs.com/package/token-bpmn-moddle)
