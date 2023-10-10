@@ -48,6 +48,11 @@ The atomic property **AllTerminated** is implemented by the following graph cond
 The property matches whenever there is no process snapshot in the state running. All process
 snapshots are terminated, i.e., have no tokens.
 
+### No dead activities
+
+To check this property, we generate the state space of the GT system and analyze it to see if each activity has been executed at least once.
+If this property is not fulfilled, the activity is highlighted in red in the BPMN model.
+See, for example, the [BPMN Analyzer tool section](https://github.com/timKraeuter/LMCS_2024/blob/main/README.md#bpmn-analyzer-tool).
 
 ## Custom properties
 
