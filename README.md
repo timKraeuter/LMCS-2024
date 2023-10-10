@@ -28,7 +28,7 @@ blue parts are deleted, and green parts are added.
 
 General BPMN properties can be checked in the [web-based tool](https://bpmnanalyzer.whitefield-c9fed487.northeurope.azurecontainerapps.io), which runs Groove in the cloud (no local installation needed).
 
-The [Implementation](https://github.com/timKraeuter/LMCS-2024#implementation) section shows a screenshot with an example verification result.
+The [BPMN Analyzer tool](https://github.com/timKraeuter/LMCS_2024#bpmn-analyzer-tool) subsection shows a screenshot with an example verification result.
 
 ### Safeness
 
@@ -52,7 +52,7 @@ snapshots are terminated, i.e., have no tokens.
 
 To check this property, we generate the state space of the GT system and analyze it to see if each activity has been executed at least once.
 If this property is not fulfilled, the activity is highlighted in red in the BPMN model.
-See, for example, the [BPMN Analyzer tool section](https://github.com/timKraeuter/LMCS_2024/blob/main/README.md#bpmn-analyzer-tool).
+See, for example, the [BPMN Analyzer tool](https://github.com/timKraeuter/LMCS_2024#bpmn-analyzer-tool) subsection.
 
 ## Custom properties
 
