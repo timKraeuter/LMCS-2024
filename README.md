@@ -8,7 +8,45 @@ This paper is an extended version of a paper published at [ICSME-2023](https://d
 The corresponding BPMN Analyzer tool is described [below](https://github.com/timKraeuter/LMCS_2024#bpmn-analyzer-tool).
 Other additional artifacts of this paper are also listed below, following the section structure of the paper.
 
-# Model checking BPMN
+# BPMN Semantics formalization
+
+Our [wiki](https://github.com/timKraeuter/Rewrite_Rule_Generation/wiki) describes the BPMN formalization in more detail, accompanied by many examples of BPMN models and graph transformation rule examples.
+
+## Process termination
+
+Process termination is implemented by the following graph transformation rule in Groove:
+
+![Atomic property AllTerminated implemented in Groove.](./artifacts/Terminate.png)
+
+The rule is called **Terminate** and is automatically added during graph grammar generation.
+The dashed red borders mark parts of negative application conditions, grey parts remain untouched,
+blue parts are deleted, and green parts are added.
+
+# Model Checking BPMN
+
+## General BPMN properties
+
+General BPMN properties can be checked in the [web-based tool](https://bpmnanalyzer.whitefield-c9fed487.northeurope.azurecontainerapps.io), which runs Groove in the cloud (no local installation needed).
+
+The [Implementation](https://github.com/timKraeuter/ICGT-2023#implementation) section shows a screenshot with an example verification result.
+
+### Safeness
+
+The atomic property **Unsafe** is implemented by the following graph condition in Groove:
+
+![Atomic property Unsafe implemented in Groove.](./images/Unsafe.png)
+
+The property matches whenever two tokens of one process snapshot have the same position (but have
+different identities).
+
+### Option to complete
+
+The atomic property **AllTerminated** is implemented by the following graph condition in Groove:
+
+![Atomic property AllTerminated implemented in Groove.](./artifacts/AllTerminated.png)
+
+The property matches whenever there is no process snapshot in the state running. All process
+snapshots are terminated, i.e., have no tokens.
 
 
 ## Custom properties
