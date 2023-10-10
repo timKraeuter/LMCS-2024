@@ -25,7 +25,7 @@ After downloading and unzipping you can open it in [Groove](https://groove.ewi.u
 The BPMN Analyzer is available
 online [here](https://bpmnanalyzer.whitefield-c9fed487.northeurope.azurecontainerapps.io).
 
-[![Atomic property Unsafe implemented in Groove.](./images/impl.png)](https://bpmnanalyzer.whitefield-c9fed487.northeurope.azurecontainerapps.io)
+[![Screenshot of the application.](./images/impl_step3.png)](https://bpmnanalyzer.whitefield-c9fed487.northeurope.azurecontainerapps.io)
 
 The source code of the BPMN Analyzer is available [here](https://github.com/timKraeuter/Rewrite_Rule_Generation) and instructions how to run it locally on your machine can be found [here](https://github.com/timKraeuter/Rewrite_Rule_Generation/blob/master/server/README.md).
 
