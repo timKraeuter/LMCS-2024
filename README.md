@@ -1,7 +1,7 @@
 # LMCS-2024
 This repository contains the sources for our paper submitted to a special issue of [LMCS](https://lmcs.episciences.org/) and additional artifacts below.
 
-This paper is an extended version of a paper published at [ICSME-2023](https://doi.org/10.1007/978-3-031-36709-0_11), which received the [**_★Best Software Science Paper Award★_**](https://raw.githubusercontent.com/timKraeuter/ICGT-2023/main/BestPaperICGT2023.pdf).
+This paper is an extended version of a paper published at [ICGT-2023](https://doi.org/10.1007/978-3-031-36709-0_11), which received the [**_★Best Software Science Paper Award★_**](https://raw.githubusercontent.com/timKraeuter/ICGT-2023/main/BestPaperICGT2023.pdf).
 
 
 
@@ -14,7 +14,7 @@ Our [wiki](https://github.com/timKraeuter/Rewrite_Rule_Generation/wiki) describe
 
 ## Process termination
 
-Process termination is implemented by the following graph transformation rule in Groove:
+The following graph condition in Groove implements _process termination_:
 
 ![Atomic property AllTerminated implemented in Groove.](./artifacts/Terminate.png)
 
@@ -28,7 +28,7 @@ blue parts are deleted, and green parts are added.
 
 General BPMN properties can be checked in the [web-based tool](https://bpmnanalyzer.whitefield-c9fed487.northeurope.azurecontainerapps.io), which runs Groove in the cloud (no local installation needed).
 
-The [Implementation](https://github.com/timKraeuter/ICGT-2023#implementation) section shows a screenshot with an example verification result.
+The [Implementation](https://github.com/timKraeuter/LMCS-2024#implementation) section shows a screenshot with an example verification result.
 
 ### Safeness
 
