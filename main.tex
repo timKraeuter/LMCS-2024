@@ -476,9 +476,15 @@ The \gls*{gt} system for the order handling process containing both propositions
 
 Using a proposition editor based on our concrete syntax, a modeler can work with \gls*{bpmn}, which is well-known to him.
 He does not need to define his propositions in the \gls*{gt} semantics used for execution since each proposition is automatically transformed as described earlier.
-% TODO: Tradeoff simplicity vs. expressibility
+To summarize, many propositions can defined using this simple method.
+However, the expressibility is not the same as in the \gls*{gt} semantics.
+For example, one can use nested rules with quantification in graph conditions in Groove.
+Thus, when defining a proposition editor, there is a clear tradeoff between \textit{simplicity} and \textit{expressibility}.
+Currently, we favor simplicity in our tool and recommend defining propositions in \gls*{gt} semantics if more powerful constructs are needed.
+In addition, expressibility varies and is achieved differently in \gls*{gt} tools, and we try to stay as independent as possible from specific \gls*{gt} tools.
 
-However, the modeler must still know the temporal logic, such as LTL and CTL, to express his properties.
+% TODO: Same idea about the tradeoff. Maybe some "CTL"/temporal logic templates for ease of use. Never reached and can reach.
+Finally, the modeler must still know the temporal logic, such as LTL and CTL, to express his properties.
 In the future, a domain-specific property language for \gls*{bpmn} would further lessen the knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}.
 
 \section{Implementation} \label{sec:impl}
