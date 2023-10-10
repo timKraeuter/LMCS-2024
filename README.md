@@ -1,7 +1,7 @@
 # LMCS-2024
 This repository contains the sources for our paper submitted to a special issue of [LMCS](https://lmcs.episciences.org/) and additional artifacts below.
 
-This paper is an extended version of a paper published at [ICGT-2023](https://doi.org/10.1007/978-3-031-36709-0_11), which received the [**_★Best Software Science Paper Award★_**](https://raw.githubusercontent.com/timKraeuter/ICGT-2023/main/BestPaperICGT2023.pdf).
+This paper is an extended version of a paper published at [ICGT-2023](https://doi.org/10.1007/978-3-031-36709-0_11), which received the [**_★ Best Software Science Paper Award ★_**](https://raw.githubusercontent.com/timKraeuter/ICGT-2023/main/BestPaperICGT2023.pdf).
 
 
 
