@@ -5,6 +5,13 @@ The corresponding BPMN Analyzer tool is available [here](https://bpmnanalyzer.wh
 
 This paper is an extended version of a paper published at [ICSME-2023](https://doi.org/10.1007/978-3-031-36709-0_11), which received the [**_★Best Software Science Paper Award★_**](https://raw.githubusercontent.com/timKraeuter/ICGT-2023/main/BestPaperICGT2023.pdf).
 
+## Custom properties
+
+Show propositions in BPMN and as groove graph conditions first.
+
+The GT system for the examples can be found [here](/artifacts/orderHandling.gps.zip).
+After downloading and unzipping you can open it in [Groove](https://groove.ewi.utwente.nl/) to explore the state space in detail and run model checking.
+
 # Published libraries for reuse
 
 1. An editor library for defining a snapshot/state of a running BPMN process using tokens and process snapshots: [**_token-bpmn_** (npm)](https://www.npmjs.com/package/bpmn-token)
