@@ -404,13 +404,13 @@ Then, we describe how custom properties can be defined and checked.
 \textit{Safeness} and \textit{Soundness} properties are defined for \gls*{bpmn} in \cite{corradiniClassificationBPMNCollaborations2018}.
 A \gls*{bpmn} model is \textit{safe} if, during its execution, at most one token occurs along the same sequence flow \cite{corradiniClassificationBPMNCollaborations2018}.
 Soundness is further decomposed into (i) \textit{Option to complete}: any running process instance must eventually complete, (ii) \textit{Proper completion}: after completion, each token of the process instance must be consumed by a different end event, as well as (iii) \textit{No dead activities}: each activity can be executed in at least one process instance \cite{corradiniClassificationBPMNCollaborations2018}.
-Process completion is synonymous to process termination.
+Process completion is synonymous with process termination.
 In the following, we will describe how to implement the \textit{Safeness} and \textit{Option to complete} properties.
 
 % Safeness
 We specify \textit{Safeness} as the CTL property defined in \eqref{eq:safeness}.
 The atomic proposition \textsf{Unsafe} is true if two tokens of one process snapshot point to the same sequence flow.
-It is shown in \autoref{fig:unsafe} using abstract syntax.
+It is shown in \autoref{fig:unsafe} using abstract Groove syntax.
 We cannot use the concrete syntax to define the \textsf{Unsafe} proposition because the proposition should apply to any BPMN model.
 Our concrete syntax is always used with a given BPMN model.
 
@@ -421,10 +421,17 @@ Our concrete syntax is always used with a given BPMN model.
     \label{fig:unsafe}
 \end{figure}
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/AllTerminated.png}
+    \caption{The atomic proposition \textit{AllTerminated} in Groove.}
+    \label{fig:allTerminated}
+\end{figure}
+
 % Option to complete
 \textit{Option to complete} is specified using the CTL property defined in \eqref{eq:optionToComplete}.
 The atomic proposition \textsf{AllTerminated} is true if there exists no process snapshot in the state \textsf{Running}, i.e., all process snapshots are \textsf{Terminated}.
-\textsf{AllTerminated} is given in \cite{krauterArtifactsLMCS2023}.
+It is shown in \autoref{fig:allTerminated} using abstract Groove syntax.
 
 \noindent\begin{minipage}{.5\linewidth}
 \begin{equation} \label{eq:safeness}
