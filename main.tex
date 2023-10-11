@@ -541,10 +541,10 @@ Model-checking experts in an organization can define more templates in the futur
 Third, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{krauterArtifactsLMCS2023}.
 The \gls*{bpmn} execution metamodel needed for the definition of custom propositions is published as an npm module (\textit{token-bpmn-moddle}).
 In addition, the token-based proposition editor is also published as an npm module (\textit{token-bpmn}).
-Finally, we published our \gls*{gt} rule generation library to the maven central repository (\textit{graph-rule-generation}).
+Furthermore, we published our \gls*{gt} rule generation library to the maven central repository (\textit{graph-rule-generation}).
 The library currently contains an implementation to generate \gls*{gt} rule for Groove but could also be used for other graph transformation tools in the future.
 
-Third, compared to \cite{krauterFormalizationAnalysisBPMN2023}, we have conducted a more detailed performance investigation of our approach, which is described in the next section.
+Finally, compared to \cite{krauterFormalizationAnalysisBPMN2023}, we have conducted a more detailed performance investigation of our approach, which is described in the next section.
 
 % TODO: Rewrite an improve upon
 \subsection{Experiments}
@@ -565,10 +565,10 @@ Thus, the generation of the \gls*{gt} systems is fast enough.
 Second, we ran a full state exploration using the resulting ten \gls*{gt} systems, see \autoref{table:stateSpaceBenchmark}.
 The exploration takes roughly one second for most of the models.
 Only model \textit{020} needs nearly two seconds due to its larger state space.
-Furthermore, up to one second is spent on startup not model checking.
+Furthermore, up to one second is spent on startup, not model checking.
 For example, Groove reports only 722 ms for state space exploration for model \textit{020}.
 
-We conclude that our approach is sufficiently fast for models of normal size.
+We conclude that our approach is sufficiently fast for models of average size.
 In addition, there is still room for optimization, such as avoiding costly I/O to disk.
 A comprehensive benchmark, including a detailed comparison to other tools and scaling up the model size, is left for future work.
 
@@ -648,7 +648,7 @@ We plan to support these elements by extending our implementation and test suite
     \begin{tabular}{l l l l l l}
     \hline
       \gls*{bpmn} element/feature & Dijkman & Van Gorp &  Corradini & Houhou & This\\
-      & et al. \cite{dijkmanSemanticsAnalysisBusiness2008} & et al. \cite{vangorpVisualTokenbasedFormalization2013} & et al. \cite{corradiniFormalApproachAnalysis2021}& et al. \cite{houhouFirstOrderLogicVerification2022} & paper\\
+      & \cite{dijkmanSemanticsAnalysisBusiness2008} & \cite{vangorpVisualTokenbasedFormalization2013} & \cite{corradiniFormalApproachAnalysis2021}&  \cite{houhouFirstOrderLogicVerification2022} & paper\\
       \hline
       \textit{Instantiation and termination}\\
       Start event instantiation & X & X & X & X & X\\
