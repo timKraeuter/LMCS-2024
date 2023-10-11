@@ -65,6 +65,8 @@ Our approach is based on a higher-order transformation from BPMN models to graph
 As proof of concept, we have implemented our approach in an open-source web-based tool.
 \end{abstract}
 
+% TODO: Archive repo with DOI using zenodo: https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content
+
 \maketitle
 \section{Introduction}
 In today's fast-paced business environment, organizations with complex workflows require a powerful means to accurately map, analyze, and optimize their processes. 
@@ -177,7 +179,8 @@ We do not repeat them to instead focus on our practical contribution.
 The approach supports all the \gls*{bpmn} elements depicted in \autoref{fig:bpmnelementsOverview}.
 These \gls*{bpmn} elements are divided into \textsf{Events}, \textsf{Gateways}, \textsf{Activities}, and \textsf{Edges}.
 \textsf{Events} and \textsf{Activities} are further divided into subgroups.
-Although all these elements have been implemented and tested (see \cite{krauterArtifactsLMCS2023}), due to space limitations, we only explain the realization of the elements marked with a green background.
+Although all these elements have been implemented and tested (see \cite{krauterArtifactsLMCS2023}), we only explain the realization of the elements marked with a green or blue background due to space limitations.
+The green elements were already described in \cite{krauterFormalizationAnalysisBPMN2023}, while explanations for the blue elements are new.
 In the following, first, we define the \gls*{bpmn} execution metamodel to represent the \gls*{bpmn} state structure, then we explain our formalization of the elements in \autoref{fig:bpmnelementsOverview}.
 
 
@@ -553,7 +556,7 @@ The library currently contains an implementation to generate \gls*{gt} rule for 
 
 Finally, compared to \cite{krauterFormalizationAnalysisBPMN2023}, we have conducted a more detailed performance investigation of our approach, which is described in the next section.
 
-% TODO: Rewrite an improve upon
+% TODO: Rewrite and improve upon
 \subsection{Experiments}
 
 Model checking is a useful technique but often falls short in practice due to insufficient performance.
@@ -563,7 +566,7 @@ We picked the models at random, besides disregarding some models that were simil
 The models include realistic business process models (001, 002, and 020) \cite{houhouFirstOrderLogicVerification2022}.
 
 To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2022} (version 1.15.0), which ran state space exploration for each \gls*{bpmn} model ten times.
-The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 5.8.1 \cite{krauterArtifactsLMCS2023}.
+The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 6.0.2 \cite{krauterArtifactsLMCS2023}.
 
 First, we ran our \gls*{hot} for the \gls*{bpmn} models.
 The \gls*{hot} took less than one second to generate a \gls*{gt} system for each model.
