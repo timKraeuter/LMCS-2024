@@ -30,24 +30,6 @@ General BPMN properties can be checked in the [web-based tool](https://bpmnanaly
 
 The [BPMN Analyzer tool](https://github.com/timKraeuter/LMCS_2024#bpmn-analyzer-tool) subsection shows a screenshot with an example verification result.
 
-### Safeness
-
-The atomic property **Unsafe** is implemented by the following graph condition in Groove:
-
-![Atomic property Unsafe implemented in Groove.](./images/Unsafe.png)
-
-The property matches whenever two tokens of one process snapshot have the same position (but have
-different identities).
-
-### Option to complete
-
-The atomic property **AllTerminated** is implemented by the following graph condition in Groove:
-
-![Atomic property AllTerminated implemented in Groove.](./artifacts/AllTerminated.png)
-
-The property matches whenever there is no process snapshot in the state running. All process
-snapshots are terminated, i.e., have no tokens.
-
 ### No dead activities
 
 To check this property, we generate the state space of the GT system and analyze it to see if each activity has been executed at least once.
