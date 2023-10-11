@@ -393,17 +393,31 @@ The rule template shows that MICEs delete one message and one token, as well as 
 
 
 \subsection{Link Events}
+\autoref{fig:linkEventTemplates} depicts the rule generation templates for \textit{link catch events} and \textit{link throw events} (\textsf{LCE} and \textsf{LTE} in \autoref{fig:bpmnelementsOverview}).
+Link events are similar to \enquote{Go To} statements since they move tokens from LTEs to LCEs.
+They are meant to avoid long sequence flows and connect \gls{bpmn} models spanning multiple pages but can also be used to create loops due to their \enquote{Go To} nature \cite{objectmanagementgroupBusinessProcessModel2013}.
 
-TBD
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{images/linkEvent_template.pdf}
+    \caption{Rule generation template for link events}
+    \label{fig:linkEventTemplates}
+\end{figure}
 
+One rule is generated for each incoming sequence flow of an LCE.
+Furthermore, each rule deletes a token at that sequence flow and adds tokens to all outgoing sequence flows of matching LTEs.
+An LTE matches an LCE if they have the same name.
+In addition, they match despite different names if they have the same linked event definition (see \cite{objectmanagementgroupBusinessProcessModel2013}).
+Our \gls*{hot} automatically finds matching LTEs during transformation and then applies the rule template shown in \autoref{fig:linkEventTemplates}.
 
 \subsection{Signal Events}
 TBD
 
 \subsection{Terminate Events}
-% This is Instantiation and termination
+% This is Instantiation and termination --> Check the BPMN spec structure again and try to stick to that
 TBD
 
+% TODO: Also update the wiki.
 
 \section{Model checking BPMN} \label{sec:modelChecking}
 
