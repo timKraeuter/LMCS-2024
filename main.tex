@@ -367,6 +367,7 @@ However, the resulting rule is simple since it only deletes a token from an inco
 \subsection{Message Events}
 % MITE
 \autoref{fig:messageEventTemplates} depicts the rule generation templates for \textit{message intermediate throw events}, \textit{message start events}, and \textit{message intermediate catch events} (\textsf{MITE}, \textsf{MSE}, and \textsf{MICE} in \autoref{fig:bpmnelementsOverview}).
+\textit{Message end events} (\textsf{MEE}) behave similarly to MITEs but only delete incoming tokens and do not add outgoing tokens.
 % MITE with MICE
 The first rule template describes how MITEs interact with MICEs.
 A MITE deletes an incoming token and adds one at each outgoing sequence flow.
@@ -419,8 +420,8 @@ Our \gls*{hot} automatically finds matching LTEs during transformation and then 
 \subsection{Signal Events}
 % General description
 TBD
-\autoref{fig:terminateEventTemplate} depicts the rule generation template for \textit{signal events} (\textsf{SE} in \autoref{fig:bpmnelementsOverview}).
-% SSE, SITE, SBE, SEE
+\autoref{fig:terminateEventTemplate} depicts the rule generation template for \textit{signal intermediate throw events}, \textit{signal intermediate catch events}, \textit{signal start events} (\textsf{SITE}, \textsf{SICE}, and \textsf{SSE} in \autoref{fig:bpmnelementsOverview}).
+\textit{Signal end events} (\textsf{SEE}) behave similarly to SITEs but only delete incoming tokens and do not add outgoing tokens.
 
 \begin{figure}[ht]
     \centering
