@@ -376,9 +376,13 @@ However, sending each message is optional, meaning that if a process is not read
 A process can consume a message if its MICE has at least one token at an incoming sequence flow (see rule template two in \autoref{fig:messageEventTemplates}).
 We implement optional message sending using nested rules with quantification.
 Concretely, we use an optional existential quantifier \cite{rensinkNestedQuantificationGraph2006} (see dotted rectangle labeled \textsf{Optional} in \autoref{fig:messageEventTemplates}) to send a message only if the receiving process is ready to consume it.
+
 % MITE with MSE
 The second rule template describes how MITEs interact with MSEs.
-% TODO: Describe Rule 2
+For each MSE a new process snapshot is created with tokens located at its outgoing sequence flows.
+We split up the interaction of MITEs with MICEs and MSEs in two rule templates for better understanding.
+However, a MITE might interact with MICEs and MSEs simultaneously.
+Thus, our \gls*{hot} implements a merge of both templates.
 
 % Could be split up into MITE and MICE.
 \begin{figure}[ht]
