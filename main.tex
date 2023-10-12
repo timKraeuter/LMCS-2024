@@ -411,18 +411,17 @@ The rule template shows that MICEs delete one message and one token, as well as 
 % General description
 Link events are similar to \enquote{Go To} statements since they move tokens from link throw events to link catch events in the same process level (cannot link to subprocesses).
 They are meant to avoid long sequence flows and connect \gls{bpmn} models spanning multiple pages but can also be used to create loops due to their \enquote{Go To} nature \cite{objectmanagementgroupBusinessProcessModel2013}.
-\autoref{fig:linkEventTemplates} depicts the rule generation templates for \textit{link catch events} and \textit{link throw events} (\textsf{LCE} and \textsf{LTE} in \autoref{fig:bpmnelementsOverview}).
+\autoref{fig:linkEventTemplates} depicts the rule generation templates for \textit{link throw events} and \textit{link catch events} (\textsf{LTE} and \textsf{LCE} in \autoref{fig:bpmnelementsOverview}).
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{images/linkEvent_template.pdf}
-    \caption{Rule generation template for link events}
+    \caption{Rule generation template for LTEs}
     \label{fig:linkEventTemplates}
 \end{figure}
 
 % Rule template description
-One rule is generated for each incoming sequence flow of an LCE.
-Furthermore, each rule deletes a token at that sequence flow and adds tokens to all outgoing sequence flows of matching LTEs.
+Each rule deletes a token at that sequence flow and adds tokens to all outgoing sequence flows of matching LTEs.
 An LTE matches an LCE if they have the same name.
 In addition, they match despite different names if they have the same linked event definition (see \cite{objectmanagementgroupBusinessProcessModel2013}).
 Our \gls*{hot} automatically finds matching LTEs during transformation and then applies the rule template shown in \autoref{fig:linkEventTemplates}.
@@ -468,7 +467,7 @@ A TEE abnormally terminates the running process \cite{objectmanagementgroupBusin
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{images/terminate_end_event_template.pdf}
+    \includegraphics[width=0.8\textwidth]{images/terminate_end_event_template.pdf}
     \caption{Rule generation template for terminate end events}
     \label{fig:terminateEventTemplate}
 \end{figure}
