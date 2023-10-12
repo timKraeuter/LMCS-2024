@@ -328,6 +328,7 @@ The lower part generates one rule that terminates the activity.
 It deletes a token at the activity and adds one at each outgoing sequence flow.
 This implicitly encodes a parallel gateway (see \autoref{fig:gatewayTemplates}) but should be avoided, as described earlier. 
 
+% Could be split up into two figures
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{images/activities_template.pdf}
@@ -366,16 +367,16 @@ However, the resulting rule is simple since it only deletes a token from an inco
 
 \subsection{Message Events}
 % MITE
-\autoref{fig:messageEventTemplates} depicts the rule generation templates for \textit{message intermediate throw events}, \textit{message start events}, and \textit{message intermediate catch events} (\textsf{MITE}, \textsf{MSE}, and \textsf{MICE} in \autoref{fig:bpmnelementsOverview}).
+\autoref{fig:messageThrowEventTemplates} depicts the rule generation templates for \textit{message intermediate throw events} (\textsf{MITE} in \autoref{fig:bpmnelementsOverview}).
 \textit{Message end events} (\textsf{MEE}) behave similarly to MITEs but only delete incoming tokens and do not add outgoing tokens.
 % MITE with MICE
-The first rule template describes how MITEs interact with MICEs.
+The first rule template describes how MITEs interact with \textit{message intermediate catch events} (MICEs).
 A MITE deletes an incoming token and adds one at each outgoing sequence flow.
 In addition, it sends one message to each process by adding it to the incoming messages of the process.
 However, sending each message is optional, meaning that if a process is not ready to consume a message immediately, the message is not added.
-A process can consume a message if its MICE has at least one token at an incoming sequence flow (see rule template two in \autoref{fig:messageEventTemplates}).
+A process can consume a message if its MICE has at least one token at an incoming sequence flow (see rule template two in \autoref{fig:messageThrowEventTemplates}).
 We implement optional message sending using nested rules with quantification.
-Concretely, we use an optional existential quantifier \cite{rensinkNestedQuantificationGraph2006} (see dotted rectangle labeled \textsf{Optional} in \autoref{fig:messageEventTemplates}) to send a message only if the receiving process is ready to consume it.
+Concretely, we use an optional existential quantifier \cite{rensinkNestedQuantificationGraph2006} (see dotted rectangle labeled \textsf{Optional} in \autoref{fig:messageThrowEventTemplates}) to send a message only if the receiving process is ready to consume it.
 
 % MITE with MSE
 The second rule template describes how MITEs interact with MSEs.
@@ -384,21 +385,25 @@ We split up the interaction of MITEs with MICEs and MSEs in two rule templates f
 However, a MITE might interact with MICEs and MSEs simultaneously.
 Thus, our \gls*{hot} implements a merge of both templates.
 
-% Could be split up into MITE and MICE.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{images/message_event_template.pdf}
-    \caption{Rule generation templates for message events}
-    \label{fig:messageEventTemplates}
+    \includegraphics[width=1\textwidth]{images/mite_template.pdf}
+    \caption{Rule generation templates for MITEs}
+    \label{fig:messageThrowEventTemplates}
 \end{figure}
 
 % MICE
-The third rule template in \autoref{fig:messageEventTemplates} shows the behavior of MICEs.
+The template in \autoref{fig:messageCatchEventTemplates} shows the behavior of \textit{message intermediate catch events} (\textsf{MICE} in \autoref{fig:bpmnelementsOverview}).
 To trigger a MICE, only one message at an incoming \textit{message flow} is needed.
 Thus, one rule is generated for each incoming \textit{message flow}.
 The rule template shows that MICEs delete one message and one token, as well as add a token at each outgoing sequence flow.
 
-
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/mice_template.pdf}
+    \caption{Rule generation templates for MICEs}
+    \label{fig:messageCatchEventTemplates}
+\end{figure}
 
 
 \subsection{Link Events}
