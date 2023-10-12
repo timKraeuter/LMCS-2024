@@ -278,11 +278,11 @@ Our \gls*{hot} defines a formal execution semantics of \gls*{bpmn}, similar to o
 Start events do not need \gls*{gt} rules since the generated start graph of the \gls*{gt} system will contain a token for each outgoing sequence flow of an NSE.
 Other types of start events are triggered in corresponding throw event rules.
 
-\autoref{fig:startAndEndTemplate} depicts the rule generation template for end events (\textsf{NEE} in \autoref{fig:bpmnelementsOverview}).
+\autoref{fig:endTemplate} depicts the rule generation template for end events (\textsf{NEE} in \autoref{fig:bpmnelementsOverview}).
 All rule generation templates show a state-changing element (\textsf{FlowNode}) with surrounding flows in the left column and the applicable rule generation in the right column.
 The left column shows instances of the \gls*{bpmn} metamodel (\autoref{fig:bpmnMetamodel}), and the right column shows the generated rules typed by the \gls*{bpmn} execution metamodel (see \autoref{fig:typeGraph}).
 If more than one rule is generated from a \textsf{FlowNode}, an expression defines how each rule is generated.
-For example, the expression $\forall \text{sf} \in \text{E.incSFs}$ for the rule generation template of end events (see \autoref{fig:startAndEndTemplate}) generates one rule for each incoming sequence flow \textit{sf} of the end event \textit{E}.
+For example, the expression $\forall \text{sf} \in \text{E.incSFs}$ for the rule generation template of end events (see \autoref{fig:endTemplate}) generates one rule for each incoming sequence flow \textit{sf} of the end event \textit{E}.
 We use ``.'' in expressions to navigate along the associations of the \gls*{bpmn} metamodel shown in \autoref{fig:bpmnMetamodel}.
 In the example, \textsf{E.incSFs} means following all \textsf{incSFs} links for a \textsf{FlowNode} object, resulting in a set of \textsf{SequenceFlow} objects.
 
@@ -290,8 +290,8 @@ In the example, \textsf{E.incSFs} means following all \textsf{incSFs} links for 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{images/end_template.pdf}
-    \caption{Rule generation templates for start and end events}
-    \label{fig:startAndEndTemplate}
+    \caption{Rule generation template for end events}
+    \label{fig:endTemplate}
 \end{figure}
     
 % End Event
@@ -374,7 +374,7 @@ In addition, it sends one message to each process by adding it to the incoming m
 However, sending each message is optional, meaning that if a process is not ready to consume a message immediately, the message is not added.
 A process can consume a message if its MICE has at least one token at an incoming sequence flow (see rule template two in \autoref{fig:messageEventTemplates}).
 We implement optional message sending using nested rules with quantification.
-Concretely, we use an optional existential quantifier \cite{rensinkNestedQuantificationGraph2006} (see blue dotted rectangle marked with optional in \autoref{fig:messageEventTemplates}) to send a message only if the receiving process is ready to consume it.
+Concretely, we use an optional existential quantifier \cite{rensinkNestedQuantificationGraph2006} (see dotted rectangle labeled \textsf{Optional} in \autoref{fig:messageEventTemplates}) to send a message only if the receiving process is ready to consume it.
 
 \begin{figure}[ht]
     \centering
@@ -393,9 +393,10 @@ The rule template shows that MICEs delete one message and one token, as well as 
 
 
 \subsection{Link Events}
-\autoref{fig:linkEventTemplates} depicts the rule generation templates for \textit{link catch events} and \textit{link throw events} (\textsf{LCE} and \textsf{LTE} in \autoref{fig:bpmnelementsOverview}).
+% General description
 Link events are similar to \enquote{Go To} statements since they move tokens from LTEs to LCEs.
 They are meant to avoid long sequence flows and connect \gls{bpmn} models spanning multiple pages but can also be used to create loops due to their \enquote{Go To} nature \cite{objectmanagementgroupBusinessProcessModel2013}.
+\autoref{fig:linkEventTemplates} depicts the rule generation templates for \textit{link catch events} and \textit{link throw events} (\textsf{LCE} and \textsf{LTE} in \autoref{fig:bpmnelementsOverview}).
 
 \begin{figure}[ht]
     \centering
@@ -404,6 +405,7 @@ They are meant to avoid long sequence flows and connect \gls{bpmn} models spanni
     \label{fig:linkEventTemplates}
 \end{figure}
 
+% Rule template description
 One rule is generated for each incoming sequence flow of an LCE.
 Furthermore, each rule deletes a token at that sequence flow and adds tokens to all outgoing sequence flows of matching LTEs.
 An LTE matches an LCE if they have the same name.
@@ -414,10 +416,22 @@ Our \gls*{hot} automatically finds matching LTEs during transformation and then 
 TBD
 
 \subsection{Terminate Events}
-% This is Instantiation and termination --> Check the BPMN spec structure again and try to stick to that
-TBD
+% General description
+A TEE abnormally terminates the running process \cite{objectmanagementgroupBusinessProcessModel2013}, meaning the process changes its state to terminated, and all its tokens are consumed. 
+\autoref{fig:terminateEventTemplate} depicts the rule generation templates for \textit{terminate end events} (\textsf{TEE} in \autoref{fig:bpmnelementsOverview}).
 
-% TODO: Also update the wiki.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{images/terminate_end_event_template.pdf}
+    \caption{Rule generation template for terminate end events}
+    \label{fig:terminateEventTemplate}
+\end{figure}
+
+% Rule template description
+One rule is generated for each incoming sequence flow of a TEE.
+The rule consumes the incoming token, similar to the rules for end events, but also changes the process snapshot state to \textsf{Terminated}.
+In addition, the rule deletes all other tokens of the process snapshot using a quantified nested rule (see dotted rectangle labeled \textbf{All} in \autoref{fig:terminateEventTemplate}).
+Terminating a process must also terminate its subprocesses, which is not shown in the rule template but is described in our wiki \cite{krauterArtifactsLMCS2023}.
 
 \section{Model checking BPMN} \label{sec:modelChecking}
 
@@ -495,7 +509,7 @@ The modeling error leads to potentially shipping goods twice if the process is n
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/shippedTwiceProposition.pdf}
+    \includegraphics[width=0.65\textwidth]{images/shippedTwiceProposition.pdf}
     \caption{Atomic proposition defining shipping goods twice.}
     \label{fig:shippedTwiceProposition}
 \end{figure}
@@ -508,7 +522,7 @@ The \gls*{gt} system for the order handling process containing both propositions
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/shippingAfterPayment.pdf}
+    \includegraphics[width=0.65\textwidth]{images/shippingAfterPayment.pdf}
     \caption{Atomic proposition defining shipping after retrieving payment.}
     \label{fig:shippingAfterPayment}
 \end{figure}
