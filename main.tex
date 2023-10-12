@@ -28,6 +28,7 @@
 
 \def\eg{{\em e.g.}}
 \def\cf{{\em cf.}}
+\def\ie{{\em i.e.}}
 
 \begin{document}
 
@@ -77,9 +78,9 @@ To this end, we propose a formalization that covers most of the \gls*{bpmn} elem
 General behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to \gls*{bpmn} \cite{corradiniClassificationBPMNCollaborations2018}, which can uncover potential flaws in \gls*{bpmn} models leading to deadlocks or other undesirable execution states.
 
 In this paper, we consider two fundamental concepts when formalizing the execution semantics of \gls*{bpmn}.
-First, \textit{state structure}, i.e., how models are represented during execution.
+First, \textit{state structure}, \ie, how models are represented during execution.
 The state structure corresponds to the type graph in \gls*{gt} systems.
-Second, \textit{state-changing elements}, i.e., which elements in a model encode state changes.
+Second, \textit{state-changing elements}, \ie, which elements in a model encode state changes.
 These elements are implemented using \gls*{gt} rules.
 In our approach, we automatically generate \gls*{gt} rules based on a \gls*{hot} for each specific \gls*{bpmn} model, as shown in \autoref{fig:approach}.
 
@@ -97,7 +98,7 @@ Typically, an execution metamodel is created by extending the languages metamode
 
 Furthermore, we define a \gls*{hot} from \gls*{bpmn} models to \gls*{gt} systems.
 We call the transformation \textit{higher-order} since the resulting graph-transformation systems represent model-transformations themselves \cite{tisiUseHigherOrderModel2009}.
-The \gls*{hot} creates a \gls*{gt} system, i.e., \gls*{gt} rules and a start graph for a given \gls*{bpmn} model.
+The \gls*{hot} creates a \gls*{gt} system, \ie, \gls*{gt} rules and a start graph for a given \gls*{bpmn} model.
 It is defined using rule generation templates, which describe how \gls*{gt} rules should be generated for each state-changing element in \gls*{bpmn} (see \autoref{sec:formalization}).
 The obtained \gls*{gt} system conforms to the execution type graph, which corresponds to the \gls*{bpmn} execution metamodel.
 In the figure, we have colored both artifacts blue to visualize that they contain the same information.
@@ -164,7 +165,7 @@ For example, message events will add or delete messages.
 
 \subsection{Theoretical background}
 We use typed attributed graphs for the formalization of the \gls*{bpmn} execution semantics.
-Each state, i.e., token distribution during the execution of a \gls*{bpmn} model, is represented as an attributed graph typed by the \gls*{bpmn} execution type graph, which we introduce in \autoref{sec:formalization}.
+Each state, \ie, token distribution during the execution of a \gls*{bpmn} model, is represented as an attributed graph typed by the \gls*{bpmn} execution type graph, which we introduce in \autoref{sec:formalization}.
 
 Regarding \gls*{gt}, we utilize the single-pushout (SPO) approach with negative application conditions (NAC) \cite{ehrigALGEBRAICAPPROACHESGRAPH1997}, as implemented in Groove \cite{rensinkGROOVESimulatorTool2004}.
 In addition, we utilize \textit{nested rules} with quantification to make parts of a rule repeatedly applicable or optional \cite{rensinkNestedQuantificationGraph2006,rensinkHowMuchAre2017}.
@@ -242,7 +243,7 @@ An example of a start graph is shown in \autoref{fig:startGraph} using abstract 
     \label{fig:startGraph}
 \end{figure}
 
-The \gls*{hot} generates one or more \gls*{gt} rules for each \textsf{FlowNode}, i.e., state-changing element in a \gls*{bpmn} model.
+The \gls*{hot} generates one or more \gls*{gt} rules for each \textsf{FlowNode}, \ie, state-changing element in a \gls*{bpmn} model.
 In order to provide a better understanding of the transformation process, we will begin by presenting two example results, namely the generated rules for an activity (as shown in \autoref{fig:bpmnelementsOverview}).
 Following this, we will delve into an explanation of how our \gls*{hot} creates these rules as well as others.
 
@@ -380,8 +381,8 @@ Concretely, we use an optional existential quantifier \cite{rensinkNestedQuantif
 
 % MITE with MSE
 The second rule template describes how MITEs interact with MSEs.
-For each MSE a new process snapshot is created with tokens located at its outgoing sequence flows.
-We split up the interaction of MITEs with MICEs and MSEs in two rule templates for better understanding.
+For each MSE, a new process snapshot is created with tokens located at its outgoing sequence flows.
+We split the interaction of MITEs with MICEs and MSEs into two rule templates for better understanding.
 However, a MITE might interact with MICEs and MSEs simultaneously.
 Thus, our \gls*{hot} implements a merge of both templates.
 
@@ -408,7 +409,7 @@ The rule template shows that MICEs delete one message and one token, as well as 
 
 \subsection{Link Events}
 % General description
-Link events are similar to \enquote{Go To} statements since they move tokens from LTEs to LCEs.
+Link events are similar to \enquote{Go To} statements since they move tokens from link throw events to link catch events in the same process level (cannot link to subprocesses).
 They are meant to avoid long sequence flows and connect \gls{bpmn} models spanning multiple pages but can also be used to create loops due to their \enquote{Go To} nature \cite{objectmanagementgroupBusinessProcessModel2013}.
 \autoref{fig:linkEventTemplates} depicts the rule generation templates for \textit{link catch events} and \textit{link throw events} (\textsf{LCE} and \textsf{LTE} in \autoref{fig:bpmnelementsOverview}).
 
@@ -428,20 +429,37 @@ Our \gls*{hot} automatically finds matching LTEs during transformation and then 
 
 \subsection{Signal Events}
 % General description
-TBD
-\autoref{fig:terminateEventTemplate} depicts the rule generation template for \textit{signal intermediate throw events}, \textit{signal intermediate catch events}, \textit{signal start events} (\textsf{SITE}, \textsf{SICE}, and \textsf{SSE} in \autoref{fig:bpmnelementsOverview}).
-\textit{Signal end events} (\textsf{SEE}) behave similarly to SITEs but only delete incoming tokens and do not add outgoing tokens.
+Each signal event references a named signal.
+Signal throw events \textit{broadcast} to all signal catch events with the same signal.
+Signal broadcasts have a global scope, \ie, can communicate across process levels and pools \cite{objectmanagementgroupBusinessProcessModel2013}.
+
+\autoref{fig:terminateEventTemplate} depicts the rule generation template for \textit{signal intermediate throw events} which interact with \textit{signal intermediate catch events} and \textit{signal start events} (\textsf{SITE}, \textsf{SICE}, and \textsf{SSE} in \autoref{fig:bpmnelementsOverview}).
+\textit{Signal end events} (\textsf{SEE}) behave similarly to SITEs but only consume incoming tokens and do not add outgoing tokens.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{images/signal_rule_template.pdf}
-    \caption{Rule generation templates for signal events}
+    \caption{Rule generation templates for SITEs}
     \label{fig:signalEventTemplates}
 \end{figure}
 
 % Rule template description
-TBD
+The first SITE template describes how SITEs interact with SICE.
+Like other intermediate events, the incoming token is consumed while one token is added for each outgoing sequence flow.
+Due to its broadcast semantics, a SITE interacts with all matching SICEs with an incoming token.
+A SITE and SICE match if they have the same signal name.
+In our templates, we assume that the signal name is the SITE/SICE name.
+For each matching SICE, a universally quantified nested rule consumes the incoming token and adds a token for each outgoing sequence flow.
+We use a universal quantifier since one process snapshot might have multiple tokens waiting before a SICE.
+Then, a SITE should trigger this SICE multiple times.
 
+The second SITE template describes how SITEs interact with SSEs.
+Analogous to MITEs and MSEs a new process snapshots with tokens at the outgoing sequence flows of the SSEs is added for each matching SSE.
+Each matching SSE is only triggered once, meaning we do not need any quantified nested rules.
+% Merge of both templates
+We split the interaction of SITEs with SICEs and SSEs into two rule templates for better understanding.
+However, a SITE might interact with SICEs and SSEs simultaneously.
+Thus, our \gls*{hot} implements a merge of both templates.
 
 \subsection{Terminate Events}
 % General description
@@ -458,7 +476,7 @@ A TEE abnormally terminates the running process \cite{objectmanagementgroupBusin
 % Rule template description
 One rule is generated for each incoming sequence flow of a TEE.
 The rule consumes the incoming token, similar to the rules for end events, but also changes the process snapshot state to \textsf{Terminated}.
-In addition, the rule deletes all other tokens of the process snapshot using a quantified nested rule (see dotted rectangle labeled \textbf{All} in \autoref{fig:terminateEventTemplate}).
+In addition, the rule deletes all other tokens of the process snapshot using a universally quantified nested rule (see dotted rectangle labeled \textbf{All} in \autoref{fig:terminateEventTemplate}).
 Terminating a process must also terminate its subprocesses, which is not shown in the rule template but is described in our wiki \cite{krauterArtifactsLMCS2023}.
 
 \section{Model checking BPMN} \label{sec:modelChecking}
@@ -504,7 +522,7 @@ Our concrete syntax is always used with a given BPMN model.
 
 % Option to complete
 \textit{Option to complete} is specified using the CTL property defined in \eqref{eq:optionToComplete}.
-The atomic proposition \textsf{AllTerminated} is true if there exists no process snapshot in the state \textsf{Running}, i.e., all process snapshots are \textsf{Terminated}.
+The atomic proposition \textsf{AllTerminated} is true if there exists no process snapshot in the state \textsf{Running}, \ie, all process snapshots are \textsf{Terminated}.
 It is shown in \autoref{fig:allTerminated} using abstract Groove syntax.
 
 \noindent\begin{minipage}{.5\linewidth}
@@ -524,7 +542,7 @@ The property \textit{Proper Completion} is not yet implemented, but all the info
 
 \subsection{Custom properties} \label{subsec:customProperties}
 % Defining atomic propositions in BPMN is a novelty.
-To make model checking user-friendly, we envision modelers defining atomic propositions based on the extended \gls*{bpmn} syntax, i.e., the concrete syntax introduced in \autoref{fig:typeGraph}.
+To make model checking user-friendly, we envision modelers defining atomic propositions based on the extended \gls*{bpmn} syntax, \ie, the concrete syntax introduced in \autoref{fig:typeGraph}.
 Therefore, to define an atomic proposition, a modeler adds process snapshots and tokens to a \gls*{bpmn} model, which we can automatically convert to a \gls*{gt} rule representing an atomic proposition.
 \gls*{gt} rules representing atomic propositions are not allowed to delete or add elements and are called graph conditions in Groove.
 Furthermore, a modeler can define that a token should not exist at a given position, which leads to NAC's in the graph condition. 
