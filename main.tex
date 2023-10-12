@@ -366,8 +366,8 @@ However, the resulting rule is simple since it only deletes a token from an inco
 
 \subsection{Message Events}
 % MITE
-\autoref{fig:messageEventTemplates} depicts the rule generation templates for \textit{message intermediate throw events} and \textit{message intermediate catch events} (\textsf{MITE} and \textsf{MICE} in \autoref{fig:bpmnelementsOverview}).
-% Message throw with intermediate catch message events
+\autoref{fig:messageEventTemplates} depicts the rule generation templates for \textit{message intermediate throw events}, \textit{message start events}, and \textit{message intermediate catch events} (\textsf{MITE}, \textsf{MSE}, and \textsf{MICE} in \autoref{fig:bpmnelementsOverview}).
+% MITE with MICE
 The first rule template describes how MITEs interact with MICEs.
 A MITE deletes an incoming token and adds one at each outgoing sequence flow.
 In addition, it sends one message to each process by adding it to the incoming messages of the process.
@@ -375,16 +375,20 @@ However, sending each message is optional, meaning that if a process is not read
 A process can consume a message if its MICE has at least one token at an incoming sequence flow (see rule template two in \autoref{fig:messageEventTemplates}).
 We implement optional message sending using nested rules with quantification.
 Concretely, we use an optional existential quantifier \cite{rensinkNestedQuantificationGraph2006} (see dotted rectangle labeled \textsf{Optional} in \autoref{fig:messageEventTemplates}) to send a message only if the receiving process is ready to consume it.
+% MITE with MSE
+The second rule template describes how MITEs interact with MSEs.
+% TODO: Describe Rule 2
 
+% Could be split up into MITE and MICE.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{images/bpmn_semantics-message_templates.pdf}
+    \includegraphics[width=1\textwidth]{images/message_event_template.pdf}
     \caption{Rule generation templates for message events}
     \label{fig:messageEventTemplates}
 \end{figure}
 
 % MICE
-The second rule template in \autoref{fig:messageEventTemplates} shows the behavior of MICEs.
+The third rule template in \autoref{fig:messageEventTemplates} shows the behavior of MICEs.
 To trigger a MICE, only one message at an incoming \textit{message flow} is needed.
 Thus, one rule is generated for each incoming \textit{message flow}.
 The rule template shows that MICEs delete one message and one token, as well as add a token at each outgoing sequence flow.
@@ -420,7 +424,7 @@ TBD
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{images/terminate_end_event_template.pdf}
+    \includegraphics[width=1\textwidth]{images/signal_rule_template.pdf}
     \caption{Rule generation templates for signal events}
     \label{fig:signalEventTemplates}
 \end{figure}
