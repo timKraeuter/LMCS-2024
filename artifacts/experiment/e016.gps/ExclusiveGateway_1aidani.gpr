@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="ExclusiveGateway_1aidani" role="rule" edgeids="false" edgemode="directed">
+        <node id="n76"/>
+        <edge from="n76" to="n76">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n77"/>
+        <edge from="n77" to="n77">
+            <attr name="label">
+                <string>string:"Receiver"</string>
+            </attr>
+        </edge>
+        <node id="n78"/>
+        <edge from="n78" to="n78">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n79"/>
+        <edge from="n79" to="n79">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <node id="n80"/>
+        <edge from="n80" to="n80">
+            <attr name="label">
+                <string>string:"StartEvent_0x0o2ml -&gt; ExclusiveGateway_1aidani (SequenceFlow_0fxw5l8)"</string>
+            </attr>
+        </edge>
+        <node id="n81"/>
+        <edge from="n81" to="n81">
+            <attr name="label">
+                <string>string:"ExclusiveGateway_1aidani (ExclusiveGateway_1aidani)"</string>
+            </attr>
+        </edge>
+        <edge from="n79" to="n81">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n79" to="n80">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n76" to="n77">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n76" to="n78">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+        <edge from="n76" to="n79">
+            <attr name="label">
+                <string>tokens</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="Notify_Delegate_start" role="rule" edgeids="false" edgemode="directed">
+        <node id="n173"/>
+        <edge from="n173" to="n173">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n173" to="n173">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n171"/>
+        <edge from="n171" to="n171">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n171" to="n171">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n168"/>
+        <edge from="n168" to="n168">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n169"/>
+        <edge from="n169" to="n169">
+            <attr name="label">
+                <string>string:"Company"</string>
+            </attr>
+        </edge>
+        <node id="n170"/>
+        <edge from="n170" to="n170">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n172"/>
+        <edge from="n172" to="n172">
+            <attr name="label">
+                <string>string:"Terminate_Internship -&gt; Notify_Delegate (SequenceFlow_0oaajbr)"</string>
+            </attr>
+        </edge>
+        <node id="n174"/>
+        <edge from="n174" to="n174">
+            <attr name="label">
+                <string>string:"Notify_Delegate (Task_0z00tzq)"</string>
+            </attr>
+        </edge>
+        <edge from="n168" to="n173">
+            <attr name="label">
+                <string>new:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n173" to="n174">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n168" to="n171">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n171" to="n172">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n168" to="n169">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n168" to="n170">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>

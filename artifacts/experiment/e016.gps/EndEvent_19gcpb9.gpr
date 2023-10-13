@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="EndEvent_19gcpb9" role="rule" edgeids="false" edgemode="directed">
+        <node id="n121"/>
+        <edge from="n121" to="n121">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n121" to="n121">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n119"/>
+        <edge from="n119" to="n119">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n120"/>
+        <edge from="n120" to="n120">
+            <attr name="label">
+                <string>string:"Receiver"</string>
+            </attr>
+        </edge>
+        <node id="n122"/>
+        <edge from="n122" to="n122">
+            <attr name="label">
+                <string>string:"B_2 -&gt; EndEvent_19gcpb9 (SequenceFlow_0tmjk0x)"</string>
+            </attr>
+        </edge>
+        <node id="n123"/>
+        <edge from="n123" to="n123">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <edge from="n121" to="n122">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n119" to="n121">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n119" to="n120">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n119" to="n123">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>
