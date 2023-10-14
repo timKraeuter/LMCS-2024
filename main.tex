@@ -661,8 +661,41 @@ To calculate the average runtime, we used the hyperfine benchmarking tool \cite{
 The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 6.1.0 \cite{krauterArtifactsLMCS2023}.
 
 First, we ran our \gls*{hot} for the \gls*{bpmn} models.
-The \gls*{hot} took less than one second to generate a \gls*{gt} system for each model.
+The \gls*{hot} took less than one second to generate a \gls*{gt} system for each model, see \autoref{table:hotBenchmark}.
 Thus, the generation of the \gls*{gt} systems is fast enough.
+
+% Not sure if this table is adding much value.
+\begin{table}[ht]
+\centering
+\caption[Experimental results for the HOT]{Experimental results for the HOT}
+
+\begin{tabular}{| c | c | c || c |}
+ \hline
+ BPMN model & Processes & Nodes (gw.) & Total time \\
+ \hline\hline
+ 001 & 2 & 17(2) & $\sim$ 0.49 s \\
+ \hline
+ 002 & 2 & 16(2) & $\sim$ 0.48 s \\
+ \hline
+ 007 & 1 & 8(2) & $\sim$ 0.43 s \\
+ \hline
+ 008 & 1 & 11(2) &$\sim$ 0.44 s \\
+ \hline
+ 009 & 1 & 12(2) & $\sim$ 0.44 s \\
+ \hline
+ 010 & 1 & 15(2) & $\sim$ 0.47 s \\
+ \hline
+ 011 & 1 & 15(2) & $\sim$ 0.46 s \\
+ \hline
+ 015 & 1 & 14(2) & $\sim$ 0.46 s \\
+ \hline
+ 016 & 1 & 14(2) & $\sim$ 0.47 s \\
+ \hline
+ 020 & 1 & 39(6) & $\sim$ 0.58 s \\
+ \hline
+\end{tabular}
+\label{table:hotBenchmark}
+\end{table}
 
 Second, we ran a full state exploration using the resulting ten \gls*{gt} systems, see \autoref{table:stateSpaceBenchmark}.
 The exploration takes roughly one second for most of the models.
