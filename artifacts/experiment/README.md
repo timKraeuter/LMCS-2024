@@ -44,5 +44,5 @@ hyperfine -L grammar grammars/e001.gps,grammars/e002.gps,grammars/e007.gps,gramm
 
 **Experiment**:
 ```bash
-hyperfine -L grammar grammars/1.gps,grammars/10.gps,grammars/100.gps,grammars/300.gps,grammars/500.gps,grammars/800.gps,grammars/1000.gps "java -Xmx256M -jar dependencies/groove-6_1_0/bin/Generator.jar {grammar}" --output ./SGenScalabilityoutput.txt --export-json SgenScalabilitystats.json
+hyperfine -L grammar grammars/1.gps,grammars/10.gps,grammars/100.gps,grammars/300.gps,grammars/500.gps,grammars/800.gps,grammars/1000.gps "java -Xmx2048M -jar dependencies/groove-6_1_0/bin/Generator.jar {grammar}" --output ./SGenScalabilityoutput.txt --export-json SgenScalabilitystats.json
 ```
