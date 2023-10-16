@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="SequenceFlow_0upqxnz_ExclusiveGateway_1ojvmkc" role="rule" edgeids="false" edgemode="directed">
+        <node id="n281"/>
+        <edge from="n281" to="n281">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n282"/>
+        <edge from="n282" to="n282">
+            <attr name="label">
+                <string>string:"Company"</string>
+            </attr>
+        </edge>
+        <node id="n283"/>
+        <edge from="n283" to="n283">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n284"/>
+        <edge from="n284" to="n284">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <node id="n285"/>
+        <edge from="n285" to="n285">
+            <attr name="label">
+                <string>string:"Register_to_Internship_Program -&gt; ExclusiveGateway_1ojvmkc (SequenceFlow_0upqxnz)"</string>
+            </attr>
+        </edge>
+        <node id="n286"/>
+        <edge from="n286" to="n286">
+            <attr name="label">
+                <string>string:"ExclusiveGateway_1ojvmkc -&gt; Insert_Internship_Announcement (SequenceFlow_19fg7gc)"</string>
+            </attr>
+        </edge>
+        <edge from="n284" to="n286">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n284" to="n285">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n281" to="n282">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n281" to="n283">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+        <edge from="n281" to="n284">
+            <attr name="label">
+                <string>tokens</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>

@@ -44,7 +44,7 @@ hyperfine -L grammar grammars/e001.gps,grammars/e002.gps,grammars/e007.gps,gramm
 
 ## State space generation scalability
 
-HOT scalability must be run first to generate the graph grammars.
+HOT scalability must be run first to generate the graph grammars. One can use the command **--runs 1** to only run each HOT once.
 
 **Experiment**:
 ```bash

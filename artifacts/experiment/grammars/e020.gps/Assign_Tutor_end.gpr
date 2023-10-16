@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="Assign_Tutor_end" role="rule" edgeids="false" edgemode="directed">
+        <node id="n448"/>
+        <edge from="n448" to="n448">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n448" to="n448">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n446"/>
+        <edge from="n446" to="n446">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n446" to="n446">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n443"/>
+        <edge from="n443" to="n443">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n444"/>
+        <edge from="n444" to="n444">
+            <attr name="label">
+                <string>string:"Internship_Delegate"</string>
+            </attr>
+        </edge>
+        <node id="n445"/>
+        <edge from="n445" to="n445">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n447"/>
+        <edge from="n447" to="n447">
+            <attr name="label">
+                <string>string:"Assign_Tutor (SendTask_1sfy3aq)"</string>
+            </attr>
+        </edge>
+        <node id="n449"/>
+        <edge from="n449" to="n449">
+            <attr name="label">
+                <string>string:"Assign_Tutor -&gt; Internship_Completion_Notification (SequenceFlow_0woxsim)"</string>
+            </attr>
+        </edge>
+        <edge from="n443" to="n448">
+            <attr name="label">
+                <string>new:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n448" to="n449">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n443" to="n446">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n446" to="n447">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n443" to="n444">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n443" to="n445">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>
