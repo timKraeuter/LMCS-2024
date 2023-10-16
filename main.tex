@@ -32,8 +32,8 @@
 
 \begin{document}
 
-\title[Formalization and analysis of BPMN using graph transformation systems]{Formalization and analysis of BPMN using graph transformation systems\rsuper*}
-\titlecomment{{\lsuper*}This paper is an extended version of \cite{krauterFormalizationAnalysisBPMN2023}}
+\title[A higher-order approach to the formalization and analysis of BPMN using graph transformation systems]{A higher-order approach to the formalization and analysis of BPMN using graph transformation systems\rsuper*}
+\titlecomment{{\lsuper*}This article is an extended version of \cite{krauterFormalizationAnalysisBPMN2023}}
 % \thanks{thanks, optional.}	%optional
 
 \author[T.~Kr\"{a}uter]{Tim Kr\"{a}uter\lmcsorcid{0000-0003-1795-0611}}[a]
@@ -61,7 +61,7 @@
   \noindent
 The Business Process Modeling Notation (BPMN) is a widely used standard notation for defining intra- and inter-organizational workflows.
 However, the informal description of the BPMN execution semantics leads to different interpretations of BPMN elements and difficulties in checking behavioral properties.
-In this paper, we propose a formalization of the execution semantics of BPMN that, compared to existing approaches, covers more BPMN elements while facilitating property checking.
+In this article, we propose a formalization of the execution semantics of BPMN that, compared to existing approaches, covers more BPMN elements while facilitating property checking.
 Our approach is based on a higher-order transformation from BPMN models to graph transformation systems.
 As proof of concept, we have implemented our approach in an open-source web-based tool.
 \end{abstract}
@@ -78,7 +78,7 @@ Formalizing \gls*{bpmn} would reduce the cost of business process automation dra
 To this end, we propose a formalization that covers most of the \gls*{bpmn} elements used in practice and supports checking behavioral properties.
 General behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to \gls*{bpmn} \cite{corradiniClassificationBPMNCollaborations2018}, which can uncover potential flaws in \gls*{bpmn} models leading to deadlocks or other undesirable execution states.
 
-In this paper, we consider two fundamental concepts when formalizing the execution semantics of \gls*{bpmn}.
+In this article, we consider two fundamental concepts when formalizing the execution semantics of \gls*{bpmn}.
 First, \textit{state structure}, \ie, how models are represented during execution.
 The state structure corresponds to the type graph in \gls*{gt} systems.
 Second, \textit{state-changing elements}, \ie, which elements in a model encode state changes.
@@ -111,12 +111,26 @@ Additionally, our approach is versatile as it can be applied to formalize other 
 To define the execution semantics of an alternate behavioral language, one simply needs to establish a new execution metamodel and \gls*{hot} (see the language engineer in \autoref{fig:approach}).
 
 % Contributions summary
-The contribution of this paper is twofold.
+The contribution of this article is twofold.
 First, we introduce a new approach utilizing a \gls*{hot} to generate \gls*{gt} rules instead of providing fixed \gls*{gt} rules to formalize the semantics of a behavioral language.
 Second, we apply our approach to \gls*{bpmn}, resulting in a formalization covering most \gls*{bpmn} elements that supports property checking.
 
-% Paper outline
-The remainder of this paper is structured as follows.
+% Compared to the conference version
+This article is an extended version of the paper \textit{Formalization and analysis of BPMN using graph transformation systems} \cite{krauterFormalizationAnalysisBPMN2023} published in the proceedings of the 16th edition of the \textit{International Conference on Graph Transformation}.
+% BPMN semantics formalization: More elements/features described
+A significant change, besides minor improvements throughout the article, is the extended \enquote{BPMN semantics formalization} section, where we now explain many more of the BPMN elements implemented in our \gls*{hot} (see elements highlighted in blue in \autoref{fig:bpmnelementsOverview}).
+% Model checking: Custom properties
+In addition, we enhanced the \enquote{custom properties} subsection in \autoref{sec:modelChecking} by using an order handling process to illustrate use cases for custom properties.
+% Implementation: Custom properties editor and new three-step flow
+Furthermore, we made extensive improvements to the \gls*{bpmn} analyzer tool and thus rewrote the \enquote{Implementation} section.
+A user now follows three steps to analyze his \gls*{bpmn} model.
+The second step consists of a new atomic proposition editor based on our concrete syntax for describing snapshots of processes.
+% Implementation: Experiments
+Finally, we expanded our experiments subsection by adding a scalability test with a thousand synthetically generated BPMN models. 
+
+
+% Article outline
+The remainder of this article is structured as follows.
 First, in \autoref{sec:preliminaries}, we introduce \gls*{bpmn} and point out the theoretical background of this contribution.
 Second, we describe the \gls*{bpmn} semantics formalization using the \gls*{hot} (\autoref{sec:formalization}) before explaining how this can be utilized for model checking general \gls*{bpmn} and custom properties (\autoref{sec:modelChecking}).
 Then, we present BPMN Analyzer implementing our approach in \autoref{sec:impl}.
@@ -257,7 +271,7 @@ The rule is straightforward, moving a token from the incoming sequence flow to t
   \caption{Example \gls*{gt} rule to start an activity (abstract syntax)}  \label{fig:gtRuleAbstract}
 \end{figure}
 
-For the rest of the paper, we will depict all rules in the concrete syntax introduced earlier.
+For the rest of the article, we will depict all rules in the concrete syntax introduced earlier.
 The rule from \autoref{fig:gtRuleAbstract} depicted in concrete syntax is shown on the left in \autoref{fig:gtRuleConcrete}.
 The rule on the right in \autoref{fig:gtRuleConcrete} implements the termination of an activity, which will move one token from the activity to the outgoing sequence flow.
 
@@ -487,7 +501,7 @@ Terminating a process must also terminate its subprocesses, which is not shown i
 Model checking---and verification in general---of \gls*{bpmn} models is necessary to ensure the correctness and reliability of business processes, which ultimately leads to increased efficiency, reduced costs, and user satisfaction.
 Using our approach, model checking a \gls*{bpmn} model is possible using the generated \gls*{gt} system and behavioral properties based on atomic propositions (see \autoref{fig:approach}).
 Behavioral properties are defined using a temporal logic, such as CTL and LTL.
-In this paper, we will use CTL.
+In this article, we will use CTL.
 An atomic proposition is formalized as a graph and holds in a given state if a match exists from the graph representing the proposition to the graph representing the state \cite{kastenbergModelCheckingDynamic2006}.
 
 We differentiate between two types of behavioral properties: \textit{general \gls*{bpmn} properties} defined for all \gls*{bpmn} models and \textit{custom properties} tailored towards a particular \gls*{bpmn} model.
@@ -783,7 +797,7 @@ We plan to support these elements by extending our implementation and test suite
     \begin{tabular}{l l l l l l}
     \hline
       \gls*{bpmn} element/feature & Dijkman & Van Gorp &  Corradini & Houhou & This\\
-      & \cite{dijkmanSemanticsAnalysisBusiness2008} & \cite{vangorpVisualTokenbasedFormalization2013} & \cite{corradiniFormalApproachAnalysis2021}&  \cite{houhouFirstOrderLogicVerification2022} & paper\\
+      & \cite{dijkmanSemanticsAnalysisBusiness2008} & \cite{vangorpVisualTokenbasedFormalization2013} & \cite{corradiniFormalApproachAnalysis2021}&  \cite{houhouFirstOrderLogicVerification2022} & article\\
       \hline
       \textit{Instantiation and termination}\\
       Start event instantiation & X & X & X & X & X\\
@@ -836,7 +850,7 @@ We plan to support these elements by extending our implementation and test suite
 
 
 \section{Conclusion \& future work} \label{sec:conclusion}
-This paper makes two main practical contributions.
+This article makes two main practical contributions.
 First, we conceptualize a new approach utilizing a \gls*{hot} to formalize the semantics of behavioral languages.
 Our approach moves complexity from the \gls*{gt} rules to the rule templates making up the \gls*{hot}.
 Furthermore, the approach can be applied to any behavioral language if one can define its \textit{state structure} and identify its \textit{state-changing elements}.
