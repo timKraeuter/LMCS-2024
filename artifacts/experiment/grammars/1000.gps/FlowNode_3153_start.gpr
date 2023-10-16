@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="FlowNode_3153_start" role="rule" edgeids="false" edgemode="directed">
+        <node id="n40118"/>
+        <edge from="n40118" to="n40118">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n40118" to="n40118">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n40116"/>
+        <edge from="n40116" to="n40116">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n40116" to="n40116">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n40113"/>
+        <edge from="n40113" to="n40113">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n40114"/>
+        <edge from="n40114" to="n40114">
+            <attr name="label">
+                <string>string:"1000"</string>
+            </attr>
+        </edge>
+        <node id="n40115"/>
+        <edge from="n40115" to="n40115">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n40117"/>
+        <edge from="n40117" to="n40117">
+            <attr name="label">
+                <string>string:"FlowNode_3151 -&gt; FlowNode_3153 (sequenceFlow_a6ee5e46-c502-4119-8474-06282af9ce80)"</string>
+            </attr>
+        </edge>
+        <node id="n40119"/>
+        <edge from="n40119" to="n40119">
+            <attr name="label">
+                <string>string:"FlowNode_3153 (FlowNode_3153)"</string>
+            </attr>
+        </edge>
+        <edge from="n40113" to="n40118">
+            <attr name="label">
+                <string>new:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n40118" to="n40119">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n40113" to="n40116">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n40116" to="n40117">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n40113" to="n40114">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n40113" to="n40115">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>

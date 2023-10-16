@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="FlowNode_1604" role="rule" edgeids="false" edgemode="directed">
+        <node id="n20404"/>
+        <edge from="n20404" to="n20404">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n20404" to="n20404">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n20406"/>
+        <edge from="n20406" to="n20406">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n20406" to="n20406">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n20402"/>
+        <edge from="n20402" to="n20402">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n20402" to="n20402">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n20399"/>
+        <edge from="n20399" to="n20399">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n20400"/>
+        <edge from="n20400" to="n20400">
+            <attr name="label">
+                <string>string:"1000"</string>
+            </attr>
+        </edge>
+        <node id="n20401"/>
+        <edge from="n20401" to="n20401">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n20403"/>
+        <edge from="n20403" to="n20403">
+            <attr name="label">
+                <string>string:"FlowNode_1603 -&gt; FlowNode_1604 (sequenceFlow_f4ab7e80-3df6-4495-9772-fad39cbd76e4)"</string>
+            </attr>
+        </edge>
+        <node id="n20405"/>
+        <edge from="n20405" to="n20405">
+            <attr name="label">
+                <string>string:"FlowNode_1604 -&gt; FlowNode_1605 (sequenceFlow_0f92738b-3d3b-4476-ba3d-215d53734306)"</string>
+            </attr>
+        </edge>
+        <node id="n20407"/>
+        <edge from="n20407" to="n20407">
+            <attr name="label">
+                <string>string:"FlowNode_1604 -&gt; FlowNode_1606 (sequenceFlow_9f1e90cf-7f89-4c1e-8143-6f37fc460451)"</string>
+            </attr>
+        </edge>
+        <edge from="n20399" to="n20404">
+            <attr name="label">
+                <string>new:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n20404" to="n20405">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n20399" to="n20406">
+            <attr name="label">
+                <string>new:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n20406" to="n20407">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n20399" to="n20402">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n20402" to="n20403">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n20399" to="n20400">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n20399" to="n20401">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>

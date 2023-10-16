@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="FlowNode_841_FlowNode_842" role="rule" edgeids="false" edgemode="directed">
+        <node id="n10687"/>
+        <edge from="n10687" to="n10687">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n10688"/>
+        <edge from="n10688" to="n10688">
+            <attr name="label">
+                <string>string:"300"</string>
+            </attr>
+        </edge>
+        <node id="n10689"/>
+        <edge from="n10689" to="n10689">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n10690"/>
+        <edge from="n10690" to="n10690">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <node id="n10691"/>
+        <edge from="n10691" to="n10691">
+            <attr name="label">
+                <string>string:"FlowNode_840 -&gt; FlowNode_841 (sequenceFlow_8cea9aaa-ce13-4d08-817d-872a41f94b9f)"</string>
+            </attr>
+        </edge>
+        <node id="n10692"/>
+        <edge from="n10692" to="n10692">
+            <attr name="label">
+                <string>string:"FlowNode_841 -&gt; FlowNode_842 (sequenceFlow_8c5f688d-23d2-46e8-a787-8d03be71e894)"</string>
+            </attr>
+        </edge>
+        <edge from="n10690" to="n10692">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n10690" to="n10691">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n10687" to="n10688">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n10687" to="n10689">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+        <edge from="n10687" to="n10690">
+            <attr name="label">
+                <string>tokens</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>
