@@ -173,7 +173,7 @@ In addition, we utilize \textit{nested rules} with quantification to make parts 
 Moreover, we utilize the NACs to implement more intricate parts in the \gls*{bpmn} execution semantics, such as the termination of processes.
 
 Formal definitions of SPO rules, their application, and the corresponding extensions of the theory (NACs, nested rules) are well-known, see \cite{ehrigALGEBRAICAPPROACHESGRAPH1997,rensinkNestedQuantificationGraph2006}.
-We do not repeat them to instead focus on our practical contribution.
+We do not repeat them and instead focus on our practical contribution.
 
 
 \section{BPMN semantics formalization} \label{sec:formalization}
@@ -182,7 +182,7 @@ The approach supports all the \gls*{bpmn} elements depicted in \autoref{fig:bpmn
 These \gls*{bpmn} elements are divided into \textsf{Events}, \textsf{Gateways}, \textsf{Activities}, and \textsf{Edges}.
 \textsf{Events} and \textsf{Activities} are further divided into subgroups.
 Although all these elements have been implemented and tested (see \cite{krauterArtifactsLMCS2023}), we only explain the realization of the elements marked with a green or blue background due to space limitations.
-The green elements were already described in \cite{krauterFormalizationAnalysisBPMN2023}, while explanations for the blue elements are new.
+The green elements were already described in \cite{krauterFormalizationAnalysisBPMN2023}, while explanations for the blue elements were added.
 In the following, first, we define the \gls*{bpmn} execution metamodel to represent the \gls*{bpmn} state structure, then we explain our formalization of the elements in \autoref{fig:bpmnelementsOverview}.
 
 
@@ -196,7 +196,7 @@ In the following, first, we define the \gls*{bpmn} execution metamodel to repres
 
 \subsection{BPMN execution metamodel}
 
-In our formalization of BPMN, we utilize a token-based representation of the execution semantics, similar to the approach used in the informal description of the \gls*{bpmn} specification \cite{objectmanagementgroupBusinessProcessModel2013}.
+In our formalization of BPMN, we utilize a token-based representation of the execution semantics, similar to the explanation in the informal description of the \gls*{bpmn} specification \cite{objectmanagementgroupBusinessProcessModel2013}.
 To describe processes holding tokens during execution, we define the execution metamodel shown in \autoref{fig:typeGraph}, depicted as a UML class diagram.
 In the context of our approach, we fulfill the role of the language engineer by defining the execution metamodel (see \autoref{fig:approach}).
 
@@ -232,7 +232,7 @@ Using the execution metamodel as the type graph, we can now define how the start
 
 Since our approach is based on a \gls*{hot} from \gls*{bpmn} to \gls*{gt} systems, we generate a \textit{start graph} and \textit{\gls*{gt} rules} for each given \gls*{bpmn} model (see \autoref{fig:approach}).
 Generating the start graph for a \gls*{bpmn} model is straightforward.
-First, for each process in the \gls*{bpmn} model, we generate a process snapshot if the process contains a none start event (NSE).
+First, for each process in the \gls*{bpmn} model, we generate a process snapshot if the process contains a \textit{none start event} (NSE).
 An NSE describes a start event without a trigger (none).
 Then, for each NSE, we add one token to each outgoing sequence flow.
 An example of a start graph is shown in \autoref{fig:startGraph} using abstract and concrete syntax.
@@ -245,8 +245,8 @@ An example of a start graph is shown in \autoref{fig:startGraph} using abstract 
 \end{figure}
 
 The \gls*{hot} generates one or more \gls*{gt} rules for each \textsf{FlowNode}, \ie, state-changing element in a \gls*{bpmn} model.
-In order to provide a better understanding of the transformation process, we will begin by presenting two example results, namely the generated rules for an activity (as shown in \autoref{fig:bpmnelementsOverview}).
-Following this, we will delve into an explanation of how our \gls*{hot} creates these rules as well as others.
+In order to provide a better understanding of the transformation process, we will begin by presenting example results, namely the generated rules for an activity.
+Following this, we will delve into an explanation of how our \gls*{hot} creates these rules as well as rules for the other elements in \autoref{fig:bpmnelementsOverview}.
 
 \autoref{fig:gtRuleAbstract} depicts an example \gls*{gt} rule ($L \to R$) to start an activity in abstract syntax.
 The rule is straightforward, moving a token from the incoming sequence flow to the activity itself.
@@ -280,7 +280,7 @@ Our \gls*{hot} defines a formal execution semantics of \gls*{bpmn}, similar to o
 Start events do not need \gls*{gt} rules since the generated start graph of the \gls*{gt} system will contain a token for each outgoing sequence flow of an NSE.
 Other types of start events are triggered in corresponding throw event rules.
 
-\autoref{fig:endTemplate} depicts the rule generation template for end events (\textsf{NEE} in \autoref{fig:bpmnelementsOverview}).
+\autoref{fig:endTemplate} depicts the rule generation template for \textit{none end events} (\textsf{NEE}s in \autoref{fig:bpmnelementsOverview}).
 All rule generation templates show a state-changing element (\textsf{FlowNode}) with surrounding flows in the left column and the applicable rule generation in the right column.
 The left column shows instances of the \gls*{bpmn} metamodel (\autoref{fig:bpmnMetamodel}), and the right column shows the generated rules typed by the \gls*{bpmn} execution metamodel (see \autoref{fig:typeGraph}).
 If more than one rule is generated from a \textsf{FlowNode}, an expression defines how each rule is generated.
@@ -288,7 +288,6 @@ For example, the expression $\forall \text{sf} \in \text{E.incSFs}$ for the rule
 We use ``.'' in expressions to navigate along the associations of the \gls*{bpmn} metamodel shown in \autoref{fig:bpmnMetamodel}.
 In the example, \textsf{E.incSFs} means following all \textsf{incSFs} links for a \textsf{FlowNode} object, resulting in a set of \textsf{SequenceFlow} objects.
 
-% Implementation currently only allows one incoming flow.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{images/end_template.pdf}
