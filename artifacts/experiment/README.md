@@ -1,8 +1,8 @@
 # Prerequisites
 1. Install the command-line benchmark tool [hyperfine](https://github.com/sharkdp/hyperfine#installation).
-   - The experiment was run with hyperfine version **1.15.0** on Windows 10.
-   - The hyperfine windows release **1.15.0** is contained in `artifacts/dependencies`.
-2. Install Java version 11 (Groove might also work with later versions).
+   - The experiment was run with hyperfine version **1.18.0**.
+   - The hyperfine windows release **1.18.0** is contained in `artifacts/dependencies`.
+2. Install Java version 20.
 
 The experiment was run with Groove version **6.1.0**, which is contained in `groove-6_1_0` and does not have to be installed.
 All experiments were run using a Windows 11 machine with an AMD Ryzen 7700X processor with 32 GB DDR5-5600 RAM on NVMe SSD storage.
