@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="FlowNode_2926_start" role="rule" edgeids="false" edgemode="directed">
+        <node id="n37227"/>
+        <edge from="n37227" to="n37227">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n37227" to="n37227">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n37225"/>
+        <edge from="n37225" to="n37225">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n37225" to="n37225">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n37222"/>
+        <edge from="n37222" to="n37222">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n37223"/>
+        <edge from="n37223" to="n37223">
+            <attr name="label">
+                <string>string:"800"</string>
+            </attr>
+        </edge>
+        <node id="n37224"/>
+        <edge from="n37224" to="n37224">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n37226"/>
+        <edge from="n37226" to="n37226">
+            <attr name="label">
+                <string>string:"FlowNode_2924 -&gt; FlowNode_2926 (sequenceFlow_e5b089e5-b09f-46a6-9582-7c53af154813)"</string>
+            </attr>
+        </edge>
+        <node id="n37228"/>
+        <edge from="n37228" to="n37228">
+            <attr name="label">
+                <string>string:"FlowNode_2926 (FlowNode_2926)"</string>
+            </attr>
+        </edge>
+        <edge from="n37222" to="n37227">
+            <attr name="label">
+                <string>new:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n37227" to="n37228">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n37222" to="n37225">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n37225" to="n37226">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n37222" to="n37223">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n37222" to="n37224">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>
