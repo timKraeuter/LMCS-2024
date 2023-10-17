@@ -660,9 +660,6 @@ In addition, the token-based proposition editor is also published as an npm modu
 Furthermore, we published our \gls*{gt} rule generation library to the maven central repository (\textit{graph-rule-generation}).
 The library currently contains an implementation to generate \gls*{gt} rule for Groove but could also be used for other graph transformation tools in the future.
 
-Finally, compared to \cite{krauterFormalizationAnalysisBPMN2023}, we have conducted a more detailed performance investigation of our approach, which is described in the next section.
-
-% TODO: Rewrite and improve upon
 \subsection{Experiments}
 
 Model checking is a useful technique but often falls short in practice due to insufficient performance.
@@ -671,55 +668,24 @@ We experimented with ten different \gls*{bpmn} models from \cite{houhouFirstOrde
 We picked the models at random, besides disregarding some similar models.
 The models include realistic business process models (001, 002, and 020) \cite{houhouFirstOrderLogicVerification2022}.
 
-To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2022} (version 1.18.0), which ran state space exploration for each \gls*{bpmn} model ten times.
+To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2022} (version 1.18.0), which ran the \gls*{hot}/state space exploration for each \gls*{bpmn} model ten times.
 The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 6.1.0 \cite{krauterArtifactsLMCS2023}.
+Compared to \cite{krauterFormalizationAnalysisBPMN2023}, we used the newest \gls*{hot} implementation and the newest Groove and hyperfine versions.
 
 First, we ran our \gls*{hot} for the \gls*{bpmn} models.
-The \gls*{hot} took less than one second to generate a \gls*{gt} system for each model, see \autoref{table:hotBenchmark}.
-Thus, the generation of the \gls*{gt} systems is fast enough.
-
-% Not sure if this table is adding much value.
-\begin{table}[ht]
-\centering
-\caption[Experimental results for the HOT]{Experimental results for the HOT}
-
-\begin{tabular}{| c | c | c || c |}
- \hline
- BPMN model & Processes & Nodes (gw.) & Total time \\
- \hline\hline
- 001 & 2 & 17(2) & $\sim$ 0.49 s \\
- \hline
- 002 & 2 & 16(2) & $\sim$ 0.48 s \\
- \hline
- 007 & 1 & 8(2) & $\sim$ 0.43 s \\
- \hline
- 008 & 1 & 11(2) &$\sim$ 0.44 s \\
- \hline
- 009 & 1 & 12(2) & $\sim$ 0.44 s \\
- \hline
- 010 & 1 & 15(2) & $\sim$ 0.47 s \\
- \hline
- 011 & 1 & 15(2) & $\sim$ 0.46 s \\
- \hline
- 015 & 1 & 14(2) & $\sim$ 0.46 s \\
- \hline
- 016 & 1 & 14(2) & $\sim$ 0.47 s \\
- \hline
- 020 & 1 & 39(6) & $\sim$ 0.58 s \\
- \hline
-\end{tabular}
-\label{table:hotBenchmark}
-\end{table}
+The \gls*{hot} takes approximately half a second to generate a \gls*{gt} system for each model.
+Thus, the generation of the \gls*{gt} systems for these models is fast enough.
 
 Second, we ran a full state exploration using the resulting ten \gls*{gt} systems, see \autoref{table:stateSpaceBenchmark}.
-The exploration takes roughly one second for most of the models.
+The exploration takes around one second for most of the models.
 Only model \textit{020} needs nearly two seconds due to its larger state space.
 Furthermore, up to one second is spent on startup, not model checking.
 For example, Groove reports only 722 ms for state space exploration for model \textit{020}.
 
 We conclude that our approach is sufficiently fast for models of average size.
-In addition, there is still room for optimization, such as avoiding costly I/O to disk.
-A comprehensive benchmark, including a detailed comparison to other tools and scaling up the model size, is left for future work.
+In addition, there is still room for optimization, such as avoiding costly I/O to disk or parallelizing the \gls*{hot}.
+In the next section, we test the scalability of our approach.
+However, a comprehensive benchmark, including a detailed comparison to other tools, is left for future work.
 
 \begin{table}[ht]
 \centering
@@ -752,6 +718,30 @@ A comprehensive benchmark, including a detailed comparison to other tools and sc
 \end{tabular}
 \label{table:stateSpaceBenchmark}
 \end{table}
+
+\section{Scalability experiment} \label{sec:scalability}
+
+In this section, we describe a scalability experiment of our approach when applied to three hundred \gls*{bpmn} models with increasing model size. 
+
+\subsection{Setup}
+
+
+\subsection{Results}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/HOT_scalability.pdf}
+    \caption{HOT scalability results}
+    \label{fig:hotScalability}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/StateSpaceGeneration_scalability.pdf}
+    \caption{State space scalability results}
+    \label{fig:stateSpaceScalability}
+\end{figure}
+
 
 \section{Related work} \label{sec:relatedWork}
 % Petri nets formalisms
