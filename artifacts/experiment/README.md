@@ -14,7 +14,7 @@ All experiments were run using a Windows 11 machine with an AMD Ryzen 7700X proc
 
 **Experiment**:
 ```bash
-hyperfine -L bpmnModel models/e001.bpmn,models/e002.bpmn,models/e007.bpmn,models/e008.bpmn,models/e009.bpmn,models/e010.bpmn,models/e011.bpmn,models/e015.bpmn,models/e016.bpmn,models/e020.bpmn "java -jar ruleGenerator-1.jar {bpmnModel} ./grammars" --output ./HOToutput.txt --export-json HOTstats.json
+hyperfine -L bpmnModel models/e001.bpmn,models/e002.bpmn,models/e007.bpmn,models/e008.bpmn,models/e009.bpmn,models/e010.bpmn,models/e011.bpmn,models/e015.bpmn,models/e016.bpmn,models/e020.bpmn "java -jar ruleGenerator-1.jar {bpmnModel} ./grammars" --output ./results/HOToutput.txt --export-json ./results/HOTstats.json
 ```
 
 The HOT takes less than half a second and thus is adequately fast.
@@ -39,7 +39,7 @@ hyperfine -L bpmnModel models/scalability/001.bpmn,models/scalability/002.bpmn,m
 
 **Experiment**:
 ```bash
-hyperfine -L grammar grammars/e001.gps,grammars/e002.gps,grammars/e007.gps,grammars/e008.gps,grammars/e009.gps,grammars/e010.gps,grammars/e011.gps,grammars/e015.gps,grammars/e016.gps,grammars/e020.gps "java -jar dependencies/groove-6_1_0/bin/Generator.jar {grammar}" --output ./SGenoutput.txt --export-json Sgenstats.json
+hyperfine -L grammar grammars/e001.gps,grammars/e002.gps,grammars/e007.gps,grammars/e008.gps,grammars/e009.gps,grammars/e010.gps,grammars/e011.gps,grammars/e015.gps,grammars/e016.gps,grammars/e020.gps "java -jar dependencies/groove-6_1_0/bin/Generator.jar {grammar}" --output ./results/SGenoutput.txt --export-json ./results/Sgenstats.json
 ```
 
 ## State space generation scalability
