@@ -743,10 +743,14 @@ We then repeat adding one block at a time for each new model until we reach 300 
 \end{figure}
 
 \autoref{table:inputModels} states the characteristics of the generated BPMN models, such as the number of gateways, flow nodes, and sequence flows.
-% TODO: Why stop at 300?
-% 50 blocks add roughly 400 elements
-% Tools are struggling with such large models. And user also cannot understand them anymore! --> Call activities and subprocesses.
+One can deduce from the table that adding fifty blocks adds around 400 \gls*{bpmn} elements to a model.
 All models, including their characteristics and how to generate them, can be found in \cite{krauterArtifactsLMCS2023}.
+
+The \gls*{bpmn} modeling tools we have used are already struggling with models that have 200 or more blocks.
+Thus, we stopped at 300 blocks since we think \gls*{bpmn} models in practice are much smaller and so we could still run our benchmark in reasonable time.
+\gls*{bpmn} models are developed together by the business and development people of an organization.
+Consequently, large models are divided into smaller submodels such that they are still understandable by humans.
+From our experience this best practice leads to tiny models compared to our scalability test. 
 
 \begin{table}[ht]
 \centering
@@ -775,6 +779,11 @@ All models, including their characteristics and how to generate them, can be fou
 
 \subsection{Results}
 
+% Description
+\autoref{fig:hotScalability} depicts the results of benchmarking our \gls*{hot} with the generated \gls*{bpmn} models.
+It shows the average runtime of five runs for transforming each \gls*{bpmn} model, calculated by hyperfine \cite{peterHyperfine2022}.
+We used the same machine and setup as discussed for our performance experiments in \autoref{sec:impl}.
+
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.7\textwidth]{images/HOT_scalability.pdf}
@@ -782,7 +791,12 @@ All models, including their characteristics and how to generate them, can be fou
     \label{fig:hotScalability}
 \end{figure}
 
+% Interpretation and take aways
 % Looks linear as expected O(n) where n is the number of flow nodes(for loop for each flow-node).
+
+% Description
+\autoref{fig:stateSpaceScalability} depicts the results of benchmarking the state space generation in Groove for the \gls*{gt}-systems obtained by our \gls*{hot}.
+It shows the average runtime of five runs, calculated by hyperfine \cite{peterHyperfine2022}.
 
 \begin{figure}[ht]
     \centering
@@ -790,6 +804,8 @@ All models, including their characteristics and how to generate them, can be fou
     \caption{State space scalability results}
     \label{fig:stateSpaceScalability}
 \end{figure}
+
+% Interpretation and take aways
 
 \section{Related work} \label{sec:relatedWork}
 % Petri nets formalisms
