@@ -85,4 +85,4 @@ The experiments are described [here](https://github.com/timKraeuter/LMCS-2024/tr
 
 # Scalability test
 
-The scalability test is described [here](https://github.com/timKraeuter/LMCS-2024/tree/main/artifacts/experiment#readme).
+The scalability test is described [here](https://github.com/timKraeuter/LMCS-2024/tree/main/artifacts/experiment#scalability).
