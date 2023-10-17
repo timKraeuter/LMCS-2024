@@ -719,9 +719,9 @@ However, a comprehensive benchmark, including a detailed comparison to other too
 \label{table:stateSpaceBenchmark}
 \end{table}
 
-\section{Scalability experiment} \label{sec:scalability}
+\section{Scalability test} \label{sec:scalability}
 
-In this section, we describe a scalability experiment of our approach when applied to 300 \gls*{bpmn} models with increasing model size. 
+In this section, we test the scalability of our approach by applying it to 300 \gls*{bpmn} models with increasing model size. 
 
 \subsection{Setup}
 
@@ -729,26 +729,27 @@ We generated 300 \gls*{bpmn} to test the scalability of our approach.
 We used the following approach to include different \gls*{bpmn} elements in our models.
 We generated the models incrementally, increasing the number of \textit{blocks} they contain.
 Thus, model one contains one block, model two contains two blocks, and so forth until the last model contains 300 blocks.
-During the generation, we alternate between the three different blocks shown in \autoref{fig:blocks}
+During the generation, we alternate between the three different blocks shown in \autoref{fig:blocks}.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/StateSpaceGeneration_scalability.pdf}
-    \caption{Three different blocks of BPMN elements}
+    \includegraphics[width=0.9\textwidth]{images/blocks.pdf}
+    \caption{Different blocks for BPMN model generation}
     \label{fig:blocks}
 \end{figure}
 
-For example, the \gls*{bpmn} model with three blocks is depicted in \autoref{fig:threeBlockModel}
+For example, the \gls*{bpmn} model with three blocks is depicted in \autoref{fig:threeBlockModel}.
+We then repeat adding one block at a time for each new model until we reach 300 models.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/StateSpaceGeneration_scalability.pdf}
-    \caption{Three different blocks of BPMN elements}
+    \includegraphics[width=1\textwidth]{images/003.pdf}
+    \caption{A generated BPMN model with three blocks}
     \label{fig:threeBlockModel}
 \end{figure}
 
-\autoref{table:inputModels} states characteristics of the generated BPMN models, such as the number of gateways, flow nodes, and sequence flows. 
-All models, including information about their characteristics and how to generate them, can be found in \cite{krauterArtifactsLMCS2023}.
+\autoref{table:inputModels} states the characteristics of the generated BPMN models, such as the number of gateways, flow nodes, and sequence flows. 
+All models, including information about each of their characteristics and how to generate them, can be found in \cite{krauterArtifactsLMCS2023}.
 
 \begin{table}[ht]
 \centering
