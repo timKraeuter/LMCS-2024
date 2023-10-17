@@ -18,7 +18,7 @@ with open(args.file) as f:
 all_means = [b["mean"] for b in results]
 plt.plot(list(range(1,301)), all_means)
 
-plt.title("HOT scalability")
+# plt.title("HOT scalability")
 plt.xlabel("Blocks per BPMN model")
 plt.ylabel("Runtime in s")
 
