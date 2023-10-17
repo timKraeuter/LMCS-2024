@@ -32,7 +32,7 @@
 
 \begin{document}
 
-\title[A higher-order approach to the formalization and analysis of BPMN using graph transformation systems]{A higher-order approach to the formalization and analysis of BPMN using graph transformation systems\rsuper*}
+\title[Formalization and analysis of BPMN using graph transformation systems]{A higher-order approach to the formalization and analysis of BPMN using graph transformation systems\rsuper*}
 \titlecomment{{\lsuper*}This article is an extended version of \cite{krauterFormalizationAnalysisBPMN2023}}
 % \thanks{thanks, optional.}	%optional
 
@@ -125,8 +125,8 @@ In addition, we enhanced the \enquote{custom properties} subsection in \autoref{
 Furthermore, we made extensive improvements to the \gls*{bpmn} analyzer tool and thus rewrote the \enquote{Implementation} section.
 A user now follows three steps to analyze his \gls*{bpmn} model.
 The second step consists of a new atomic proposition editor based on our concrete syntax for describing snapshots of processes.
-% Implementation: Experiments
-Finally, we expanded our experiments subsection by adding a scalability test with a thousand synthetically generated BPMN models. 
+% Scalability
+Finally, we added \autoref{sec:scalability} testing the scalability of our approach with three hundred synthetically generated BPMN models of increasing size. 
 
 
 % Article outline
@@ -748,8 +748,11 @@ We then repeat adding one block at a time for each new model until we reach 300 
     \label{fig:threeBlockModel}
 \end{figure}
 
-\autoref{table:inputModels} states the characteristics of the generated BPMN models, such as the number of gateways, flow nodes, and sequence flows. 
-All models, including information about each of their characteristics and how to generate them, can be found in \cite{krauterArtifactsLMCS2023}.
+\autoref{table:inputModels} states the characteristics of the generated BPMN models, such as the number of gateways, flow nodes, and sequence flows.
+% TODO: Why stop at 300?
+% 50 blocks add roughly 400 elements
+% Tools are struggling with such large models. And user also cannot understand them anymore! --> Call activities and subprocesses.
+All models, including their characteristics and how to generate them, can be found in \cite{krauterArtifactsLMCS2023}.
 
 \begin{table}[ht]
 \centering
