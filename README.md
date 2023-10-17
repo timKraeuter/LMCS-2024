@@ -77,3 +77,12 @@ These libraries are also helpful in other contexts and have thus been shared ind
 The [wiki](https://github.com/timKraeuter/Rewrite_Rule_Generation/wiki) describes our [comprehensive test suite](https://github.com/timKraeuter/Rewrite_Rule_Generation/wiki/Test-Suite) to test our coverage of BPMN features. 
 
 Feel free to contact me for further information.
+
+
+## Experiments
+
+The experiments are described [here](https://github.com/timKraeuter/LMCS-2024/tree/main/artifacts/experiment#readme).
+
+# Scalability test
+
+The scalability test is described [here](https://github.com/timKraeuter/LMCS-2024/tree/main/artifacts/experiment#readme).
