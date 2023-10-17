@@ -37,6 +37,10 @@ hyperfine -L grammar grammars/e001.gps,grammars/e002.gps,grammars/e007.gps,gramm
 
 # Scalability
 
+The models for the scalability test were generated using `BPMNModelBuilder.createModelsWithUpToXBlocks(300)`, see the class [ScalabilityTest](https://github.com/timKraeuter/Rewrite_Rule_Generation/blob/master/generator/src/test/java/no/tk/scalability/ScalabilityTest.java).
+One can also generate bigger models or change the contents of the generated models.
+The results were zipped and are contained in **scalability.zip** in the subdirectory `models`.
+
 ## HOT Scalability
 
 1. Clone this repository.
