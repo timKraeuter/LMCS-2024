@@ -19,7 +19,7 @@ all_means = [b["mean"] for b in results]
 plt.plot(list(range(1,301)), all_means)
 
 # plt.title("State space generation scalability")
-plt.xlabel("Block per BPMN model")
-plt.ylabel("Runtime in s")
+plt.xlabel("Blocks per BPMN model")
+plt.ylabel("Average runtime in s")
 
 plt.show()

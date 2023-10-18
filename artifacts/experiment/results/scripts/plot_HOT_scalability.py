@@ -18,7 +18,7 @@ with open(args.file) as f:
 all_means = [b["mean"] for b in results]
 x = list(range(1, 301))
 
-plt.plot(x, all_means, label="data")
+plt.plot(x, all_means, label="average runtime data")
 
 # Linear regression
 slope, intercept, r, p, std_err = stats.linregress(x, all_means)
@@ -29,10 +29,10 @@ def myfunc(x):
 
 
 mymodel = list(map(myfunc, x))
-plt.plot(x, mymodel, label="linregress")
+plt.plot(x, mymodel, label="linear regression")
 
 # plt.title("HOT scalability")
 plt.xlabel("Blocks per BPMN model")
-plt.ylabel("Runtime in s")
+plt.ylabel("Average runtime in s")
 plt.legend()
 plt.show()
