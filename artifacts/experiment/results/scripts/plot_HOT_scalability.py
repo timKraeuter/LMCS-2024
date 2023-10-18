@@ -16,20 +16,20 @@ with open(args.file) as f:
     results = json.load(f)["results"]
 
 all_means = [b["mean"] for b in results]
-x = list(range(1, 301))
+blocks = list(range(1, 301))
 
-plt.plot(x, all_means, label="average runtime data")
+plt.plot(blocks, all_means, label="average runtime data")
 
 # Linear regression
-slope, intercept, r, p, std_err = stats.linregress(x, all_means)
+slope, intercept, r, p, std_err = stats.linregress(blocks, all_means)
 
 
 def myfunc(x):
     return slope * x + intercept
 
 
-mymodel = list(map(myfunc, x))
-plt.plot(x, mymodel, label="linear regression")
+mymodel = list(map(myfunc, blocks))
+plt.plot(blocks, mymodel, label="linear regression")
 
 # plt.title("HOT scalability")
 plt.xlabel("Blocks per BPMN model")
