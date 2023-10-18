@@ -23,6 +23,7 @@
 \def\eg{{\em e.g.}}
 \def\cf{{\em cf.}}
 \def\ie{{\em i.e.}}
+\def\etc{{\em etc.}}
 
 \begin{document}
 
@@ -783,7 +784,7 @@ We used the same machine and setup as discussed for our performance experiments 
 
 % Interpretation and takeaways
 The average \gls*{hot} runtimes data fits the linear regression shown in \autoref{fig:hotScalability} well.
-This makes sense since the \gls*{hot} algorithm has linear runtime complexity since it is essentially iterating over all flow nodes of a \gls*{bpmn} model to generate \gls*{gt} rules.
+This makes sense since the \gls*{hot} algorithm has \textit{linear runtime complexity} since it iterates over all flow nodes of a \gls*{bpmn} model to generate \gls*{gt} rules.
 We conclude that the \gls*{hot} is fast enough (around one second or less) for models of reasonable size (50 blocks or less).
 However, the implementation of the \gls*{hot} can still be optimized.
 
@@ -799,6 +800,11 @@ It shows the average runtime of five runs, calculated by hyperfine \cite{peterHy
 \end{figure}
 
 % Interpretation and takeaways
+The increase in the runtime of the state space generation does \textit{not} look linear.
+However, models of reasonable size (50 blocks or less) are handled in less than two seconds.
+To summarize, using our approach, we can conservatively estimate that these models can be checked (\gls*{hot} followed by a full state space generation) in around three seconds or less.
+Plenty of optimization potential, such as parallelization, on-the-fly model checking, avoiding costly I/O operations, \etc, still exists.
+which can lead to future improvements in runtime. 
 
 \section{Related work} \label{sec:relatedWork}
 % Petri nets formalisms
