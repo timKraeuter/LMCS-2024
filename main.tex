@@ -60,7 +60,7 @@ Our approach is based on a higher-order transformation from BPMN models to graph
 As proof of concept, we have implemented our approach in an open-source web-based tool.
 \end{abstract}
 
-% TODO: Archive repo with DOI using zenodo: https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content
+% TODO: Archive repo with DOI using Zenodo.
 
 \maketitle
 \section{Introduction}
@@ -662,7 +662,7 @@ We experimented with ten different \gls*{bpmn} models from \cite{houhouFirstOrde
 We picked the models at random, besides disregarding some similar models.
 The models include realistic business process models (001, 002, and 020) \cite{houhouFirstOrderLogicVerification2022}.
 
-To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2022} (version 1.18.0), which ran the \gls*{hot}/state space exploration for each \gls*{bpmn} model ten times.
+To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2023} (version 1.18.0), which ran the \gls*{hot}/state space exploration for each \gls*{bpmn} model ten times.
 The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 6.1.0 \cite{krauterArtifactsLMCS2023}.
 Compared to \cite{krauterFormalizationAnalysisBPMN2023}, we used the newest \gls*{hot} implementation and the newest Groove and hyperfine versions.
 
@@ -781,7 +781,7 @@ From our experience this best practice leads to tiny models compared to our scal
 
 % Description
 \autoref{fig:hotScalability} depicts the results of benchmarking our \gls*{hot} with the generated \gls*{bpmn} models.
-It shows the average runtime of five runs for transforming each \gls*{bpmn} model, calculated by hyperfine \cite{peterHyperfine2022}.
+It shows the average runtime of five runs for transforming each \gls*{bpmn} model, calculated by hyperfine \cite{peterHyperfine2023}.
 We used the same machine and setup as discussed for our performance experiments in \autoref{sec:impl}.
 
 \begin{figure}[ht]
@@ -796,7 +796,7 @@ We used the same machine and setup as discussed for our performance experiments 
 
 % Description
 \autoref{fig:stateSpaceScalability} depicts the results of benchmarking the state space generation in Groove for the \gls*{gt}-systems obtained by our \gls*{hot}.
-It shows the average runtime of five runs, calculated by hyperfine \cite{peterHyperfine2022}.
+It shows the average runtime of five runs, calculated by hyperfine \cite{peterHyperfine2023}.
 
 \begin{figure}[ht]
     \centering
@@ -921,7 +921,7 @@ In addition, we can use this environment to visualize potential counterexamples 
 
 % TODO: Add after review
 % \section*{Acknowledgment}
-%   \noindent We want to thank the anonymous reviewers for their valuable comments and helpful suggestions.
+%   \noindent We thank the anonymous reviewers for their valuable comments and helpful suggestions.
   
 \bibliographystyle{alphaurl} 
 \bibliography{bib}
