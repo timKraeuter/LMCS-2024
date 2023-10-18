@@ -51,7 +51,7 @@ Our approach is based on a higher-order transformation from BPMN models to graph
 As proof of concept, we have implemented our approach in an open-source web-based tool.
 \end{abstract}
 
-% TODO: Release on GitHub and use the obtained DOI --> Autoimport in Zotero.
+% TODO: Publish graph-transformation lib on maven central.
 
 \maketitle
 \section{Introduction}
@@ -180,7 +180,7 @@ We do not repeat them and instead focus on our practical contribution.
 The approach supports all the \gls*{bpmn} elements depicted in \autoref{fig:bpmnelementsOverview}.
 These \gls*{bpmn} elements are divided into \textsf{Events}, \textsf{Gateways}, \textsf{Activities}, and \textsf{Edges}.
 \textsf{Events} and \textsf{Activities} are further divided into subgroups.
-Although all these elements have been implemented and tested (see \cite{krauterArtifactsLMCS2023}), we only explain the realization of the elements marked with a green or blue background due to space limitations.
+Although all these elements have been implemented and tested (see \cite{timkrauterLMCS2024Artifacts2023}), we only explain the realization of the elements marked with a green or blue background due to space limitations.
 The green elements were already described in \cite{krauterFormalizationAnalysisBPMN2023}, while explanations for the blue elements were added.
 In the following, first, we define the \gls*{bpmn} execution metamodel to represent the \gls*{bpmn} state structure, then we explain our formalization of the elements in \autoref{fig:bpmnelementsOverview}.
 
@@ -479,7 +479,7 @@ A TEE abnormally terminates the running process \cite{objectmanagementgroupBusin
 One rule is generated for each incoming sequence flow of a TEE.
 The rule consumes the incoming token, similar to the rules for end events, but also changes the process snapshot state to \textsf{Terminated}.
 In addition, the rule deletes all other tokens of the process snapshot using a universally quantified nested rule (see dotted rectangle labeled \textbf{All} in \autoref{fig:terminateEventTemplate}).
-Terminating a process must also terminate its subprocesses, which is not shown in the rule template but is described in our wiki \cite{krauterArtifactsLMCS2023}.
+Terminating a process must also terminate its subprocesses, which is not shown in the rule template but is described in our wiki \cite{timkrauterLMCS2024Artifacts2023}.
 
 \section{Model checking BPMN} \label{sec:modelChecking}
 
@@ -539,7 +539,7 @@ It is shown in \autoref{fig:allTerminated} using abstract Groove syntax.
 \end{minipage}
 \vskip.3\baselineskip
 
-Checking the properties \textit{Safeness}, \textit{Option to Complete}, and \textit{No Dead Activities} is implemented in our tool \cite{krauterArtifactsLMCS2023}.
+Checking the properties \textit{Safeness}, \textit{Option to Complete}, and \textit{No Dead Activities} is implemented in our tool \cite{timkrauterLMCS2024Artifacts2023}.
 The property \textit{Proper Completion} is not yet implemented, but all the information needed can be found in the \gls*{gt} systems state space.
 
 \subsection{Custom properties} \label{subsec:customProperties}
@@ -566,7 +566,7 @@ Another proposition for the same erroneous process is shown in \autoref{fig:ship
 The proposition defines that when the activity \textit{Ship goods} runs (has a token) the activity \textit{Retrieve payment} should not run (has no token).
 \enquote{Has no token} is depicted by crossing out the token symbol and represents an extension of our concrete syntax introduced for defining propositions.
 This proposition can be used to define a property to check if shipping ever occurs while retrieving payments has not been completed yet.
-The \gls*{gt} system for the order handling process containing both propositions can be found in \cite{krauterArtifactsLMCS2023}.
+The \gls*{gt} system for the order handling process containing both propositions can be found in \cite{timkrauterLMCS2024Artifacts2023}.
 
 \begin{figure}[ht]
     \centering
@@ -595,14 +595,14 @@ In addition, we describe initial performance experiments.
 
 \subsection{BPMN Analyzer tool}
 
-Our approach is implemented in a web-based tool called \textit{\gls*{bpmn} Analyzer}, which is open-source, publicly available, and does not require any installation \cite{krauterArtifactsLMCS2023, krauterFormalizationAnalysisBPMN2023}.
+Our approach is implemented in a web-based tool called \textit{\gls*{bpmn} Analyzer}, which is open-source, publicly available, and does not require any installation \cite{timkrauterLMCS2024Artifacts2023, krauterFormalizationAnalysisBPMN2023}.
 \autoref{fig:implScreenshot} depicts a screenshot of the \gls*{bpmn} Analyzer.
 We use the order handling process from \cite{ruckerPracticalProcessAutomation2021} as an example.
 It is the same \gls*{bpmn} model as in \autoref{fig:shippedTwiceProposition} and \autoref{fig:shippingAfterPayment} but without modeling errors.
 
 The modeler can create or upload a \gls*{bpmn} model, which can then be verified using either general \gls*{bpmn} properties or custom CTL properties.
 BPMN Analyzer can generate a \gls*{gt} system for the supplied \gls*{bpmn} model and run model checking in Groove \cite{kastenbergModelCheckingDynamic2006}. 
-To evaluate the correctness of our \gls*{hot}, we have created a comprehensive test suite \cite{krauterArtifactsLMCS2023}.
+To evaluate the correctness of our \gls*{hot}, we have created a comprehensive test suite \cite{timkrauterLMCS2024Artifacts2023}.
 It verifies that rules are generated as defined by the rule generation templates in the previous section for each \gls*{bpmn} element.
 
 \begin{figure}[ht]
@@ -639,7 +639,7 @@ So far, we have added two templates for checking if a state (described by a prop
 Thus, simple safety and liveness properties can be checked using these templates.
 Model-checking experts in an organization can define more templates in the future and share them for reuse. 
 
-Third, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{krauterArtifactsLMCS2023}.
+Third, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{timkrauterLMCS2024Artifacts2023}.
 The \gls*{bpmn} execution metamodel needed for the definition of custom propositions is published as an npm module (\textit{token-bpmn-moddle}).
 In addition, the token-based proposition editor is also published as an npm module (\textit{token-bpmn}).
 Furthermore, we published our \gls*{gt} rule generation library to the maven central repository (\textit{graph-rule-generation}).
@@ -654,7 +654,7 @@ We picked the models at random, besides disregarding some similar models.
 The models include realistic business process models (001, 002, and 020) \cite{houhouFirstOrderLogicVerification2022}.
 
 To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2023} (version 1.18.0), which ran the \gls*{hot}/state space exploration for each \gls*{bpmn} model ten times.
-The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 6.1.0 \cite{krauterArtifactsLMCS2023}.
+The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 6.1.0 \cite{timkrauterLMCS2024Artifacts2023}.
 Compared to \cite{krauterFormalizationAnalysisBPMN2023}, we used the newest \gls*{hot} implementation and the newest Groove and hyperfine versions.
 
 First, we ran our \gls*{hot} for the \gls*{bpmn} models.
@@ -735,7 +735,7 @@ We then repeat adding one block at a time for each new model until we reach 300 
 
 \autoref{table:bpmnModelCharacteristics} states the characteristics of the generated BPMN models, such as the number of gateways, flow nodes, and sequence flows.
 One can deduce from the table that adding fifty blocks adds around 400 \gls*{bpmn} elements to a model.
-All models, including their characteristics and how to generate them, can be found in \cite{krauterArtifactsLMCS2023}.
+All models, including their characteristics and how to generate them, can be found in \cite{timkrauterLMCS2024Artifacts2023}.
 
 The \gls*{bpmn} modeling tools we have used are already struggling with models that have 200 or more blocks.
 Thus, we stopped at 300 blocks since we think \gls*{bpmn} models in practice are much smaller, and so we could still run our benchmark in a reasonable time.
