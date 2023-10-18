@@ -41,16 +41,6 @@
 \address{University of Applied Sciences, FHDW, Hanover, Germany}
 \email{harald.koenig@fhdw.de}
 
-%% etc.
-
-%% required for running head on odd and even pages, use suitable
-%% abbreviations in case of long titles and many authors:
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% the abstract has to PRECEDE the command \maketitle:
-%% be sure not to issue the \maketitle command twice!
-
 \begin{abstract}
   \noindent
 The Business Process Modeling Notation (BPMN) is a widely used standard notation for defining intra- and inter-organizational workflows.
@@ -60,15 +50,15 @@ Our approach is based on a higher-order transformation from BPMN models to graph
 As proof of concept, we have implemented our approach in an open-source web-based tool.
 \end{abstract}
 
-% TODO: Archive repo with DOI using Zenodo.
+% TODO: Release on GitHub and use the obtained DOI --> Autoimport in Zotero.
 
 \maketitle
 \section{Introduction}
 In today's fast-paced business environment, organizations with complex workflows require a powerful means to accurately map, analyze, and optimize their processes. 
 \gls*{bpmn} \cite{objectmanagementgroupBusinessProcessModel2013} is a widely used standard to define these workflows.
 However, the informal description of the \gls*{bpmn} execution semantics leads to different interpretations of \gls*{bpmn} models and difficulties in checking behavioral properties \cite{corradiniFormalApproachAnalysis2021}.
-Various studies have shown that business process models indeed suffer from control-flow errors \cite{mendlingEmpiricalStudiesProcess2009}.
-Formalizing \gls*{bpmn} would reduce the cost of business process automation drastically by facilitating the detection of errors and optimization potentials in process models already during design time.
+Various studies have shown that business process models suffer from control-flow errors \cite{mendlingEmpiricalStudiesProcess2009}.
+Formalizing \gls*{bpmn} would drastically reduce the cost of business process automation by facilitating the detection of errors and optimization potentials in process models already during design time.
 To this end, we propose a formalization that covers most of the \gls*{bpmn} elements used in practice and supports checking behavioral properties.
 General behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to \gls*{bpmn} \cite{corradiniClassificationBPMNCollaborations2018}, which can uncover potential flaws in \gls*{bpmn} models leading to deadlocks or other undesirable execution states.
 
@@ -727,7 +717,7 @@ During the generation, we alternate between the three different blocks shown in 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/blocks.pdf}
+    \includegraphics[width=1\textwidth]{images/blocks.pdf}
     \caption{Different blocks for BPMN model generation}
     \label{fig:blocks}
 \end{figure}
@@ -742,15 +732,15 @@ We then repeat adding one block at a time for each new model until we reach 300 
     \label{fig:threeBlockModel}
 \end{figure}
 
-\autoref{table:inputModels} states the characteristics of the generated BPMN models, such as the number of gateways, flow nodes, and sequence flows.
+\autoref{table:bpmnModelCharacteristics} states the characteristics of the generated BPMN models, such as the number of gateways, flow nodes, and sequence flows.
 One can deduce from the table that adding fifty blocks adds around 400 \gls*{bpmn} elements to a model.
 All models, including their characteristics and how to generate them, can be found in \cite{krauterArtifactsLMCS2023}.
 
 The \gls*{bpmn} modeling tools we have used are already struggling with models that have 200 or more blocks.
-Thus, we stopped at 300 blocks since we think \gls*{bpmn} models in practice are much smaller and so we could still run our benchmark in reasonable time.
-\gls*{bpmn} models are developed together by the business and development people of an organization.
-Consequently, large models are divided into smaller submodels such that they are still understandable by humans.
-From our experience this best practice leads to tiny models compared to our scalability test. 
+Thus, we stopped at 300 blocks since we think \gls*{bpmn} models in practice are much smaller, and so we could still run our benchmark in a reasonable time.
+\gls*{bpmn} models are developed together by the organization's business and development people.
+Consequently, large models are divided into smaller submodels so that humans still understand them.
+From our experience, this best practice leads to models with less than 400 elements (comparable to less than 50 blocks in \autoref{table:bpmnModelCharacteristics}). 
 
 \begin{table}[ht]
 \centering
@@ -774,7 +764,7 @@ From our experience this best practice leads to tiny models compared to our scal
  300 & 400 & 1102 & 1301 & 2403 \\
  \hline
 \end{tabular}
-\label{table:inputModels}
+\label{table:bpmnModelCharacteristics}
 \end{table}
 
 \subsection{Results}
@@ -786,13 +776,16 @@ We used the same machine and setup as discussed for our performance experiments 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/HOT_scalability.pdf}
+    \includegraphics[width=0.8\textwidth]{images/HOT_scalability.pdf}
     \caption{HOT scalability results}
     \label{fig:hotScalability}
 \end{figure}
 
-% Interpretation and take aways
-% Looks linear as expected O(n) where n is the number of flow nodes(for loop for each flow-node).
+% Interpretation and takeaways
+The average \gls*{hot} runtimes data fits the linear regression shown in \autoref{fig:hotScalability} well.
+This makes sense since the \gls*{hot} algorithm has linear runtime complexity since it is essentially iterating over all flow nodes of a \gls*{bpmn} model to generate \gls*{gt} rules.
+We conclude that the \gls*{hot} is fast enough (around one second or less) for models of reasonable size (50 blocks or less).
+However, the implementation of the \gls*{hot} can still be optimized.
 
 % Description
 \autoref{fig:stateSpaceScalability} depicts the results of benchmarking the state space generation in Groove for the \gls*{gt}-systems obtained by our \gls*{hot}.
@@ -800,12 +793,12 @@ It shows the average runtime of five runs, calculated by hyperfine \cite{peterHy
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/StateSpaceGeneration_scalability.pdf}
+    \includegraphics[width=0.8\textwidth]{images/StateSpaceGeneration_scalability.pdf}
     \caption{State space scalability results}
     \label{fig:stateSpaceScalability}
 \end{figure}
 
-% Interpretation and take aways
+% Interpretation and takeaways
 
 \section{Related work} \label{sec:relatedWork}
 % Petri nets formalisms
