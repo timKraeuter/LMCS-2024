@@ -70,7 +70,7 @@ These libraries are also helpful in other contexts and have thus been shared ind
 
 1. An editor library for defining a snapshot/state of a running BPMN process using tokens and process snapshots: [**_token-bpmn_** (npm)](https://www.npmjs.com/package/bpmn-token)
 2. An extension of the BPMN metamodel, adding process snapshots and tokens, i.e., our BPMN execution metamodel: [**_token-bpmn-moddle_** (npm)](https://www.npmjs.com/package/token-bpmn-moddle)
-3. A library to generate graph transformation systems currently implemented for Groove: [**_graph rule generation_** (Maven central)](tbd) 
+3. A library to generate graph transformation systems currently implemented for Groove: [**_graph rule generation_** (Maven central)](https://mvnrepository.com/artifact/io.github.timKraeuter/graph-rule-generation)
 
 ### Test suite
 
