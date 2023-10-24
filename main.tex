@@ -93,11 +93,11 @@ Ultimately, we use Groove as an execution engine for the \gls*{gt} system and ch
 Our approach has been implemented in a user-friendly, open-source web-based tool, the \textit{\gls*{bpmn} Analyzer}, which can be used online without needing installation.
 The \gls*{bpmn} Analyzer was validated using a comprehensive test suite.
 Additionally, our approach is versatile as it can be applied to formalize other behavioral languages, such as activity diagrams, state charts, and more.
-To define the execution semantics of an alternate behavioral language, one simply needs to establish a new execution metamodel and \gls*{hot} (see the language engineer in \autoref{fig:approach}).
+To define the execution semantics of a different behavioral language, one simply needs to establish a new execution metamodel and \gls*{hot} (see the language engineer in \autoref{fig:approach}).
 
 % Contributions summary
 The contribution of this article is twofold.
-First, we introduce a new approach utilizing a \gls*{hot} to generate \gls*{gt} rules instead of providing fixed \gls*{gt} rules to formalize the semantics of a behavioral language.
+First, we introduce a new approach utilizing a \gls*{hot} to generate \gls*{gt} rules instead of providing fixed model-independent \gls*{gt} rules to formalize the semantics of a behavioral language.
 Second, we apply our approach to \gls*{bpmn}, resulting in a formalization covering most \gls*{bpmn} elements that supports property checking.
 
 % Compared to the conference version
@@ -380,7 +380,7 @@ In addition, it sends one message to each process by adding it to the incoming m
 However, sending each message is optional, meaning that if a process is not ready to consume a message immediately, the message is not added.
 A process can consume a message if its MICE has at least one token at an incoming sequence flow (see rule template two in \autoref{fig:messageThrowEventTemplates}).
 We implement optional message sending using nested rules with quantification.
-Concretely, we use an optional existential quantifier \cite{rensinkNestedQuantificationGraph2006} (see dotted rectangle labeled \textsf{Optional} in \autoref{fig:messageThrowEventTemplates}) to send a message only if the receiving process is ready to consume it.
+Concretely, we use an optional existential quantifier \cite{rensinkNestedQuantificationGraph2006} (see dotted rectangle labeled \textsf{Optional} in \autoref{fig:messageThrowEventTemplates}) to send a message only if the receiving process is ready to consume it. 
 
 % MITE with MSE
 The second rule template describes how MITEs interact with MSEs.
@@ -563,7 +563,7 @@ The modeling error leads to potentially shipping goods twice if the process is n
 \end{figure}
 
 Another proposition for the same erroneous process is shown in \autoref{fig:shippingAfterPayment}.
-The proposition defines that when the activity \textit{Ship goods} runs (has a token) the activity \textit{Retrieve payment} should not run (has no token).
+The proposition defines that when the activity \textit{Ship goods} runs (has a token), the activity \textit{Retrieve payment} should not run (has no token) in the same process instance.
 \enquote{Has no token} is depicted by crossing out the token symbol and represents an extension of our concrete syntax introduced for defining propositions.
 This proposition can be used to define a property to check if shipping ever occurs while retrieving payments has not been completed yet.
 The \gls*{gt} system for the order handling process containing both propositions can be found in \cite{timkrauterLMCS2024Artifacts2023}.
@@ -590,7 +590,7 @@ This feature is discussed in detail in the implementation section.
 In the future, a domain-specific property language for \gls*{bpmn} would further lessen the knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}.
 
 \section{Implementation} \label{sec:impl}
-In this section, we will present our tool and the improvements we made since \cite{krauterFormalizationAnalysisBPMN2023}.
+In this section, we will present our tool and the improvements made after the publication of \cite{krauterFormalizationAnalysisBPMN2023}.
 In addition, we describe initial performance experiments.
 
 \subsection{BPMN Analyzer tool}
@@ -643,7 +643,7 @@ Third, we published multiple parts of our application as libraries such that the
 The \gls*{bpmn} execution metamodel needed for the definition of custom propositions is published as an npm module (\textit{token-bpmn-moddle}).
 In addition, the token-based proposition editor is also published as an npm module (\textit{token-bpmn}).
 Furthermore, we published our \gls*{gt} rule generation library to the maven central repository (\textit{graph-rule-generation}).
-The library currently contains an implementation to generate \gls*{gt} rule for Groove but could also be used for other graph transformation tools in the future.
+The library currently contains an implementation to generate \gls*{gt} rules for Groove but could also be used for other graph transformation tools in the future.
 
 \subsection{Experiments}
 
@@ -710,7 +710,7 @@ In this section, we test the scalability of our approach by applying it to 300 \
 
 \subsection{Setup}
 
-We generated 300 \gls*{bpmn} to test the scalability of our approach.
+We generated 300 \gls*{bpmn} models to test the scalability of our approach.
 We used the following approach to include different \gls*{bpmn} elements in our models.
 We generated the models incrementally, increasing the number of \textit{blocks} they contain.
 Thus, model one contains one block, model two contains two blocks, and so forth until the last model contains 300 blocks.
@@ -786,7 +786,6 @@ We used the same machine and setup as discussed for our performance experiments 
 The average \gls*{hot} runtimes data fits the linear regression shown in \autoref{fig:hotScalability} well.
 This makes sense since the \gls*{hot} algorithm has \textit{linear runtime complexity} since it iterates over all flow nodes of a \gls*{bpmn} model to generate \gls*{gt} rules.
 We conclude that the \gls*{hot} is fast enough (around one second or less) for models of reasonable size (50 blocks or less).
-However, the implementation of the \gls*{hot} can still be optimized.
 
 % Description
 \autoref{fig:stateSpaceScalability} depicts the results of benchmarking the state space generation in Groove for the \gls*{gt}-systems obtained by our \gls*{hot}.
@@ -814,7 +813,7 @@ For example, \cite{dijkmanSemanticsAnalysisBusiness2008} formalize a subset of \
 Encoding basic \gls*{bpmn} modeling elements into Petri Nets is generally straightforward, but for some advanced elements, it can be complicated to define \cite{hofstedeWorkflowPatternsExpressive2002}.
 For example, representing \textit{termination end events} and \textit{interrupting boundary events}, which interrupt a running process, is usually unsupported because of the complexity of managing the non-local propagation of tokens in Petri Nets \cite{corradiniFormalApproachAnalysis2021}.
 We solve these situations by using nested graph conditions, for example, to remove all tokens when reaching a \textit{termination end event}.
-
+ 
 % Van gorp
 A \gls*{bpmn} formalization based on in-place \gls*{gt} rules is given in \cite{vangorpVisualTokenbasedFormalization2013}.
 The formalization covers a substantial part of the \gls*{bpmn} specification, including complex concepts such as inclusive gateways and compensation.
