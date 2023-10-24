@@ -668,7 +668,7 @@ However, a comprehensive benchmark, including a detailed comparison to other too
 
 \begin{table}[ht]
 \centering
-\caption[Experimental results for a full state space exploration in Groove]{Experimental results for a full state space exploration in Groove}
+\caption{Experimental results for a full state space exploration in Groove}
 
 \begin{tabular}{| c | c | c || c | c | c |}
  \hline
@@ -713,7 +713,7 @@ During the generation, we alternate between the three different blocks shown in 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{images/blocks.pdf}
-    \caption{Different blocks for BPMN model generation}
+    \caption{The three different blocks for BPMN model generation}
     \label{fig:blocks}
 \end{figure}
 
@@ -735,12 +735,13 @@ Our BPMN model generation uses the camunda BPMN model API \cite{camundaservicesg
 The BPMN modeling tools we have used are already struggling with models that have 200 or more blocks.
 Thus, we stopped at 300 blocks since we think BPMN models in practice are much smaller, and so we could still run our benchmark in a reasonable time.
 BPMN models are developed together by the organization's business and development people.
-Consequently, large models are divided into smaller submodels so that humans still understand them.
+Consequently, large models are divided into smaller submodels, \ie, subprocesses, so that humans still understand them.
+Each of these subprocesses can then be analyzed independently.
 From our experience, this best practice leads to models with less than 400 elements (comparable to less than 50 blocks in \autoref{table:bpmnModelCharacteristics}). 
 
 \begin{table}[ht]
 \centering
-\caption[Generated BPMN model characteristics]{Generated BPMN model characteristics}
+\caption{Characteristics of the generated BPMN models}
 \begin{tabular}{| c | c | c | c || c |}
  \hline
  BPMN model / Blocks & Gateways & Flow nodes & Sequence flows & Total elements \\
@@ -767,13 +768,13 @@ From our experience, this best practice leads to models with less than 400 eleme
 
 % Description
 \autoref{fig:hotScalability} depicts the results of benchmarking our HOT with the generated BPMN models.
-It shows the average runtime of five runs for transforming each BPMN model, calculated by hyperfine \cite{peterHyperfine2023}.
+It shows the average runtime of five runs for transforming each BPMN model into a GT system using our HOT.
 We used the same machine and setup as discussed for our performance experiments in \autoref{sec:impl}.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{images/HOT_scalability.pdf}
-    \caption{HOT scalability results}
+    \caption{Scalability testing result of the GT system generation}
     \label{fig:hotScalability}
 \end{figure}
 
@@ -783,13 +784,13 @@ This makes sense since the HOT algorithm has \textit{linear runtime complexity} 
 We conclude that the HOT is fast enough (around one second or less) for models of reasonable size (50 blocks or less).
 
 % Description
-\autoref{fig:stateSpaceScalability} depicts the results of benchmarking the state space generation in Groove for the GT-systems obtained by our HOT.
+\autoref{fig:stateSpaceScalability} depicts the results of benchmarking the state space generation in Groove for the GT systems obtained by our HOT.
 It shows the average runtime of five runs, calculated by hyperfine \cite{peterHyperfine2023}.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{images/StateSpaceGeneration_scalability.pdf}
-    \caption{State space scalability results}
+    \caption{Scalability testing result of the state space generation in Groove}
     \label{fig:stateSpaceScalability}
 \end{figure}
 
