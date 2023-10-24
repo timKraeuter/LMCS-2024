@@ -20,10 +20,10 @@
 
 \usepackage{hyperref}
 
-\def\eg{{\em e.g.}}
-\def\cf{{\em cf.}}
-\def\ie{{\em i.e.}}
-\def\etc{{\em etc.}}
+\def\eg{{e.g.}}
+\def\cf{{cf.}}
+\def\ie{{i.e.}}
+\def\etc{{etc.}}
 
 \begin{document}
 
@@ -61,7 +61,7 @@ However, the informal description of the \gls*{bpmn} execution semantics leads t
 Various studies have shown that business process models suffer from control-flow errors \cite{mendlingEmpiricalStudiesProcess2009}.
 Formalizing \gls*{bpmn} would drastically reduce the cost of business process automation by facilitating the detection of errors and optimization potentials in process models already during design time.
 To this end, we propose a formalization that covers most of the \gls*{bpmn} elements used in practice and supports checking behavioral properties.
-General behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to \gls*{bpmn} \cite{corradiniClassificationBPMNCollaborations2018}, which can uncover potential flaws in \gls*{bpmn} models leading to deadlocks or other undesirable execution states.
+General behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to \gls*{bpmn} \cite{corradiniClassificationBPMNCollaborations2018}. They can uncover potential flaws in \gls*{bpmn} models leading to deadlocks or other undesirable execution states.
 
 In this article, we consider two fundamental concepts when formalizing the execution semantics of \gls*{bpmn}.
 First, \textit{state structure}, \ie, how models are represented during execution.
@@ -82,7 +82,7 @@ This model must adhere to the \gls*{bpmn} metamodel as outlined in the \gls*{bpm
 To create the state structure for BPMN, the \gls*{bpmn} execution metamodel is defined by language engineers, utilizing the \gls*{bpmn} metamodel as a foundation.
 Typically, an execution metamodel is created by extending the languages metamodel.
 
-Furthermore, we define a \gls*{hot} from \gls*{bpmn} models to \gls*{gt} systems.
+We define a \gls*{hot} from \gls*{bpmn} models to \gls*{gt} systems.
 We call the transformation \textit{higher-order} since the resulting graph-transformation systems represent model-transformations themselves \cite{tisiUseHigherOrderModel2009}.
 The \gls*{hot} creates a \gls*{gt} system, \ie, \gls*{gt} rules and a start graph for a given \gls*{bpmn} model.
 It is defined using rule generation templates, which describe how \gls*{gt} rules should be generated for each state-changing element in \gls*{bpmn} (see \autoref{sec:formalization}).
@@ -263,7 +263,7 @@ The rule on the right in \autoref{fig:gtRuleConcrete} implements the termination
 \begin{figure}[ht]
     \centering
   \includegraphics[width=1\textwidth]{images/rule_concrete.pdf}
-  \caption{Example \gls*{gt} rule to start (left) and terminate (right) an activity}
+  \caption{Example \gls*{gt} rules to start (left) and terminate (right) an activity}
   \label{fig:gtRuleConcrete}
 \end{figure}
 
@@ -641,6 +641,7 @@ Model-checking experts in an organization can define more templates in the futur
 
 Third, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{timkrauterLMCS2024Artifacts2023}.
 The \gls*{bpmn} execution metamodel needed for the definition of custom propositions is published as an npm module (\textit{token-bpmn-moddle}).
+Npm is the default package manager for the JavaScript programming language.
 In addition, the token-based proposition editor is also published as an npm module (\textit{token-bpmn}).
 Furthermore, we published our \gls*{gt} rule generation library to the maven central repository (\textit{graph-rule-generation}).
 The library currently contains an implementation to generate \gls*{gt} rules for Groove but could also be used for other graph transformation tools in the future.
@@ -911,7 +912,7 @@ Second, we apply our approach to BPMN, resulting in a comprehensive formalizatio
 Furthermore, our contribution is implemented in an open-source web-based tool to make our ideas easily accessible to other researchers and practitioners.
 
 Future work targets both of our main contributions.
-First, we plan a detailed comparison of our \gls*{hot} approach with approaches that utilize fixed rules.
+First, we plan a detailed comparison of our \gls*{hot} approach with approaches that utilize fixed model-independent rules.
 It will be interesting to investigate how the two approaches differ, for example, in runtime during state space generation.
 Second, we aim to improve our formalization and the resulting tool in multiple ways.
 We intend to extend our formalization to support the remaining few \gls*{bpmn} elements used in practice and want to turn the modeling environment of our tool into an interactive simulation environment.
