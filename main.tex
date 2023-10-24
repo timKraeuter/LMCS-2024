@@ -20,7 +20,7 @@
 
 \begin{document}
 
-\title[Formalization and analysis of BPMN using graph transformation systems]{A higher-order approach to the formalization and analysis of BPMN using graph transformation systems\rsuper*}
+\title[Formalization and analysis of BPMN using graph transformation systems]{A higher-order transformation approach to the formalization and analysis of BPMN using graph transformation systems\rsuper*}
 \titlecomment{{\lsuper*}This article is an extended version of \cite{krauterFormalizationAnalysisBPMN2023}}
 % \thanks{thanks, optional.}	%optional
 
@@ -71,17 +71,19 @@ In our approach, we automatically generate GT rules based on a Higher-Order mode
 \end{figure}
 
 To begin the BPMN modeling process, a modeler first defines the BPMN model and its corresponding behavioral properties for evaluation.
-This model must adhere to the BPMN metamodel as outlined in the BPMN specification by the Object Management Group \cite{objectmanagementgroupBusinessProcessModel2013}.
+He can also define atomic propositions for his BPMN model if he defines custom behavioral properties besides checking general BPMN properties.
+The defined BPMN model must adhere to the BPMN metamodel as outlined in the BPMN specification by the Object Management Group \cite{objectmanagementgroupBusinessProcessModel2013}.
 To create the state structure for BPMN, the BPMN execution metamodel is defined by language engineers, utilizing the BPMN metamodel as a foundation.
 Typically, an execution metamodel is created by extending the languages metamodel.
 
 We define a HOT from BPMN models to GT systems.
 We call the transformation \textit{higher-order} since the resulting graph-transformation systems represent model-transformations themselves \cite{tisiUseHigherOrderModel2009}.
-The HOT creates a GT system, \ie, GT rules and a start graph for a given BPMN model.
+The HOT creates a GT system, \ie, GT rules, and a start graph for a given BPMN model.
 It is defined using rule generation templates, which describe how GT rules should be generated for each state-changing element in BPMN (see \autoref{sec:formalization}).
 The obtained GT system conforms to the execution type graph, which corresponds to the BPMN execution metamodel.
 In the figure, we have colored both artifacts blue to visualize that they contain the same information.
 Ultimately, we use Groove as an execution engine for the GT system and check the behavioral properties defined earlier.
+Atomic propositions are converted to specific graph transformation rules for Groove during the HOT to facilitate model checking of custom behavioral properties.
 
 Our approach has been implemented in a user-friendly, open-source web-based tool, the \textit{BPMN Analyzer}, which can be used online without needing installation.
 The BPMN Analyzer was validated using a comprehensive test suite.
@@ -91,7 +93,7 @@ To define the execution semantics of a different behavioral language, one simply
 % Contributions summary
 The contribution of this article is twofold.
 First, we introduce a new approach utilizing a HOT to generate GT rules instead of providing fixed model-independent GT rules to formalize the semantics of a behavioral language.
-Second, we apply our approach to BPMN, resulting in a formalization covering most BPMN elements that supports property checking.
+Second, we apply our approach to BPMN, resulting in a formalization covering most BPMN elements that supports behavioral property checking.
 
 % Compared to the conference version
 \textbf{Changes compared to the conference version} This article is an extended version of the paper \textit{Formalization and analysis of BPMN using graph transformation systems} \cite{krauterFormalizationAnalysisBPMN2023} published in the proceedings of the 16th edition of the \textit{International Conference on Graph Transformation}.
