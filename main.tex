@@ -64,7 +64,7 @@ To this end, we propose a formalization that covers most of the \gls*{bpmn} elem
 General behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to \gls*{bpmn} \cite{corradiniClassificationBPMNCollaborations2018}. They can uncover potential flaws in \gls*{bpmn} models leading to deadlocks or other undesirable execution states.
 
 In this article, we consider two fundamental concepts when formalizing the execution semantics of \gls*{bpmn}.
-First, \textit{state structure}, \ie, how models are represented during execution.
+First, \textit{state structure}, \ie, how model instances are represented during execution.
 The state structure corresponds to the type graph in \gls*{gt} systems.
 Second, \textit{state-changing elements}, \ie, which elements in a model encode state changes.
 These elements are implemented using \gls*{gt} rules.
@@ -72,7 +72,7 @@ In our approach, we automatically generate \gls*{gt} rules based on a \gls*{hot}
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/bpmn_semantics-overview.pdf}
+    \includegraphics[width=0.85\textwidth]{images/bpmn_semantics-overview.pdf}
     \caption{Overview of the approach}
     \label{fig:approach}
 \end{figure}
@@ -137,7 +137,7 @@ Furthermore, our application of \gls*{gt}s to formalize the execution semantics 
   \label{fig:bpmnMetamodel}
 \end{figure}
 % Containment: participants, messageFlows see fig. 9.33 in the BPMN spec.
-% Containment: flowNodes (Process is FlowElementsContainer fig. 8.23). FlowElementsContainer have a containment of flowElements (also includes sequence flows)
+% Containment: flowNodes (Process is FlowElementsContainer fig. 8.23). FlowElementsContainer has a containment of flow elements (also includes sequence flows)
 
 A \gls*{bpmn} model is represented by a \textsf{Collaboration} that has \textsf{participants} and \textsf{messageFlows} between \textsf{InteractionNodes}.
 Each participant is a \textsf{Process} containing \textsf{flowNodes} connected by \textsf{SequenceFlows}.
@@ -164,7 +164,7 @@ Events delete and add tokens similar to activities but have additional semantics
 For example, message events will add or delete messages.
 
 \subsection{Theoretical background}
-We use typed attributed graphs for the formalization of the \gls*{bpmn} execution semantics.
+We use typed attributed graphs to formalize the \gls*{bpmn} execution semantics.
 Each state, \ie, token distribution during the execution of a \gls*{bpmn} model, is represented as an attributed graph typed by the \gls*{bpmn} execution type graph, which we introduce in \autoref{sec:formalization}.
 
 Regarding \gls*{gt}, we utilize the single-pushout (SPO) approach with negative application conditions (NAC) \cite{ehrigALGEBRAICAPPROACHESGRAPH1997}, as implemented in Groove \cite{rensinkGROOVESimulatorTool2004}.
@@ -197,7 +197,7 @@ In the following, first, we define the \gls*{bpmn} execution metamodel to repres
 
 In our formalization of BPMN, we utilize a token-based representation of the execution semantics, similar to the explanation in the informal description of the \gls*{bpmn} specification \cite{objectmanagementgroupBusinessProcessModel2013}.
 To describe processes holding tokens during execution, we define the execution metamodel shown in \autoref{fig:typeGraph}, depicted as a UML class diagram.
-In the context of our approach, we fulfill the role of the language engineer by defining the execution metamodel (see \autoref{fig:approach}).
+In our approach, we fulfill the role of the language engineer by defining the execution metamodel (see \autoref{fig:approach}).
 
 \begin{figure}[ht]
   \centering
@@ -248,7 +248,7 @@ In order to provide a better understanding of the transformation process, we wil
 Following this, we will delve into an explanation of how our \gls*{hot} creates these rules as well as rules for the other elements in \autoref{fig:bpmnelementsOverview}.
 
 \autoref{fig:gtRuleAbstract} depicts an example \gls*{gt} rule ($L \to R$) to start an activity in abstract syntax.
-The rule is straightforward, moving a token from the incoming sequence flow to the activity itself.
+The rule is straightforward, moving a token from the incoming sequence flow to the activity.
 
 \begin{figure}[ht]
     \centering
@@ -737,6 +737,7 @@ We then repeat adding one block at a time for each new model until we reach 300 
 \autoref{table:bpmnModelCharacteristics} states the characteristics of the generated BPMN models, such as the number of gateways, flow nodes, and sequence flows.
 One can deduce from the table that adding fifty blocks adds around 400 \gls*{bpmn} elements to a model.
 All models, including their characteristics and how to generate them, can be found in \cite{timkrauterLMCS2024Artifacts2023}.
+Our \gls*{bpmn} model generation uses the camunda \gls*{bpmn} model API \cite{camundaservicesgmbhCamundaBPMNModel2023}.
 
 The \gls*{bpmn} modeling tools we have used are already struggling with models that have 200 or more blocks.
 Thus, we stopped at 300 blocks since we think \gls*{bpmn} models in practice are much smaller, and so we could still run our benchmark in a reasonable time.
