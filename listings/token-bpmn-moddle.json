@@ -1,0 +1,45 @@
+{
+  "name": "Token",
+  "uri": "http://tk/schema/1.0/bt",
+  "prefix": "bt",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "types": [
+    {
+      "name": "BaseToken",
+      "superClass": [
+        "bpmn:BaseElement",
+        "Element"
+      ],
+      "properties": [
+        {
+          "name": "shouldExist",
+          "default": true,
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "Token",
+      "superClass": [
+        "BaseToken"
+      ],
+      "properties": [
+        {
+          "name": "processSnapshot",
+          "type": "ProcessSnapshot",
+          "isAttr": true,
+          "isReference": true
+        }
+      ]
+    },
+    {
+      "name": "ProcessSnapshot",
+      "superClass": [
+        "BaseToken"
+      ]
+    }
+  ]
+}

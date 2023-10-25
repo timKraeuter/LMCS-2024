@@ -30,6 +30,25 @@ numbersep=10pt,
 tabsize=4,
 showspaces=false,
 showstringspaces=false}
+
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  moredelim=[s][\color{darkblue}]{<}{\ },
+  moredelim=[s][\color{darkblue}]{</}{>},
+  moredelim=[l][\color{darkblue}]{/>},
+  moredelim=[l][\color{darkblue}]{>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={id,sourceRef,targetRef, processSnapshot}% list your attributes here
+}
 % My packages end
 
 \usepackage{hyperref}
@@ -210,14 +229,14 @@ In the following, first, we define the BPMN execution metamodel to represent the
 \subsection{BPMN execution metamodel}
 
 In our formalization of BPMN, we utilize a token-based representation of the execution semantics, similar to the explanation in the informal description of the BPMN specification \cite{objectmanagementgroupBusinessProcessModel2013}.
-To describe processes holding tokens during execution, we define the execution metamodel shown in \autoref{fig:typeGraph}, depicted as a UML class diagram.
+To describe processes holding tokens during execution, we define the execution metamodel shown in \autoref{fig:bpmnExecutionMetamodel}, depicted as a UML class diagram.
 In our approach, we fulfill the role of the language engineer by defining the execution metamodel (see \autoref{fig:approach}).
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=1\linewidth]{images/bpmn_semantics-typegraph.pdf}
   \caption{BPMN execution metamodel}
-  \label{fig:typeGraph}
+  \label{fig:bpmnExecutionMetamodel}
 \end{figure}
 
 We use \textsf{ProcessSnapshot} to denote a running BPMN process with a specific token distribution that describes one state in the history of the process execution.
@@ -295,7 +314,7 @@ Other types of start events are triggered in corresponding throw event rules.
 
 \autoref{fig:endTemplate} depicts the rule generation template for \textit{none end events} (\textsf{NEE}s in \autoref{fig:bpmnelementsOverview}).
 All rule generation templates show a state-changing element (\textsf{FlowNode}) with surrounding flows in the left column and the applicable rule generation in the right column.
-The left column shows instances of the BPMN metamodel (\autoref{fig:bpmnMetamodel}), and the right column shows the generated rules typed by the BPMN execution metamodel (see \autoref{fig:typeGraph}).
+The left column shows instances of the BPMN metamodel (\autoref{fig:bpmnMetamodel}), and the right column shows the generated rules typed by the BPMN execution metamodel (see \autoref{fig:bpmnExecutionMetamodel}).
 If more than one rule is generated from a \textsf{FlowNode}, an expression defines how each rule is generated.
 For example, the expression $\forall \text{sf} \in \text{E.incSFs}$ for the rule generation template of end events (see \autoref{fig:endTemplate}) generates one rule for each incoming sequence flow \textit{sf} of the end event \textit{E}.
 We use ``.'' in expressions to navigate along the associations of the BPMN metamodel shown in \autoref{fig:bpmnMetamodel}.
@@ -355,7 +374,7 @@ Subprocess execution is like activity execution.
 The upper part of the template generates one rule for each incoming sequence flow.
 The rule deletes an incoming token and adds a process snapshot representing a subprocess. 
 The created process snapshot is represented with a colored circle on the top left corner of the subprocess with a token at each outgoing sequence flow of its start events (similar to start graph generation).
-There is a \textit{subprocess} link between the process snapshots to depict the \textsf{subprocesses} relation in \autoref{fig:typeGraph}.
+There is a \textit{subprocess} link between the process snapshots to depict the \textsf{subprocesses} relation in \autoref{fig:bpmnExecutionMetamodel}.
 If the subprocess has no start events, a token will be added to every activity and gateway with no incoming sequence flows.
 
 The bottom part of the template generates one rule to delete a terminated process snapshot and adds tokens at each outgoing sequence flow.
@@ -558,7 +577,7 @@ The property \textit{Proper Completion} is not yet implemented, but all the info
 
 \subsection{Custom properties} \label{subsec:customProperties}
 % Defining atomic propositions in BPMN is a novelty.
-To make model checking user-friendly, we envision modelers defining atomic propositions based on the extended BPMN syntax, \ie, the concrete syntax introduced in \autoref{fig:typeGraph}.
+To make model checking user-friendly, we envision modelers defining atomic propositions based on the extended BPMN syntax, \ie, the concrete syntax introduced in \autoref{fig:bpmnExecutionMetamodel}.
 Therefore, to define an atomic proposition, a modeler adds process snapshots and tokens to a BPMN model, which we can automatically convert to a GT rule representing an atomic proposition.
 GT rules representing atomic propositions are not allowed to delete or add elements and are called graph conditions in Groove.
 Furthermore, a modeler can define that a token should not exist at a given position, which leads to NAC's in the graph condition. 
@@ -654,22 +673,33 @@ Thus, simple safety and liveness properties can be checked using these templates
 Model-checking experts in an organization can define more templates in the future and share them for reuse. 
 
 Third, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{timkrauterLMCS2024Artifacts2023}.
-The BPMN execution metamodel needed to define custom propositions is published as an npm module (\textit{token-bpmn-moddle}).
+The BPMN metamodel extension needed to define custom propositions is published as an npm module (\textit{token-bpmn-moddle}).
 Npm is the default package manager for the JavaScript programming language.
-In addition, the token-based proposition editor is also published as an npm module (\textit{token-bpmn}).
+In addition, the BPMN token editor to define atomic propositions is also published as an npm module (\textit{token-bpmn}).
 Furthermore, we published our \textit{graph-rule-generation} library to generate Groove GT systems to the Maven central repository.
 The Maven central repository is the standard repository for developing JVM-based applications.
 We explain each library in detail in the following sections.
 
-\subsubsection{BPMN execution metamodel}
-Based on moddle
+\subsubsection{BPMN metamodel extension}
+% Same concrete syntax but slightly different to fit the UI/proposition needs.
+Our implementation \textit{token-bpmn-moddle} \cite{timkrauterLMCS2024Artifacts2023} extends \textit{bpmn-moddle} \cite{camundaservicesgmbhBpmnmoddle2023}, which implements the BPMN specification.
+Our extension adds the \textsf{Token} and \textsf{ProcessSnapshot} types from the BPMN execution metamodel shown in \autoref{fig:bpmnExecutionMetamodel} to the BPMN metamodel.
+\autoref{lst:extension} shows an example BPMN XML snippet, where a token and process snapshot were added.
+
+\lstinputlisting [label=lst:extension, language=XML, numbers=left,
+    stepnumber=1, caption=BPMN XML snippet showing an example of our BPMN metamodel extension]{./listings/extension.xml}
+
+The library allows one to create token and process snapshot instances and stores them in the BPMN extension elements, see lines 2-5 in the XML example in \autoref{lst:extension}.
+This is the defined way to extend the BPMN metamodel \cite{objectmanagementgroupBusinessProcessModel2013}.
+In addition, to define the element a token is located at (see BPMN execution metamodel in \autoref{fig:bpmnExecutionMetamodel}) an association is used (lines 7-8 in \autoref{lst:extension}).
 
 \subsubsection{BPMN token editor}
-Based on bpmn-io
-Uses \textit{token-bpmn-moddle}
+Our implementation is based on \textit{bpmn-js} \cite{camundaservicesgmbhBpmnjs2023}, which provides a BPMN rendering toolkit and uses the \textit{token-bpmn-moddle} library described in the previous section.
+
+% Add screenshot of editor here probably.
 
 \subsubsection{Graph rule generation}
-The graph-rule-generation library offers different classes following the \textit{builder pattern} to generate parts of or entire GT systems \cite{gammaDesignPatternsElements1995}.
+The graph-rule-generation library offers different classes to generate graphs, GT rules, or entire GT systems, following the \textit{builder pattern} \cite{gammaDesignPatternsElements1995}.
 \autoref{lst:grooveRuleBuilder} shows an example code snippet to generate a GT rule using the GT rule builder implemented for Groove.
 
 \lstinputlisting [label=lst:grooveRuleBuilder, language=Java, numbers=left,
@@ -685,7 +715,7 @@ Using the rule builder, one can construct a GT rule by defining which nodes and 
     \label{fig:grooveRuleBuilderRule}
 \end{figure}
 
-Similarly to the groove rule builder in \autoref{lst:grooveRuleBuilder}, there is also a builder for constructing graphs to create start graphs of a GT system \cite{krauterArtifactsLMCS2023}.
+Similarly to the groove rule builder in \autoref{lst:grooveRuleBuilder}, there is also a builder for constructing graphs to create start graphs of a GT system \cite{timkrauterLMCS2024Artifacts2023}.
 Finally, the library provides a builder for GT systems using the graph and GT rule builders.
 The Groove UI and the Groove command-line tools can then consume the generated GT systems.
 
