@@ -53,11 +53,6 @@ showstringspaces=false}
 
 \usepackage{hyperref}
 
-\def\eg{{e.g.}}
-\def\cf{{cf.}}
-\def\ie{{i.e.}}
-\def\etc{{etc.}}
-
 \begin{document}
 
 \title[Formalization and analysis of BPMN using graph transformation systems]{A higher-order transformation approach to the formalization and analysis of BPMN using graph transformation systems\rsuper*}
@@ -95,9 +90,9 @@ To this end, we propose a formalization that covers most of the BPMN elements us
 General behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to BPMN \cite{corradiniClassificationBPMNCollaborations2018}. They can uncover potential flaws in BPMN models leading to deadlocks or other undesirable execution states.
 
 In this article, we consider two fundamental concepts when formalizing the execution semantics of BPMN.
-First, \textit{state structure}, \ie, how model instances are represented during execution.
+First, \textit{state structure}, i.e., how model instances are represented during execution.
 The state structure corresponds to the type graph in Graph Transformation (GT) systems.
-Second, \textit{state-changing elements}, \ie, which elements in a model encode state changes.
+Second, \textit{state-changing elements}, i.e., which elements in a model encode state changes.
 These elements are implemented using GT rules.
 In our approach, we automatically generate GT rules based on a Higher-Order model Transformation (HOT) for each specific BPMN model, as shown in \autoref{fig:approach}.
 
@@ -116,7 +111,7 @@ Typically, an execution metamodel is created by extending the languages metamode
 
 We define a HOT from BPMN models to GT systems.
 We call the transformation \textit{higher-order} since the resulting graph-transformation systems represent model-transformations themselves \cite{tisiUseHigherOrderModel2009}.
-The HOT creates a GT system, \ie, GT rules, and a start graph for a given BPMN model.
+The HOT creates a GT system, i.e., GT rules, and a start graph for a given BPMN model.
 It is defined using rule generation templates, which describe how GT rules should be generated for each state-changing element in BPMN (see \autoref{sec:formalization}).
 The obtained GT system conforms to the execution type graph, which corresponds to the BPMN execution metamodel.
 In the figure, we have colored both artifacts blue to visualize that they contain the same information.
@@ -198,7 +193,7 @@ For example, message events will add or delete messages.
 
 \subsection{Theoretical background}
 We use typed attributed graphs to formalize the BPMN execution semantics.
-Each state, \ie, token distribution during the execution of a BPMN model, is represented as an attributed graph typed by the BPMN execution type graph, which we introduce in \autoref{sec:formalization}.
+Each state, i.e., token distribution during the execution of a BPMN model, is represented as an attributed graph typed by the BPMN execution type graph, which we introduce in \autoref{sec:formalization}.
 
 Regarding GT, we utilize the single-pushout (SPO) approach with negative application conditions (NAC) \cite{ehrigALGEBRAICAPPROACHESGRAPH1997}, as implemented in Groove \cite{rensinkGROOVESimulatorTool2004}.
 In addition, we utilize \textit{nested rules} with quantification to make parts of a rule repeatedly applicable or optional \cite{rensinkNestedQuantificationGraph2006,rensinkHowMuchAre2017}.
@@ -276,7 +271,7 @@ An example of a start graph is shown in \autoref{fig:startGraph} using abstract 
     \label{fig:startGraph}
 \end{figure}
 
-The HOT generates one or more GT rules for each \textsf{FlowNode}, \ie, state-changing element in a BPMN model.
+The HOT generates one or more GT rules for each \textsf{FlowNode}, i.e., state-changing element in a BPMN model.
 In order to provide a better understanding of the transformation process, we will begin by presenting example results, namely the generated rules for an activity.
 Following this, we will delve into an explanation of how our HOT creates these rules as well as rules for the other elements in \autoref{fig:bpmnelementsOverview}.
 
@@ -466,7 +461,7 @@ Our HOT automatically finds matching LTEs during transformation and then applies
 % General description
 Each signal event references a named signal.
 Signal throw events \textit{broadcast} to all signal catch events with the same signal.
-Signal broadcasts have a global scope, \ie, can communicate across process levels and pools \cite{objectmanagementgroupBusinessProcessModel2013}.
+Signal broadcasts have a global scope, i.e., can communicate across process levels and pools \cite{objectmanagementgroupBusinessProcessModel2013}.
 
 \autoref{fig:terminateEventTemplate} depicts the rule generation template for \textit{signal intermediate throw events} which interact with \textit{signal intermediate catch events} and \textit{signal start events} (\textsf{SITE}, \textsf{SICE}, and \textsf{SSE} in \autoref{fig:bpmnelementsOverview}).
 \textit{Signal end events} (\textsf{SEE}) behave similarly to SITEs but only consume incoming tokens and do not add outgoing tokens.
@@ -557,7 +552,7 @@ Our concrete syntax is always used with a given BPMN model.
 
 % Option to complete
 \textit{Option to complete} is specified using the CTL property defined in \eqref{eq:optionToComplete}.
-The atomic proposition \textsf{AllTerminated} is true if there exists no process snapshot in the state \textsf{Running}, \ie, all process snapshots are \textsf{Terminated}.
+The atomic proposition \textsf{AllTerminated} is true if there exists no process snapshot in the state \textsf{Running}, i.e., all process snapshots are \textsf{Terminated}.
 It is shown in \autoref{fig:allTerminated} using abstract Groove syntax.
 
 \noindent\begin{minipage}{.5\linewidth}
@@ -577,7 +572,7 @@ The property \textit{Proper Completion} is not yet implemented, but all the info
 
 \subsection{Custom properties} \label{subsec:customProperties}
 % Defining atomic propositions in BPMN is a novelty.
-To make model checking user-friendly, we envision modelers defining atomic propositions based on the extended BPMN syntax, \ie, the concrete syntax introduced in \autoref{fig:bpmnExecutionMetamodel}.
+To make model checking user-friendly, we envision modelers defining atomic propositions based on the extended BPMN syntax, i.e., the concrete syntax introduced in \autoref{fig:bpmnExecutionMetamodel}.
 Therefore, to define an atomic proposition, a modeler adds process snapshots and tokens to a BPMN model, which we can automatically convert to a GT rule representing an atomic proposition.
 GT rules representing atomic propositions are not allowed to delete or add elements and are called graph conditions in Groove.
 Furthermore, a modeler can define that a token should not exist at a given position, which leads to NAC's in the graph condition. 
@@ -689,14 +684,30 @@ Our extension adds the \textsf{Token} and \textsf{ProcessSnapshot} types from th
 \lstinputlisting [label=lst:extension, language=XML, numbers=left,
     stepnumber=1, caption=BPMN XML snippet showing an example of our BPMN metamodel extension]{./listings/extension.xml}
 
-The library allows one to create token and process snapshot instances and stores them in the BPMN extension elements, see lines 2-5 in the XML example in \autoref{lst:extension}.
+The library allows one to create token and process snapshot instances and stores them in the BPMN extension elements (lines 2-5 in the XML example in \autoref{lst:extension}).
 This is the defined way to extend the BPMN metamodel \cite{objectmanagementgroupBusinessProcessModel2013}.
-In addition, to define the element a token is located at (see BPMN execution metamodel in \autoref{fig:bpmnExecutionMetamodel}) an association is used (lines 7-8 in \autoref{lst:extension}).
+In addition, to define the element a token is located at, i.e., its \textsf{elementID} (see BPMN execution metamodel in \autoref{fig:bpmnExecutionMetamodel}), an association is used (lines 7-8 in \autoref{lst:extension}).
+This XML is later consumed by our HOT to generate atomic propositions for Groove (see \autoref{fig:approach}).
+However, it could also be used for other applications or model checking with different tools.
 
 \subsubsection{BPMN token editor}
-Our implementation is based on \textit{bpmn-js} \cite{camundaservicesgmbhBpmnjs2023}, which provides a BPMN rendering toolkit and uses the \textit{token-bpmn-moddle} library described in the previous section.
+The BPMN token editor implements the concrete syntax for tokens and process snapshots described in \autoref{fig:bpmnExecutionMetamodel}.
+Using our token editor, a user does not need to write XML since the complexity of extending the BPMN metamodel described in the previous chapter is hidden in the editor.
 
-% Add screenshot of editor here probably.
+\autoref{fig:tokenEditor} shows the token editor embedded in the second step of the BPMN analyzer.
+We simplified the user interface so users can only edit tokens and process snapshots, not the underlying BPMN model.
+Process snapshots are automatically assigned distinct colors, and tokens held by a process snapshot have the same color (see concrete syntax in \autoref{fig:bpmnExecutionMetamodel}).
+Tokens can be assigned to process snapshots, which changes the token's color to the process snapshot's color.
+
+\begin{figure}[ht]
+    \centering
+    \frame{\includegraphics[width=0.9\textwidth]{images/impl_step2.png}}
+    \caption{Screenshot of the BPMN token editor used in the BPMN Analyzer tool}
+    \label{fig:tokenEditor}
+\end{figure}
+
+Our implementation is based on \textit{bpmn-js} \cite{camundaservicesgmbhBpmnjs2023}, which provides a BPMN rendering toolkit and uses the \textit{token-bpmn-moddle} library described in the previous section to save and load our models.
+Since both implementations are published as libraries, they can be reused in other applications in a few minutes.
 
 \subsubsection{Graph rule generation}
 The graph-rule-generation library offers different classes to generate graphs, GT rules, or entire GT systems, following the \textit{builder pattern} \cite{gammaDesignPatternsElements1995}.
@@ -815,7 +826,7 @@ Our BPMN model generation uses the camunda BPMN model API \cite{camundaservicesg
 The BPMN modeling tools we have used are already struggling with models that have 200 or more blocks.
 Thus, we stopped at 300 blocks since we think BPMN models in practice are much smaller, and so we could still run our benchmark in a reasonable time.
 BPMN models are developed together by the organization's business and development people.
-Consequently, large models are divided into smaller submodels, \ie, subprocesses, so that humans still understand them.
+Consequently, large models are divided into smaller submodels, i.e., subprocesses, so that humans still understand them.
 Each of these subprocesses can then be analyzed independently.
 From our experience, this best practice leads to models with less than 400 elements (comparable to less than 50 blocks in \autoref{table:bpmnModelCharacteristics}). 
 
@@ -878,7 +889,7 @@ It shows the average runtime of five runs, calculated by hyperfine \cite{peterHy
 The increase in the runtime of the state space generation does \textit{not} look linear.
 However, models of reasonable size (50 blocks or less) are handled in less than two seconds.
 To summarize, using our approach, we can conservatively estimate that these models can be checked (HOT followed by a full state space generation) in around three seconds or less.
-Plenty of optimization potential, such as parallelization, avoiding costly I/O operations, on-the-fly model checking, partial order reduction, \etc, still exists.
+Plenty of optimization potential, such as parallelization, avoiding costly I/O operations, on-the-fly model checking, partial order reduction, etc., still exists.
 These improvements to the HOT or Groove can lead to future improvements in runtime.
 
 \section{Related work} \label{sec:relatedWork}
