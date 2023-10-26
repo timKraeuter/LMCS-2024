@@ -380,7 +380,7 @@ Subprocesses are terminated by the termination rule (see section \ref{subsec:ins
 \subsection{Gateways}
 \autoref{fig:gatewayTemplates} depicts the rule generation templates for parallel and exclusive gateways (see \autoref{fig:bpmnelementsOverview}).
 A parallel gateway can synchronize and fork the control flow simultaneously.
-Thus, one rule is generated that deletes one token from each incoming sequence flow and adds one token to each outgoing sequence flow.
+Thus, one rule is generated that deletes one token from each incoming sequence flow and adds one to each outgoing sequence flow.
 
 \begin{figure}[ht]
     \centering
@@ -390,6 +390,8 @@ Thus, one rule is generated that deletes one token from each incoming sequence f
 \end{figure}
 
 Exclusive Gateways are triggered by exactly one incoming sequence flow, and exactly one outgoing sequence flow will be triggered as a result.
+In practice, boolean conditions using data attached to the process are attached to exclusive gateways that decide which outgoing sequence flow to follow.
+We do not model data flow in our formalization and instead allow each outgoing sequence flow to be explored. 
 Thus, one rule must be generated for every combination of incoming and outgoing sequence flows.
 However, the resulting rule is simple since it only deletes a token from an incoming sequence flow and adds one to an outgoing sequence flow.
 
@@ -658,9 +660,9 @@ Each proposition is created using the introduced visual concrete syntax.
 To create a proposition, a user attaches tokens and process snapshots to the BPMN model created in the modeling step.
 We implemented a custom diagram editor for this step to achieve the best possible usability.
 
-(3) In the final \textbf{Analysis} step the user can check the mentioned general BPMN properties and write CTL properties.
+(3) In the final \textbf{Analysis} step, the user can check the mentioned general BPMN properties and write CTL properties.
 The propositions defined in the second step are listed and available for the CTL model checking.
-If a user chooses to download the generated GT system, it will also contain the defined propositions converted to graph conditions.
+If a user downloads the generated GT system, it will also contain the defined propositions converted to graph conditions.
 
 Second, we added CTL templates to the analysis of the step such that a modeler can generate commonly occurring CTL propositions.
 He selects a template and a proposition to generate a CTL property.
