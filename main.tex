@@ -514,8 +514,9 @@ Terminating a process must also terminate its subprocesses, which is not shown i
 Model checking---and verification in general---of BPMN models is necessary to ensure the correctness and reliability of business processes, which ultimately leads to increased efficiency, reduced costs, and user satisfaction.
 Using our approach, model checking a BPMN model is possible using the generated GT system and behavioral properties based on atomic propositions (see \autoref{fig:approach}).
 Behavioral properties are defined using a temporal logic, such as CTL and LTL.
-In this article, we will use CTL.
-An atomic proposition is formalized as a graph and holds in a given state if a match exists from the graph representing the proposition to the graph representing the state \cite{kastenbergModelCheckingDynamic2006}.
+In this article, we will use CTL, and atomic propositions are formalized as graph conditions.
+A graph condition is a GT rule which does not delete or add elements.
+A proposition holds in a given state if a match of the graph condition exists in the graph representing the state \cite{kastenbergModelCheckingDynamic2006}.
 
 We differentiate between two types of behavioral properties: \textit{general BPMN properties} defined for all BPMN models and \textit{custom properties} tailored towards a particular BPMN model.
 We do not consider structural properties (like conformance to the syntax of BPMN) since they can be checked using a standard modeling tool without implementing execution semantics.
@@ -573,9 +574,9 @@ The property \textit{Proper Completion} is not yet implemented, but all the info
 \subsection{Custom properties} \label{subsec:customProperties}
 % Defining atomic propositions in BPMN is a novelty.
 To make model checking user-friendly, we envision modelers defining atomic propositions based on the extended BPMN syntax, i.e., the concrete syntax introduced in \autoref{fig:bpmnExecutionMetamodel}.
-Therefore, to define an atomic proposition, a modeler adds process snapshots and tokens to a BPMN model, which we can automatically convert to a GT rule representing an atomic proposition.
+Therefore, a modeler adds process snapshots and tokens to a BPMN model to define an atomic proposition, which we can automatically convert to a GT rule representing an atomic proposition.
 GT rules representing atomic propositions are not allowed to delete or add elements and are called graph conditions in Groove.
-Furthermore, a modeler can define that a token should not exist at a given position, which leads to NAC's in the graph condition. 
+Furthermore, a modeler can define that a token should not exist at a given position, which leads to NACs in the graph condition. 
 
 For example, the token distribution shown in \autoref{fig:shippedTwiceProposition} defines a process snapshot with two tokens at activity \textit{Ship goods}.
 A modeler could use this atomic proposition to check if the activity \textit{Ship goods} is executed twice by creating an appropriate LTL/CTL property.
