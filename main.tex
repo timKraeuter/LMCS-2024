@@ -886,11 +886,35 @@ It shows the average runtime of five runs, calculated by hyperfine \cite{peterHy
 \end{figure}
 
 % Interpretation and takeaways
-The increase in the runtime of the state space generation does \textit{not} look linear.
+The increase in the runtime of the state space generation looks worse than linear.
 However, models of reasonable size (50 blocks or less) are handled in less than two seconds.
 To summarize, using our approach, we can conservatively estimate that these models can be checked (HOT followed by a full state space generation) in around three seconds or less.
-Plenty of optimization potential, such as parallelization, avoiding costly I/O operations, on-the-fly model checking, partial order reduction, etc., still exists.
-These improvements to the HOT or Groove can lead to future improvements in runtime.
+In addition, a full-state space exploration is not always needed for model checking.
+
+% Plenty of optimization potential
+Plenty of optimization potential exists, starting from the HOT and ending with the state space generation in Groove.
+Currently, neither our HOT nor Groove are specifically optimized for performance with this use case in mind.
+% HOT optimization
+Regarding the HOT, multiple optimizations come to mind.
+First, one can parallelize the generation of GT rules since each rule is independent.
+Second, one can change the rule-generation templates to reduce the number of generated rules and the state space.
+For example, two rules are currently generated to represent starting and finishing an activity (see \autoref{fig:activityTemplates}), which fits the description in the BPMN specification.
+However, one could instead generate only one rule, which represents the whole execution of an activity.
+Thus, one less rule is generated, and the intermediate state representing the activity executing is no longer part of the state space.
+If there are many activities, especially when they are executed in parallel, this can lead to large reductions in the state space.
+However, a less granular state space could prohibit checking certain properties.
+A trade-off exists between staying close to the BPMN execution specification and overall runtime (HOT and state space generation).
+
+% Groove optimization
+Groove is a powerful tool with good out-of-the-box performance.
+However, there is still optimization potential.
+First, GT rules should not be written to and read from the disk to interact with Groove.
+Each GT rule is saved to a new file, and the number of generated GT rules increases with the size of a BPMN model.
+Integrating our HOT and Groove more tightly can eliminate these costly I/O operations since the generated rules can stay in the main memory.
+This optimization is especially useful for our approach.
+Second, \textit{partial order reduction} methods could greatly reduce the time and space required for model checking \cite{clarkeHandbookModelChecking2018}.
+Third, Groove could use \textit{on-the-fly} model checking.
+If a counterexample is found, there is no need to continue the state space generation \cite{clarkeHandbookModelChecking2018}.
 
 \section{Related work} \label{sec:relatedWork}
 % Petri nets formalisms
