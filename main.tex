@@ -74,9 +74,9 @@ showstringspaces=false}
   \noindent
 The Business Process Modeling Notation (BPMN) is a widely used standard notation for defining intra- and inter-organizational workflows.
 However, the informal description of the BPMN execution semantics leads to different interpretations of BPMN elements and difficulties in checking behavioral properties.
-In this article, we propose a formalization of the execution semantics of BPMN that, compared to existing approaches, covers more BPMN elements while facilitating property checking.
+In this article, we propose a formalization of the execution semantics of BPMN that, compared to existing approaches, covers more BPMN elements while also facilitating property checking.
 Our approach is based on a higher-order transformation from BPMN models to graph transformation systems.
-As proof of concept, we have implemented our approach in an open-source web-based tool.
+As proof of concept, we provide an implementation of our approach as an open-source web-based tool. 
 \end{abstract}
 
 \maketitle
@@ -86,15 +86,14 @@ Business Process Modeling Notation (BPMN) \cite{objectmanagementgroupBusinessPro
 However, the informal description of the BPMN execution semantics leads to different interpretations of BPMN models and difficulties in checking behavioral properties \cite{corradiniFormalApproachAnalysis2021}.
 Various studies have shown that business process models suffer from control-flow errors \cite{mendlingEmpiricalStudiesProcess2009}.
 Formalizing BPMN would drastically reduce the cost of business process automation by facilitating the detection of errors and optimization potentials in process models already during design time.
-To this end, we propose a formalization that covers most of the BPMN elements used in practice and supports checking behavioral properties.
+To this end, we propose a formalization that covers most of the BPMN elements used in practice and, in addition, supports checking behavioral properties.
 General behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to BPMN \cite{corradiniClassificationBPMNCollaborations2018}. They can uncover potential flaws in BPMN models leading to deadlocks or other undesirable execution states.
 
 In this article, we consider two fundamental concepts when formalizing the execution semantics of BPMN.
 First, \textit{state structure}, i.e., how model instances are represented during execution.
 The state structure corresponds to the type graph in Graph Transformation (GT) systems.
 Second, \textit{state-changing elements}, i.e., which elements in a model encode state changes.
-These elements are implemented using GT rules.
-In our approach, we automatically generate GT rules based on a Higher-Order model Transformation (HOT) for each specific BPMN model, as shown in \autoref{fig:approach}.
+These elements are implemented using GT rules, which we automatically generate based on a Higher-Order model Transformation (HOT) \cite{tisiUseHigherOrderModel2009} for each specific BPMN model, as shown in \autoref{fig:approach}.
 
 \begin{figure}[ht]
     \centering
@@ -103,11 +102,17 @@ In our approach, we automatically generate GT rules based on a Higher-Order mode
     \label{fig:approach}
 \end{figure}
 
-To begin the BPMN modeling process, a modeler first defines the BPMN model and its corresponding behavioral properties for evaluation.
-He can also define atomic propositions for his BPMN model if he defines custom behavioral properties besides checking general BPMN properties.
+To begin the BPMN modeling process, a modeler first defines the BPMN model. 
+The BMPN model may be checked against a predefined list of general behavioral properties, such as safeness and soundness.
+Furthermore, the modeler may also define custom behavioral properties specifically defined for the BPMN model.
+%To begin the BPMN modeling process, a modeler first defines the BPMN model and its corresponding behavioral properties for evaluation.
+%He can also define atomic propositions for his BPMN model if he defines custom behavioral properties besides checking general BPMN properties.
 The defined BPMN model must adhere to the BPMN metamodel as outlined in the BPMN specification by the Object Management Group \cite{objectmanagementgroupBusinessProcessModel2013}.
-To create the state structure for BPMN, the BPMN execution metamodel is defined by language engineers, utilizing the BPMN metamodel as a foundation.
-Typically, an execution metamodel is created by extending the languages metamodel.
+The BPMN execution metamodel is defined by language engineers, utilizing the BPMN metamodel as a foundation to create the state structure for executing BPMN models. 
+%To create the state structure for BPMN, the BPMN execution metamodel is defined by language engineers, utilizing the BPMN metamodel as a foundation.
+%Typically, an execution metamodel is created by extending the languages metamodel.
+
+
 
 We define a HOT from BPMN models to GT systems.
 We call the transformation \textit{higher-order} since the resulting graph-transformation systems represent model-transformations themselves \cite{tisiUseHigherOrderModel2009}.
@@ -115,48 +120,69 @@ The HOT creates a GT system, i.e., GT rules, and a start graph for a given BPMN 
 It is defined using rule generation templates, which describe how GT rules should be generated for each state-changing element in BPMN (see \autoref{sec:formalization}).
 The obtained GT system conforms to the execution type graph, which corresponds to the BPMN execution metamodel.
 In the figure, we have colored both artifacts blue to visualize that they contain the same information.
-Ultimately, we use Groove as an execution engine for the GT system and check the behavioral properties defined earlier.
-Atomic propositions are converted to specific graph transformation rules for Groove during the HOT to facilitate model checking of custom behavioral properties.
+Ultimately, we use Groove as an execution engine for the GT system and to check the behavioral properties defined earlier.
+To facilitate model checking of custom behavioral properties, we create specific GT rules for the constituent atomic propositions during the HOT.
+%Atomic propositions are converted to specific graph transformation rules for Groove during the HOT to facilitate model checking of custom behavioral properties.
 
-Our approach has been implemented in a user-friendly, open-source web-based tool, the \textit{BPMN Analyzer}, which can be used online without needing installation.
-The BPMN Analyzer was validated using a comprehensive test suite.
-Additionally, our approach is versatile as it can be applied to formalize other behavioral languages, such as activity diagrams, state charts, and more.
-To define the execution semantics of a different behavioral language, one simply needs to establish a new execution metamodel and HOT (see the language engineer in \autoref{fig:approach}).
+%Our approach has been implemented in
+We provide an implementation of our approach as a user-friendly, open-source web-based tool, the \textit{BPMN Analyzer}, which can be used online without needing installation \cite{timkrauterLMCS2024Artifacts2023}.
+%%The BPMN Analyzer was validated using a comprehensive test suite.
+%Additionally, our approach is versatile as it can be applied to formalize other behavioral languages, such as activity diagrams, state charts, and more.
+%To define the execution semantics of a different behavioral language, one simply needs to establish a new execution metamodel and HOT (see the language engineer in \autoref{fig:approach}).
+The overview in \autoref{fig:approach} is divided into two separated modules, denoted by dashed rectangles, to indicate the versatility of the approach as it can be applied to formalize other behavioral languages, such as activity diagrams and state charts. %cite?
+This formalization will require the language engineer to establish a new execution metamodel and a HOT for the new language by following the well-documented adapter design pattern.
+
 
 % Contributions summary
 The contribution of this article is twofold.
-First, we introduce a new approach utilizing a HOT to generate GT rules instead of providing fixed model-independent GT rules to formalize the semantics of a behavioral language.
+First, we introduce a new approach utilizing a HOT to generate GT rules --- instead of providing fixed model-independent GT rules --- to formalize the semantics of a behavioral language.
 Second, we apply our approach to BPMN, resulting in a formalization covering most BPMN elements that supports behavioral property checking.
 
 % Compared to the conference version
-\textbf{Changes compared to the conference version} This article is an extended version of the paper \textit{Formalization and analysis of BPMN using graph transformation systems} \cite{krauterFormalizationAnalysisBPMN2023} published in the proceedings of the 16th edition of the \textit{International Conference on Graph Transformation}.
+This article extends \cite{krauterFormalizationAnalysisBPMN2023} as follows.
 % BPMN semantics formalization: More elements/features described
-A significant change, besides minor improvements throughout the article, is the extended \enquote{BPMN semantics formalization} section, where we now explain many more of the BPMN elements implemented in our HOT (see elements highlighted in blue in \autoref{fig:bpmnelementsOverview}).
+(i) We explain a significant extension of the BPMN elements, which are covered by our approach (see elements highlighted in blue in \autoref{fig:bpmnelementsOverview}).
 % Model checking: Custom properties
-In addition, we enhanced the \enquote{custom properties} subsection in \autoref{sec:modelChecking} by using an order handling process to illustrate use cases for custom properties.
+(ii) We enhance the explanation of the custom properties in \autoref{sec:modelChecking} by using an order handling example process to illustrate use cases for these properties.
 % Implementation: Custom properties editor and new three-step flow
-Furthermore, we extensively improved the BPMN analyzer tool and thus rewrote the \enquote{Implementation} section.
-A user now analyzes his BPMN model in three steps.
-The second step consists of a new atomic proposition editor based on our concrete syntax for describing snapshots of processes.
+(iii) We detail the extensively improved BPMN analyzer tool in \autoref{sec:impl} in which modelers may use our new atomic proposition editor. %, which is created based on our concrete syntax for describing snapshots of processes.
 % Scalability
-Finally, we added \autoref{sec:scalability} testing the scalability of our approach with three hundred synthetically generated BPMN models of increasing size. 
-
+(iv) We test the scalability of our approach with 300 synthetically generated BPMN models of various sizes in \autoref{sec:scalability}. 
 
 % Article outline
 \textbf{Outline} The remainder of this article is structured as follows.
-First, in \autoref{sec:preliminaries}, we introduce BPMN and point out the theoretical background of this contribution.
+First, in \autoref{sec:preliminaries}, we introduce BPMN and briefly explain the theoretical background of our contribution.
 Second, we describe the BPMN semantics formalization using the HOT (\autoref{sec:formalization}) before explaining how this can be utilized for model checking general BPMN and custom properties (\autoref{sec:modelChecking}).
-Then, we present BPMN Analyzer implementing our approach in \autoref{sec:impl} and \autoref{sec:scalability} describes how we tested the scalability of our approach.
+Then, we detail the BPMN Analyzer tool in \autoref{sec:impl} and we describe how we tested the scalability of our approach in \autoref{sec:scalability}.
 Finally, we discuss related work regarding BPMN element coverage in \autoref{sec:relatedWork} and conclude in \autoref{sec:conclusion}.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Preliminaries} \label{sec:preliminaries}
 
-In this section, we will briefly introduce the execution semantics of BPMN, and readers are encouraged to consult \cite{freundRealLifeBPMNUsing2019} or the BPMN specification \cite{objectmanagementgroupBusinessProcessModel2013} for more in-depth information. 
-Furthermore, our application of GTs to formalize the execution semantics of BPMN will be outlined in addition to a brief overview of the theoretical principles that underlie our use of GTs.
+In this section, we briefly introduce the execution semantics of BPMN, and readers are encouraged to consult \cite{freundRealLifeBPMNUsing2019} or the BPMN specification \cite{objectmanagementgroupBusinessProcessModel2013} for more in-depth information. 
+Furthermore, we outline our application of GTs to formalize the execution semantics of BPMN.
+Finally, we provide a brief overview of the theoretical principles that underlie our use of GTs.
 
 
 \subsection{BPMN}
+% \autoref{fig:bpmnMetamodel} depicts the structure of BPMN models with the corresponding concrete syntax BPMN symbols contained in clouds.
+% A BPMN model is represented by a \textsf{Collaboration} that has \textsf{participants} and \textsf{messageFlows} between \textsf{InteractionNodes}.
+% Each participant is a \textsf{Process} containing \textsf{flowNodes} connected by \textsf{SequenceFlows}.
+% A \textsf{FlowNode} is either an \textsf{Activity}, \textsf{Gateway}, or \textsf{Event}.
+% Many types of \textsf{Activities}, \textsf{Gateways}, and \textsf{Events} exist.
 \autoref{fig:bpmnMetamodel} depicts the structure of BPMN models with the corresponding concrete syntax BPMN symbols contained in clouds.
+A BPMN model is represented by a \textsf{Collaboration} that has participant \textsf{Process}es and \textsf{MessageFlow}s between \textsf{InteractionNode}s.
+Each participant is a \textsf{Process} containing \textsf{FlowNode}s connected by \textsf{SequenceFlow}s.
+A \textsf{FlowNode} is either an \textsf{Activity}, \textsf{Gateway}, or \textsf{Event}.
+Many types of activities, gateways, and events exist. %such as
+Activities represent certain tasks to be carried out during a process, while events may happen during the execution of these tasks.
+Furthermore, gateways model conditions, parallelizations, and synchronizations \cite{freundRealLifeBPMNUsing2019}.
 
 \begin{figure}[ht]
   \centering
@@ -166,13 +192,6 @@ Furthermore, our application of GTs to formalize the execution semantics of BPMN
 \end{figure}
 % Containment: participants, messageFlows see fig. 9.33 in the BPMN spec.
 % Containment: flowNodes (Process is FlowElementsContainer fig. 8.23). FlowElementsContainer has a containment of flow elements (also includes sequence flows)
-
-A BPMN model is represented by a \textsf{Collaboration} that has \textsf{participants} and \textsf{messageFlows} between \textsf{InteractionNodes}.
-Each participant is a \textsf{Process} containing \textsf{flowNodes} connected by \textsf{SequenceFlows}.
-A \textsf{FlowNode} is either an \textsf{Activity}, \textsf{Gateway}, or \textsf{Event}.
-Many types of \textsf{Activities}, \textsf{Gateways}, and \textsf{Events} exist.
-Activities represent certain tasks to be carried out during a process, while events may happen during the execution of these tasks.
-Furthermore, gateways model conditions, parallelizations, and synchronizations \cite{freundRealLifeBPMNUsing2019}.
 
 The BPMN execution semantics is described using the concept of \textit{tokens} \cite{objectmanagementgroupBusinessProcessModel2013}, which can be located at sequence flows and specific flow nodes.
 Tokens are consumed and created by flow nodes according to the connected sequence flows.
@@ -252,7 +271,7 @@ We chose to create a minimal execution model only containing concepts needed dur
 This is only possible since our rules are generated by the HOT for each specific BPMN model such that the structure of each model is already implicitly encoded in the rules.
 This design choice leads to smaller states in the graph transformation system when compared to an execution metamodel that extends the BPMN metamodel.
 
-The execution metamodel is a UML class diagram without operations, which can be seen as an attributed type graph \cite{heckelGraphTransformationSoftware2020}.
+The execution metamodel in \autoref{fig:bpmnExecutionMetamodel} is a UML class diagram without operations, which can be seen as an attributed type graph \cite{heckelGraphTransformationSoftware2020}.
 We keep the execution metamodel and the execution type graph separate (see \autoref{fig:approach}) because the execution metamodel should be independent of the formalism used to define the execution semantics.
 One can reuse the execution metamodel when changing the formalism or concrete tool implementing the formalism (in our case, Groove) by adjusting how the execution metamodel is transformed.
 Using the execution metamodel as the type graph, we can now define how the start graph and GT rules for the different BPMN elements are created.
@@ -348,11 +367,11 @@ Furthermore, the fat green elements will be created and the dashed fat red eleme
 Activity execution is divided into two steps implemented in two parts in the first rule template.
 The upper part generates one rule for each incoming sequence flow to start the activity.
 An activity can be started using a token positioned at any of its incoming sequence flows.
-This part generates the sample rule on the right of \autoref{fig:gtRuleConcrete}.
+This part generates the sample rule on the left of \autoref{fig:gtRuleConcrete}.
 Having multiple incoming or outgoing sequence flows for a flow node is considered bad practice since the implicitly encoded gateways should be explicit to avoid confusion.
 Our formalization still supports those models not to force modelers to rewrite them, but we recommend using static analyzers to avoid such models \cite{camundaservicesgmbhBpmnlint2023}.
 
-The lower part generates one rule that terminates the activity.
+The bottom part generates one rule that terminates the activity.
 It deletes a token at the activity and adds one at each outgoing sequence flow.
 This implicitly encodes a parallel gateway (see \autoref{fig:gatewayTemplates}) but should be avoided, as described earlier. 
 
@@ -513,10 +532,13 @@ Terminating a process must also terminate its subprocesses, which is not shown i
 
 \section{Model checking BPMN} \label{sec:modelChecking}
 
-Model checking---and verification in general---of BPMN models is necessary to ensure the correctness and reliability of business processes, which ultimately leads to increased efficiency, reduced costs, and user satisfaction.
-Using our approach, model checking a BPMN model is possible using the generated GT system and behavioral properties based on atomic propositions (see \autoref{fig:approach}).
-Behavioral properties are defined using a temporal logic, such as CTL and LTL.
-In this article, we will use CTL, and atomic propositions are formalized as graph conditions.
+Model checking ---and verification in general--- of BPMN models is necessary to ensure the correctness and reliability of business processes, which ultimately leads to increased efficiency, reduced costs, and user satisfaction.
+Using our formalization approach, BPMN models may be verified against behavioural properties ---both general and user-defined--- by utilizing the generated GT system (see \autoref{fig:approach}).
+These behavioral properties are defined using a temporal logic, such as CTL and LTL.
+% Using our approach, model checking a BPMN model is possible using the generated GT system and behavioral properties based on atomic propositions (see \autoref{fig:approach}).
+% Behavioral properties are defined using a temporal logic, such as CTL and LTL.
+As mentioned in section bla, modellers may use our appraoch to specify user-defined properties consisting of atomic propositions and logical operators from CTL.
+The atomic propositions are transformed to graph conditions by the HOT.
 A graph condition is a GT rule which does not delete or add elements.
 A proposition holds in a given state if a match of the graph condition exists in the graph representing the state \cite{kastenbergModelCheckingDynamic2006}.
 
