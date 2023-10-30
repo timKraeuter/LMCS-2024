@@ -87,7 +87,7 @@ However, the informal description of the BPMN execution semantics leads to diffe
 Various studies have shown that business process models suffer from control-flow errors \cite{mendlingEmpiricalStudiesProcess2009}.
 Formalizing BPMN would drastically reduce the cost of business process automation by facilitating the detection of errors and optimization potentials in process models already during design time.
 To this end, we propose a formalization that covers most of the BPMN elements used in practice and, in addition, supports checking behavioral properties.
-General behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to BPMN \cite{corradiniClassificationBPMNCollaborations2018}. They can uncover potential flaws in BPMN models leading to deadlocks or other undesirable execution states.
+General behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to BPMN in \cite{corradiniClassificationBPMNCollaborations2018}. They can uncover potential flaws in BPMN models leading to deadlocks or other undesirable execution states.
 
 In this article, we consider two fundamental concepts when formalizing the execution semantics of BPMN.
 First, \textit{state structure}, i.e., how model instances are represented during execution.
@@ -116,7 +116,7 @@ The BPMN execution metamodel is defined by language engineers, utilizing the BPM
 
 We define a HOT from BPMN models to GT systems.
 We call the transformation \textit{higher-order} since the resulting graph-transformation systems represent model-transformations themselves \cite{tisiUseHigherOrderModel2009}.
-The HOT creates a GT system, i.e., GT rules, and a start graph for a given BPMN model.
+The HOT creates a GT system, i.e., GT rules and a start graph for a given BPMN model.
 It is defined using rule generation templates, which describe how GT rules should be generated for each state-changing element in BPMN (see \autoref{sec:formalization}).
 The obtained GT system conforms to the execution type graph, which corresponds to the BPMN execution metamodel.
 In the figure, we have colored both artifacts blue to visualize that they contain the same information.
@@ -141,7 +141,7 @@ Second, we apply our approach to BPMN, resulting in a formalization covering mos
 % Compared to the conference version
 This article extends \cite{krauterFormalizationAnalysisBPMN2023} as follows.
 % BPMN semantics formalization: More elements/features described
-(i) We explain a significant extension of the BPMN elements, which are covered by our approach (see elements highlighted in blue in \autoref{fig:bpmnelementsOverview}).
+(i) We explain many more BPMN elements, which are covered by our approach (see elements highlighted in blue in \autoref{fig:bpmnelementsOverview}).
 % Model checking: Custom properties
 (ii) We enhance the explanation of the custom properties in \autoref{sec:modelChecking} by using an order handling example process to illustrate use cases for these properties.
 % Implementation: Custom properties editor and new three-step flow
@@ -155,13 +155,6 @@ First, in \autoref{sec:preliminaries}, we introduce BPMN and briefly explain the
 Second, we describe the BPMN semantics formalization using the HOT (\autoref{sec:formalization}) before explaining how this can be utilized for model checking general BPMN and custom properties (\autoref{sec:modelChecking}).
 Then, we detail the BPMN Analyzer tool in \autoref{sec:impl} and we describe how we tested the scalability of our approach in \autoref{sec:scalability}.
 Finally, we discuss related work regarding BPMN element coverage in \autoref{sec:relatedWork} and conclude in \autoref{sec:conclusion}.
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Preliminaries} \label{sec:preliminaries}
 
@@ -334,7 +327,7 @@ In the example, \textsf{E.incSFs} means following all \textsf{incSFs} links for 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{images/end_template.pdf}
+    \includegraphics[width=.8\textwidth]{images/end_template.pdf}
     \caption{Rule generation template for end events}
     \label{fig:endTemplate}
 \end{figure}
@@ -362,14 +355,14 @@ Furthermore, the fat green elements will be created and the dashed fat red eleme
 
 % Normal activities
 \autoref{fig:activityTemplates} depicts the rule generation templates for activities and subprocesses (see \autoref{fig:bpmnelementsOverview}).
-Activity execution is divided into two steps implemented in two parts in the first rule template.
-The upper part generates one rule for each incoming sequence flow to start the activity.
+Activity execution is divided into two steps implemented in parts \textbf{(a)} and \textbf{(b)} in the rule generation template \textbf{(1)}.
+Part \textbf{(a)} generates one rule for each incoming sequence flow to start the activity.
 An activity can be started using a token positioned at any of its incoming sequence flows.
 This part generates the sample rule on the left of \autoref{fig:gtRuleConcrete}.
 Having multiple incoming or outgoing sequence flows for a flow node is considered bad practice since the implicitly encoded gateways should be explicit to avoid confusion.
 Our formalization still supports those models not to force modelers to rewrite them, but we recommend using static analyzers to avoid such models \cite{camundaservicesgmbhBpmnlint2023}.
 
-The bottom part generates one rule that terminates the activity.
+Part \textbf{(b)} generates one rule that terminates the activity.
 It deletes a token at the activity and adds one at each outgoing sequence flow.
 This implicitly encodes a parallel gateway (see \autoref{fig:gatewayTemplates}) but should be avoided, as described earlier. 
 
@@ -383,13 +376,13 @@ This implicitly encodes a parallel gateway (see \autoref{fig:gatewayTemplates}) 
 
 % Subprocesses/Call activities
 Subprocess execution is like activity execution.
-The upper part of the template generates one rule for each incoming sequence flow.
+Part \textbf{(a)} of the template generates one rule for each incoming sequence flow.
 The rule deletes an incoming token and adds a process snapshot representing a subprocess. 
 The created process snapshot is represented with a colored circle on the top left corner of the subprocess with a token at each outgoing sequence flow of its start events (similar to start graph generation).
 There is a \textit{subprocess} link between the process snapshots to depict the \textsf{subprocesses} relation in \autoref{fig:bpmnExecutionMetamodel}.
 If the subprocess has no start events, a token will be added to every activity and gateway with no incoming sequence flows.
 
-The bottom part of the template generates one rule to delete a terminated process snapshot and adds tokens at each outgoing sequence flow.
+Part \textbf{(b)} of the template generates one rule to delete a terminated process snapshot and adds tokens at each outgoing sequence flow.
 Subprocesses are terminated by the termination rule (see section \ref{subsec:instAndTermination}).
 
 
@@ -420,7 +413,7 @@ Thus, they are unicast compared to broadcast signal events discussed later in \a
 % MITE
 \autoref{fig:messageThrowEventTemplates} depicts the rule generation templates for \textit{message intermediate throw events} (\textsf{MITE} in \autoref{fig:bpmnelementsOverview}).
 % MITE with MICE
-The first rule template describes how MITEs interact with \textit{message intermediate catch events} (MICEs).
+Rule generation template \textbf{(1)} describes how MITEs interact with \textit{message intermediate catch events} (MICEs).
 A MITE deletes an incoming token and adds one at each outgoing sequence flow.
 In addition, it sends one message to each process by adding it to the incoming messages of the process.
 However, sending each message is optional, meaning that if a process is not ready to consume a message immediately, the message is not added.
@@ -429,7 +422,7 @@ We implement optional message sending using nested rules with quantification.
 Concretely, we use an optional existential quantifier \cite{rensinkNestedQuantificationGraph2006} (see dotted rectangle labeled \textsf{Optional} in \autoref{fig:messageThrowEventTemplates}) to send a message only if the receiving process is ready to consume it.
 
 % MITE with MSE
-The rule template (2) describes how MITEs interact with Message Start Events (MSEs).
+Rule generation template \textbf{(2)} describes how MITEs interact with Message Start Events (MSEs).
 For each MSE, a new process snapshot is created with tokens located at its outgoing sequence flows.
 We split the interaction of MITEs with MICEs and MSEs into two rule templates for better understanding.
 However, a MITE might interact with MICEs and MSEs simultaneously.
@@ -439,12 +432,12 @@ Thus, our HOT implements a merge of both templates.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{images/mite_template.pdf}
-    \caption{Rule generation templates for MITEs interacting with MICEs (1) and MSEs (2)}
+    \caption{Rule generation templates for MITEs interacting with MICEs \textbf{(1)} and MSEs \textbf{(2)}}
     \label{fig:messageThrowEventTemplates}
 \end{figure}
 
 % MICE
-The template in \autoref{fig:messageCatchEventTemplates} shows the behavior of \textit{message intermediate catch events} (\textsf{MICE} in \autoref{fig:bpmnelementsOverview}).
+The rule generation template in \autoref{fig:messageCatchEventTemplates} shows the behavior of \textit{message intermediate catch events} (\textsf{MICE} in \autoref{fig:bpmnelementsOverview}).
 To trigger a MICE, only one message at an incoming \textit{message flow} is needed.
 Thus, one rule is generated for each incoming \textit{message flow}.
 The rule template shows that MICEs delete one message and one token, as well as add a token at each outgoing sequence flow.
@@ -489,21 +482,21 @@ Signal broadcasts have a global scope, i.e., they can communicate across process
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\textwidth]{images/signal_rule_template.pdf}
-    \caption{Rule generation templates for SITEs}
+    \caption{Rule generation templates for SITEs interacting with SICE \textbf{(1)} and SSE \textbf{(2)}}
     \label{fig:signalEventTemplates}
 \end{figure}
 
 % Rule template description
-The first SITE template describes how SITEs interact with SICE.
+Rule generation template \textbf{(1)} describes how SITEs interact with SICE.
 Like other intermediate events, the incoming token is consumed while one token is added for each outgoing sequence flow.
 Due to its broadcast semantics, a SITE interacts with all matching SICEs with an incoming token.
 A SITE and SICE match if they have the same signal name.
 In our templates, we assume that the signal name is the SITE/SICE name.
 For each matching SICE, a universally quantified nested rule consumes the incoming token and adds a token for each outgoing sequence flow.
-We use a universal quantifier since one process snapshot might have multiple tokens waiting before a SICE.
+We use a universal quantifier (\textsf{All} in \autoref{fig:signalEventTemplates}) since one process snapshot might have multiple tokens waiting before a SICE.
 Then, a SITE should trigger this SICE multiple times.
 
-The second SITE template describes how SITEs interact with SSEs.
+Rule generation template \textbf{(2)} describes how SITEs interact with SSEs.
 Analogous to MITEs and MSEs, new process snapshots with tokens at the outgoing sequence flows of the SSEs are added for each matching SSE.
 Each matching SSE is only triggered once, meaning we do not need any quantified nested rules.
 % Merge of both templates
@@ -557,8 +550,8 @@ In the following, we will describe how to implement the \textit{Safeness} and \t
 We specify \textit{Safeness} as the CTL property defined in \eqref{eq:safeness}.
 The atomic proposition \textsf{Unsafe} is true if two tokens of one process snapshot point to the same sequence flow.
 It is shown in \autoref{fig:unsafe} using abstract Groove syntax.
-We cannot use the concrete syntax to define the \textsf{Unsafe} proposition because the proposition should apply to any BPMN model.
-Our concrete syntax is always used with a given BPMN model.
+%We cannot use the concrete syntax to define the \textsf{Unsafe} proposition because the proposition should apply to any BPMN model.
+%Our concrete syntax is always used with a given BPMN model.
 
 \begin{figure}[ht]
     \centering
@@ -596,10 +589,19 @@ The property \textit{Proper Completion} is not yet implemented, but all the info
 
 \subsection{Custom properties} \label{subsec:customProperties}
 % Defining atomic propositions in BPMN is a novelty.
-To make model checking user-friendly, we envision modelers defining atomic propositions based on the extended BPMN syntax, i.e., the concrete syntax introduced in \autoref{fig:bpmnExecutionMetamodel}.
-Therefore, a modeler adds process snapshots and tokens to a BPMN model to define an atomic proposition, which we can automatically convert to a GT rule representing an atomic proposition.
-GT rules representing atomic propositions are not allowed to delete or add elements and are called graph conditions in Groove.
-Furthermore, a modeler can define that a token should not exist at a given position, which leads to NACs in the graph condition. 
+% To make model checking user-friendly, we envision modelers defining atomic propositions based on the extended BPMN syntax, i.e., the concrete syntax introduced in \autoref{fig:bpmnExecutionMetamodel}.
+% Therefore, a modeler adds process snapshots and tokens to a BPMN model to define an atomic proposition, which we can automatically convert to a GT rule representing an atomic proposition.
+% GT rules representing atomic propositions are not allowed to delete or add elements and are called graph conditions in Groove.
+% Furthermore, a modeler can define that a token should not exist at a given position, which leads to NACs in the graph condition. 
+
+
+To make model checking user-friendly, we enable modelers to define atomic propositions using the concrete syntax of the extended BPMN execution metamodel introduced in \autoref{fig:bpmnExecutionMetamodel} (see \autoref{fig:shippedTwiceProposition}).
+An atomic proposition is defined as a process snapshot, together with a token distribution (see \autoref{fig:shippedTwiceAbstractAndGroove}A), which we can automatically convert to a graph condition in Groove (see \autoref{fig:shippedTwiceAbstractAndGroove}B).
+Recall that graph conditions are GT rules that are run in check mode, i.e., the are not allowed to delete or add elements.
+Atomic propositions may be connected by simple CTL-operators such as \textsf{G, F, $\to$} to create temporal formulae which should hold in the given BPMN model. 
+Furthermore, modelers may forbid certain states in the BPMN model by specifying that a certain token distribution should not should not exist.
+These situations would lead to Negative Application Conditions (NACs) in the graph conditions. 
+
 
 For example, the token distribution shown in \autoref{fig:shippedTwiceProposition} defines a process snapshot with two tokens at activity \textit{Ship goods}.
 A modeler could use this atomic proposition to check if the activity \textit{Ship goods} is executed twice by creating an appropriate LTL/CTL property.
@@ -612,6 +614,13 @@ The modeling error leads to potentially shipping goods twice if the process is n
     \includegraphics[width=0.65\textwidth]{images/shippedTwiceProposition.pdf}
     \caption{Atomic proposition defining shipping goods twice.}
     \label{fig:shippedTwiceProposition}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.65\textwidth]{images/twice.png}
+    \caption{Atomic proposition defining shipping goods twice in abstract syntax (a) and Groove syntax (b)}
+    \label{fig:shippedTwiceAbstractAndGroove}
 \end{figure}
 
 Another proposition for the same erroneous process is shown in \autoref{fig:shippingAfterPayment}.
@@ -627,14 +636,18 @@ The GT system for the order handling process containing both propositions can be
     \label{fig:shippingAfterPayment}
 \end{figure}
 
-Using a proposition editor based on our concrete syntax, a modeler can work with BPMN, which is well-known to him.
-He does not need to define his propositions in the GT semantics used for execution since each proposition is automatically transformed as described earlier.
-To summarize, many propositions can defined using this simple method.
-However, the expressibility is not the same as in the GT semantics.
-For example, one can use nested rules with quantification in graph conditions in Groove.
-Thus, when defining a proposition editor, there is a clear tradeoff between \textit{simplicity} and \textit{expressibility}.
-Currently, we favor simplicity in our tool and recommend defining propositions in GT semantics if more powerful constructs are needed.
-In addition, expressibility varies and is achieved differently in GT tools, and we try to stay as independent as possible from specific GT tools.
+% Using a proposition editor based on our concrete syntax, a modeler can work with BPMN, which is well-known to him.
+% He does not need to define his propositions in the GT semantics used for execution since each proposition is automatically transformed as described earlier.
+% To summarize, many propositions can defined using this simple method.
+
+Using an atomic proposition-editor based on the BPMN concrete syntax, modelers would not need to have extensive knowledge about the GT-based execution semantics. 
+% However, the expressibility is not the same as in the GT semantics.
+% For example, one can use nested rules with quantification in graph conditions in Groove.
+% Thus, when defining a proposition editor, there is a clear tradeoff between \textit{simplicity} and \textit{expressibility}.
+% Currently, we favor simplicity in our tool and recommend defining propositions in GT semantics if more powerful constructs are needed.
+% In addition, expressibility varies and is achieved differently in GT tools, and we try to stay as independent as possible from specific GT tools.
+Although the expressiveness is not as powerful as in the GT-based execution semantics in Groove---e.g., one can use nested rules with quantification in graph conditions---we favor \textit{simplicity} over \textit{expressiveness}.
+In addition, we attempt to stay as independent as possible from the framework and tools used for the execution semantics (see the right module of \autoref{fig:approach}). %, and specific GT tools expressibility varies in this bla.
 
 Finally, the modeler must still know the temporal logic, such as LTL and CTL, to express his properties.
 To combat this problem, we added temporal logic templates to our tool to generate commonly occurring propositions without knowledge about temporal logic.
@@ -642,10 +655,10 @@ This feature is discussed in detail in the implementation section.
 In the future, a domain-specific property language for BPMN would further lessen the knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}.
 
 \section{Implementation} \label{sec:impl}
-In this section, we will present our tool and the improvements made after the publication of \cite{krauterFormalizationAnalysisBPMN2023}.
-In addition, we describe initial performance experiments.
+In this section, we will present our tool, the BPMN Analyzer, which is an improvement of the version published in \cite{krauterFormalizationAnalysisBPMN2023}.
+In addition, we will describe initial performance experiments of the tool.
 
-\subsection{BPMN Analyzer tool}
+\subsection{BPMN Analyzer}
 
 Our approach is implemented in a web-based tool called \textit{BPMN Analyzer}, which is open-source, publicly available, and does not require any installation \cite{timkrauterLMCS2024Artifacts2023, krauterFormalizationAnalysisBPMN2023}.
 \autoref{fig:implScreenshot} depicts a screenshot of the BPMN Analyzer.
@@ -653,13 +666,13 @@ We use the order handling process from \cite{ruckerPracticalProcessAutomation202
 It is the same BPMN model as in \autoref{fig:shippedTwiceProposition} and \autoref{fig:shippingAfterPayment} but without modeling errors.
 
 The modeler can create or upload a BPMN model, which can then be verified using either general BPMN properties or custom CTL properties.
-BPMN Analyzer can generate a GT system for the supplied BPMN model and run model checking in Groove \cite{kastenbergModelCheckingDynamic2006}. 
+BPMN Analyzer generates a GT system for the supplied BPMN model and run model checking against the specified properties in Groove \cite{kastenbergModelCheckingDynamic2006}. 
 To evaluate the correctness of our HOT, we have created a comprehensive test suite \cite{timkrauterLMCS2024Artifacts2023}.
 It verifies that rules are generated as defined by the rule generation templates in the previous section for each BPMN element.
 
 \begin{figure}[ht]
     \centering
-    \frame{\includegraphics[width=1\textwidth]{images/impl_step3.png}}
+    \frame{\includegraphics[width=.9\textwidth]{images/impl_step3.png}}
     % \includegraphics[width=1\textwidth]{images/impl_step3.png}
     \caption{Screenshot of the \textit{analysis step} in the BPMN Analyzer tool}
     \label{fig:implScreenshot}
@@ -943,7 +956,7 @@ If a counterexample is found, there is no need to continue the state space gener
 \section{Related work} \label{sec:relatedWork}
 % Petri nets formalisms
 The most common formalizations of BPMN use Petri Nets.
-For example, \cite{dijkmanSemanticsAnalysisBusiness2008} formalize a subset of BPMN elements by defining a mapping to Petri Nets conceptually close to our HOT-based formalization.
+For example, \cite{dijkmanSemanticsAnalysisBusiness2008} formalizes a subset of BPMN elements by defining a mapping to Petri Nets conceptually close to our HOT-based formalization.
 % Difficulties with Petri net encodings
 Encoding basic BPMN modeling elements into Petri Nets is generally straightforward, but for some advanced elements, it can be complicated to define \cite{hofstedeWorkflowPatternsExpressive2002}.
 For example, representing \textit{termination end events} and \textit{interrupting boundary events}, which interrupt a running process, is usually unsupported because of the complexity of managing the non-local propagation of tokens in Petri Nets \cite{corradiniFormalApproachAnalysis2021}.
@@ -1039,7 +1052,7 @@ We plan to support these elements by extending our implementation and test suite
 \section{Conclusion \& future work} \label{sec:conclusion}
 This article makes two main practical contributions.
 First, we conceptualize a new approach utilizing a HOT to formalize the semantics of behavioral languages.
-Our approach moves complexity from the GT rules to the rule templates making up the HOT.
+Our approach moves complexity from the GT rules to the rule templates, making up the HOT.
 Furthermore, the approach can be applied to any behavioral language if one can define its \textit{state structure} and identify its \textit{state-changing elements}.
 
 Second, we apply our approach to BPMN, resulting in a comprehensive formalization regarding element coverage (compared to the literature and industrial process engines) that supports checking behavioral properties.
