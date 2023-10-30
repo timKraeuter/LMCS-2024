@@ -342,7 +342,7 @@ The rule changes the state of the process snapshot from running to terminated if
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=.6\textwidth]{images/terminate_groove.png}
+    \includegraphics[width=.6\textwidth]{images/Terminate.pdf}
     \caption{Termination rule in Groove}
     \label{fig:terminationRule}
 \end{figure}
@@ -555,14 +555,14 @@ It is shown in \autoref{fig:unsafe} using abstract Groove syntax.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/Unsafe.png}
+    \includegraphics[width=0.8\textwidth]{images/Unsafe.pdf}
     \caption{The atomic proposition \textit{Unsafe} as a Groove graph condition.}
     \label{fig:unsafe}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/AllTerminated.png}
+    \includegraphics[width=0.5\textwidth]{images/AllTerminated.pdf}
     \caption{The atomic proposition \textit{AllTerminated} as a Groove graph condition.}
     \label{fig:allTerminated}
 \end{figure}
@@ -618,8 +618,8 @@ The modeling error leads to potentially shipping goods twice if the process is n
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.65\textwidth]{images/twice.png}
-    \caption{Atomic proposition defining shipping goods twice in abstract syntax (a) and Groove syntax (b)}
+    \includegraphics[width=0.65\textwidth]{images/twice.pdf}
+    \caption{Abstract syntax (a) and graph condition in Groove (b) for \autoref{fig:shippedTwiceProposition}}
     \label{fig:shippedTwiceAbstractAndGroove}
 \end{figure}
 
@@ -666,7 +666,7 @@ We use the order handling process from \cite{ruckerPracticalProcessAutomation202
 It is the same BPMN model as in \autoref{fig:shippedTwiceProposition} and \autoref{fig:shippingAfterPayment} but without modeling errors.
 
 The modeler can create or upload a BPMN model, which can then be verified using either general BPMN properties or custom CTL properties.
-BPMN Analyzer generates a GT system for the supplied BPMN model and run model checking against the specified properties in Groove \cite{kastenbergModelCheckingDynamic2006}. 
+BPMN Analyzer generates a GT system for the supplied BPMN model and runs model checking against the specified properties in Groove \cite{kastenbergModelCheckingDynamic2006}. 
 To evaluate the correctness of our HOT, we have created a comprehensive test suite \cite{timkrauterLMCS2024Artifacts2023}.
 It verifies that rules are generated as defined by the rule generation templates in the previous section for each BPMN element.
 
@@ -678,25 +678,28 @@ It verifies that rules are generated as defined by the rule generation templates
     \label{fig:implScreenshot}
 \end{figure}
 
-We significantly improved the BPMN Analyzer tool for this extended version.
-First, we improved the usability of the tool.
-We restructured the user interface, previously contained on one page, into three distinct steps while adding new features.
-The user is transparently guided through these three steps by the application flow.
+% We significantly improved the BPMN Analyzer tool for this extended version.
+% First, we improved the usability of the tool.
+% We restructured the user interface, previously contained on one page, into three distinct steps while adding new features.
+% The user is transparently guided through these three steps by the application flow.
 
-(1) The \textbf{Modeling} step lets a user upload or define his BPMN model.
-We integrated a properties panel into the modeling step such that a user does not need another tool to view and edit the IDs of BPMN elements.
-This allows for better traceability between BPMN elements and generated GT rules when a user chooses to inspect the GT system.
+The BPMN Analyzer interface is structured into three distinct steps where the user is transparently guided by the application flow.
 
-(2) The \textbf{Custom Propositions} steps contains the new proposition editor.
-In this step, a user can create as many propositions as needed for custom temporal logic properties.
-If a user is only interested in general BPMN properties, he can skip this step.
-Each proposition is created using the introduced visual concrete syntax.
-To create a proposition, a user attaches tokens and process snapshots to the BPMN model created in the modeling step.
-We implemented a custom diagram editor for this step to achieve the best possible usability.
-
-(3) In the final \textbf{Analysis} step, the user can check the mentioned general BPMN properties and write CTL properties.
-The propositions defined in the second step are listed and available for the CTL model checking.
-If a user downloads the generated GT system, it will also contain the defined propositions converted to graph conditions.
+\begin{enumerate}
+  \item The \textbf{Modeling} step lets users upload or define the BPMN model.
+  We utilize a properties panel in the modeling step such that IDs of BPMN elements can be viewed and edited directly in the model editor. %users does not need another tool to view and edit the IDs of BPMN elements.
+  This allows for better traceability between BPMN elements and generated GT rules when a user chooses to inspect the generated GT system.
+  \item The \textbf{Custom Propositions} step contains the proposition editor.
+  In this step, a user can create atomic propositions which in turn may be used as ingredients using the custom properties builder.
+  Users who are only interested in general BPMN properties may skip this step.
+  Each proposition is created using the concrete syntax detailed in \autoref{subsec:customProperties}, which is implemented as a custom diagram editor.
+  As mentioned, to create a proposition users attach tokens and process snapshots to the BPMN model created in the modeling step.
+  %We implemented a custom diagram editor for this step to achieve the best possible usability.
+  \item In the final \textbf{Analysis} step, users may check the general BPMN properties and build custom properties using the atomic propositions form Step 2. 
+  Currently we support CTL as a language to formulate these custom properties.
+  The propositions defined in the second step are listed and available for the CTL model checking.
+  If a user downloads the generated GT system, it will also contain the defined propositions converted to graph conditions.
+\end{enumerate}
 
 Second, we added CTL templates to the analysis of the step such that a modeler can generate commonly occurring CTL propositions.
 He selects a template and a proposition to generate a CTL property.
