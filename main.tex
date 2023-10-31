@@ -713,11 +713,11 @@ The BPMN Analyzer interface is structured into three distinct sections where the
 
 
 \subsection{Ruseable libraries}
-In addition to the BPMN Analyzer, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{timkrauterLMCS2024Artifacts2023}.
-The BPMN metamodel extension needed to define custom propositions is published as an npm module (\textit{token-bpmn-moddle}).
+In addition to the BPMN Analyzer, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners.
+The BPMN metamodel extension needed to define custom propositions is published as an npm module (\textit{token-bpmn-moddle}) \cite{timkrauterLMCS2024Artifacts2023}.
 Npm is the default package manager for the JavaScript programming language.
-In addition, the BPMN token editor to define atomic propositions is also published as an npm module (\textit{token-bpmn}).
-Furthermore, we published our \textit{graph-rule-generation} library to generate Groove GT systems to the Maven central repository.
+In addition, the BPMN token editor to define atomic propositions is also published as an npm module (\textit{token-bpmn}) \cite{timkrauterLMCS2024Artifacts2023}.
+Furthermore, we published our \textit{graph-rule-generation} library to generate Groove GT systems to the Maven central repository \cite{timkrauterLMCS2024Artifacts2023}.
 The Maven central repository is the standard repository for developing JVM-based applications.
 We explain each library in detail in the following sections.
 
@@ -725,7 +725,7 @@ We explain each library in detail in the following sections.
 % Same concrete syntax but slightly different to fit the UI/proposition needs.
 Our implementation \textit{token-bpmn-moddle} \cite{timkrauterLMCS2024Artifacts2023} extends \textit{bpmn-moddle} \cite{camundaservicesgmbhBpmnmoddle2023}, which implements the BPMN specification.
 Our extension adds the \textsf{Token} and \textsf{ProcessSnapshot} types from the BPMN execution metamodel shown in \autoref{fig:bpmnExecutionMetamodel} to the BPMN metamodel.
-\autoref{lst:extension} shows an example BPMN XML snippet, where a token and process snapshot were added.
+\autoref{lst:extension} shows an example BPMN XML snippet, where a token and process snapshot was added.
 
 \lstinputlisting [label=lst:extension, language=XML, numbers=left,
     stepnumber=1, caption=BPMN XML snippet showing an example of our BPMN metamodel extension]{./listings/extension.xml}
@@ -743,7 +743,7 @@ Using our token editor, a user does not need to write XML since the complexity o
 \autoref{fig:tokenEditor} shows the token editor embedded in the second step of the BPMN Analyzer.
 We simplify the user interface so users can only edit tokens and process snapshots, and not the underlying BPMN model.
 Process snapshots are automatically assigned distinct colors, and tokens held by a process snapshot have the same color (see concrete syntax in \autoref{fig:bpmnExecutionMetamodel}).
-Tokens can be assigned to process snapshots, which changes the token's color to the process snapshot's color.
+Tokens can be assigned to process snapshots, which changes the token's color to match the snapshot.
 
 \begin{figure}[ht]
     \centering
