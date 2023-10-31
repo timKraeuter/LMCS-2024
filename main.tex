@@ -526,7 +526,7 @@ Terminating a process must also terminate its subprocesses, which is not shown i
 
 Model checking ---and verification in general--- of BPMN models is necessary to ensure the correctness and reliability of business processes, which ultimately leads to increased efficiency, reduced costs, and user satisfaction.
 Using our formalization approach, BPMN models may be verified against behavioral properties ---both general and user-defined--- by utilizing the generated GT system (see \autoref{fig:approach}).
-These behavioral properties are defined using a temporal logic, such as CTL and LTL.
+These behavioral properties are defined using temporal logic, such as Computation Tree Logic (CTL) and Linear Temporal Logic (LTL) \cite{baierPrinciplesModelChecking2008}.
 % Using our approach, model checking a BPMN model is possible using the generated GT system and behavioral properties based on atomic propositions (see \autoref{fig:approach}).
 % Behavioral properties are defined using a temporal logic, such as CTL and LTL.
 As mentioned in section bla, modelers may use our approach to specify user-defined properties consisting of atomic propositions and logical operators from CTL.
@@ -548,6 +548,7 @@ In the following, we will describe how to implement the \textit{Safeness} and \t
 
 % Safeness
 We specify \textit{Safeness} as the CTL property defined in \eqref{eq:safeness}.
+% TODO: describe CTL \cite{baierPrinciplesModelChecking2008}
 The atomic proposition \textsf{Unsafe} is true if two tokens of one process snapshot point to the same sequence flow.
 It is shown in \autoref{fig:unsafe} using abstract Groove syntax.
 
@@ -616,8 +617,8 @@ The modeling error leads to potentially shipping goods twice if the process is n
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.65\textwidth]{images/twice.pdf}
-    \caption{Abstract syntax (a) and graph condition in Groove (b) for \autoref{fig:shippedTwiceProposition}}
+    \includegraphics[width=1\textwidth]{images/twice.pdf}
+    \caption{Abstract syntax \textbf{(a)} and graph condition in Groove \textbf{(b)} for \autoref{fig:shippedTwiceProposition}}
     \label{fig:shippedTwiceAbstractAndGroove}
 \end{figure}
 

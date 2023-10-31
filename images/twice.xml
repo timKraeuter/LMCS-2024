@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<od:definitions xmlns:od="http://tk/schema/od" xmlns:odDi="http://tk/schema/odDi" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC">
+  <od:odBoard id="Board_debug">
+    <od:object name="1:ProcessSnapshot" id="Object_1j4ij8b" attributeValues="name=&#34;Order handling&#34;">
+      <od:links>Link_008wy3y</od:links>
+      <od:links>Link_0r14c85</od:links>
+    </od:object>
+    <od:object name="1:Token" id="Object_159y2ve" attributeValues="elementID=&#34;Ship goods&#34;" />
+    <od:link name=":tokens" id="Link_008wy3y" sourceRef="Object_1j4ij8b" targetRef="Object_159y2ve" />
+    <od:object name="2:Token" id="Object_1mmegnz" attributeValues="elementID=&#34;Ship goods&#34;" />
+    <od:link name=":tokens" id="Link_0r14c85" sourceRef="Object_1j4ij8b" targetRef="Object_1mmegnz" />
+  </od:odBoard>
+  <odDi:odRootBoard id="RootBoard_debug">
+    <odDi:odPlane id="Plane_debug" boardElement="Board_debug">
+      <odDi:link id="Link_008wy3y_di" boardElement="Link_008wy3y">
+        <odDi:waypoint x="590" y="270" />
+        <odDi:waypoint x="680" y="270" />
+        <odDi:odLabel>
+          <dc:Bounds x="621" y="247" width="48" height="18" />
+        </odDi:odLabel>
+      </odDi:link>
+      <odDi:link id="Link_0r14c85_di" boardElement="Link_0r14c85">
+        <odDi:waypoint x="495" y="310" />
+        <odDi:waypoint x="495" y="352" />
+        <odDi:waypoint x="680" y="352" />
+        <odDi:odLabel>
+          <dc:Bounds x="621" y="325" width="48" height="18" />
+        </odDi:odLabel>
+      </odDi:link>
+      <odDi:odShape id="Object_1j4ij8b_di" boardElement="Object_1j4ij8b">
+        <dc:Bounds x="400" y="240" width="190" height="70" />
+      </odDi:odShape>
+      <odDi:odShape id="Object_159y2ve_di" boardElement="Object_159y2ve">
+        <dc:Bounds x="680" y="237" width="200" height="73" />
+      </odDi:odShape>
+      <odDi:odShape id="Object_1mmegnz_di" boardElement="Object_1mmegnz">
+        <dc:Bounds x="680" y="315" width="200" height="73" />
+      </odDi:odShape>
+    </odDi:odPlane>
+  </odDi:odRootBoard>
+</od:definitions>
