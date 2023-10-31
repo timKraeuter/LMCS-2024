@@ -689,23 +689,23 @@ The BPMN Analyzer interface is structured into three distinct sections where the
   \item The \textbf{Modeling} section lets users upload or define the BPMN model.
   We utilize a properties panel in the modeling step such that IDs of BPMN elements can be viewed and edited directly in the model editor. %users does not need another tool to view and edit the IDs of BPMN elements.
   This allows for better traceability between BPMN elements and generated GT rules when a user chooses to inspect the generated GT system.
-  \item The \textbf{Custom Propositions} section contains the proposition editor.
-  In this step, a user can create atomic propositions which in turn may be used as ingredients using the custom properties builder.
+  \item The \textbf{Custom Propositions} section contains the atomic proposition editor.
+  In this section, users may create atomic propositions which in turn may be used as ingredients using the custom properties builder.
   Users who are only interested in general BPMN properties may skip this step.
-  Each proposition is created using the concrete syntax detailed in \autoref{subsec:customProperties}, which is implemented as a custom diagram editor.
-  As mentioned, to create a proposition users attach tokens and process snapshots to the BPMN model created in the modeling step.
+  Atomic propositions are created using the concrete syntax detailed in \autoref{subsec:customProperties}, which is implemented as a custom diagram editor.
+  As mentioned, to create a proposition users attach tokens and process snapshots to the BPMN model created in the modeling section.
   %We implemented a custom diagram editor for this step to achieve the best possible usability.
-  \item In the final \textbf{Analysis} step, users may check the general BPMN properties and build custom properties using the atomic propositions form Step 2. 
-  Currently we support CTL as a language to formulate these custom properties.
+  \item In the \textbf{Analysis} section, users may check the general BPMN properties and build custom properties using the atomic propositions. 
+  The properties builder utilizes a textual CTL-syntax to specify custom properties using the atomic propositions from the previous section.
+  %Second, 
+  The CTL properties builder comes with CTL templates to facilitate commonly occurring CTL properties.
+  These templates allow currently for checking whether a state (described by an atomic proposition) can be reached or not.
+  Thus, simple safety and liveness properties can be checked using these templates.
   Users who download the generated GT system may inspect and edit the graph conditions which are generated from the atomic propositions; they may also specify more properties in their favourite temporal logic and check them using Groove.
+  Model-checking experts in an organization can define more templates in the future and share them for reuse. 
+
 \end{enumerate}
 
-%Second, 
-The CTL properties builder in the analysis section comes with CTL templates to facilitate commonly occurring CTL properties.
-He selects a template and a proposition to generate a CTL property.
-So far, we have added two templates for checking if a state (described by a proposition) can be reached or is never reached.
-Thus, simple safety and liveness properties can be checked using these templates.
-Model-checking experts in an organization can define more templates in the future and share them for reuse. 
 
 % we added CTL templates to the analysis of the step such that a modeler can generate commonly occurring CTL propositions.
 % He selects a template and a proposition to generate a CTL property.
@@ -714,7 +714,8 @@ Model-checking experts in an organization can define more templates in the futur
 % Model-checking experts in an organization can define more templates in the future and share them for reuse. 
 
 
-Third, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{timkrauterLMCS2024Artifacts2023}.
+\subsection{Ruseable libraries}
+In addition to the BPMN Analyzer, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners \cite{timkrauterLMCS2024Artifacts2023}.
 The BPMN metamodel extension needed to define custom propositions is published as an npm module (\textit{token-bpmn-moddle}).
 Npm is the default package manager for the JavaScript programming language.
 In addition, the BPMN token editor to define atomic propositions is also published as an npm module (\textit{token-bpmn}).
@@ -733,16 +734,16 @@ Our extension adds the \textsf{Token} and \textsf{ProcessSnapshot} types from th
 
 The library allows one to create token and process snapshot instances and stores them in the BPMN extension elements (lines 2-5 in the XML example in \autoref{lst:extension}).
 This is the defined way to extend the BPMN metamodel \cite{objectmanagementgroupBusinessProcessModel2013}.
-In addition, to define the element a token is located at, i.e., its \textsf{elementID} (see BPMN execution metamodel in \autoref{fig:bpmnExecutionMetamodel}), an association is used (lines 7-8 in \autoref{lst:extension}).
-This XML is later consumed by our HOT to generate atomic propositions for Groove (see \autoref{fig:approach}).
-However, it could also be used for other applications or model checking with different tools.
+We use an association (lines 7-8 in \autoref{lst:extension}) to define the element at which the token is located, i.e., the token's \textsf{elementID} (see BPMN execution metamodel in \autoref{fig:bpmnExecutionMetamodel}).
+This XML model is consumed by our HOT to generate atomic propositions for Groove (see \autoref{fig:approach}).
+However, following sound model-driven principles and creating an extended metamodel, the XML model could also be used in other applications or for model checking with different tools.
 
 \subsubsection{BPMN token editor}
 The BPMN token editor implements the concrete syntax for tokens and process snapshots described in \autoref{fig:bpmnExecutionMetamodel}.
 Using our token editor, a user does not need to write XML since the complexity of extending the BPMN metamodel described in the previous chapter is hidden in the editor.
 
-\autoref{fig:tokenEditor} shows the token editor embedded in the second step of the BPMN analyzer.
-We simplified the user interface so users can only edit tokens and process snapshots, not the underlying BPMN model.
+\autoref{fig:tokenEditor} shows the token editor embedded in the second step of the BPMN Analyzer.
+We simplify the user interface so users can only edit tokens and process snapshots, and not the underlying BPMN model.
 Process snapshots are automatically assigned distinct colors, and tokens held by a process snapshot have the same color (see concrete syntax in \autoref{fig:bpmnExecutionMetamodel}).
 Tokens can be assigned to process snapshots, which changes the token's color to the process snapshot's color.
 
@@ -754,7 +755,7 @@ Tokens can be assigned to process snapshots, which changes the token's color to 
 \end{figure}
 
 Our implementation is based on \textit{bpmn-js} \cite{camundaservicesgmbhBpmnjs2023}, which provides a BPMN rendering toolkit and uses the \textit{token-bpmn-moddle} library described in the previous section to save and load our models.
-Since both implementations are published as libraries, they can be reused in other applications in a few minutes.
+Since both implementations are published as libraries, they can be reused in other applications. % in a few minutes.
 
 \subsubsection{Graph rule generation}
 The graph-rule-generation library offers different classes to generate graphs, GT rules, or entire GT systems, following the \textit{builder pattern} \cite{gammaDesignPatternsElements1995}.
@@ -782,7 +783,7 @@ The Groove UI and the Groove command-line tools can then consume the generated G
 Model checking is a useful technique but often falls short in practice due to insufficient performance.
 Poor performance might have many reasons, most notably large models leading to state space explosion.
 We experimented with ten different BPMN models from \cite{houhouFirstOrderLogicVerification2022} to assess the performance of our implementation.
-We picked the models at random, besides disregarding some similar models.
+We picked the models at random, but we disregarded some similar models.
 The models include realistic business process models (001, 002, and 020) \cite{houhouFirstOrderLogicVerification2022}.
 
 To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2023} (version 1.18.0), which ran the HOT/state space exploration for each BPMN model ten times.
@@ -870,12 +871,19 @@ One can deduce from the table that adding fifty blocks adds around 400 BPMN elem
 All models, including their characteristics and how to generate them, can be found in \cite{timkrauterLMCS2024Artifacts2023}.
 Our BPMN model generation uses the camunda BPMN model API \cite{camundaservicesgmbhCamundaBPMNModel2023}.
 
-The BPMN modeling tools we have used are already struggling with models that have 200 or more blocks.
-Thus, we stopped at 300 blocks since we think BPMN models in practice are much smaller, and so we could still run our benchmark in a reasonable time.
-BPMN models are developed together by the organization's business and development people.
-Consequently, large models are divided into smaller submodels, i.e., subprocesses, so that humans still understand them.
+% The BPMN modeling tools we have used are already struggling with models that have 200 or more blocks.
+% Thus, we stopped at 300 blocks since we think BPMN models in practice are much smaller, and so we could still run our benchmark in a reasonable time.
+% BPMN models are developed together by the organization's business and development people.
+% Consequently, large models are divided into smaller submodels, i.e., subprocesses, so that humans still understand them.
+% Each of these subprocesses can then be analyzed independently.
+% From our experience, this best practice leads to models with less than 400 elements (comparable to less than 50 blocks in \autoref{table:bpmnModelCharacteristics}). 
+
+The BPMN modeling tools we have used (such as ...) are already struggling to handle models that have 200 or more blocks.
+In addition, BPMN models in practice tend to be much smaller since large models are usually divided into smaller submodels, i.e., subprocesses, to understand their understandability by non-technical domain experts.
 Each of these subprocesses can then be analyzed independently.
 From our experience, this best practice leads to models with less than 400 elements (comparable to less than 50 blocks in \autoref{table:bpmnModelCharacteristics}). 
+Therefore, we stopped at 300 blocks. 
+
 
 \begin{table}[ht]
 \centering
@@ -939,7 +947,7 @@ To summarize, using our approach, we can conservatively estimate that these mode
 In addition, a full-state space exploration is not always needed for model checking.
 
 % Plenty of optimization potential
-Plenty of optimization potential exists, starting from the HOT and ending with the state space generation in Groove.
+Plenty of optimization potentials exist, starting from the HOT and ending with the state space generation in Groove.
 Currently, neither our HOT nor Groove are specifically optimized for performance with this use case in mind.
 % HOT optimization
 Regarding the HOT, multiple optimizations come to mind.
