@@ -1,16 +1,22 @@
 GraphTransformationRuleBuilder ruleBuilder
     = new GrooveRuleBuilder();
+// Start a new GT rule with the name "sampleRule"
 ruleBuilder.startRule("sampleRule");
+// Create context nodes A and B and edge AB from A->B.
 GraphNode a = ruleBuilder.contextNode("A");
 GraphNode b = ruleBuilder.contextNode("B");
 ruleBuilder.contextEdge("AB", a, b);
+// Delete nodes C and D and edge CD from C->D.
 GraphNode c = ruleBuilder.deleteNode("C");
 GraphNode d = ruleBuilder.deleteNode("D");
 ruleBuilder.deleteEdge("CD", c, d);
+// Add nodes E and F and edge EF from E->F.
 GraphNode e = ruleBuilder.addNode("E");
 GraphNode f = ruleBuilder.addNode("F");
 ruleBuilder.addEdge("EF", e, f);
+// Create NAC nodes G and H and edge GH from G->H.
 GraphNode g = ruleBuilder.nacNode("G");
 GraphNode h = ruleBuilder.nacNode("H");
 ruleBuilder.nacEdge("GH", g, h);
+// Build the GT rule.
 GraphTransformationRule gtRule = ruleBuilder.buildRule();
