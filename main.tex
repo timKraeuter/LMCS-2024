@@ -76,7 +76,7 @@ The Business Process Modeling Notation (BPMN) is a widely used standard notation
 However, the informal description of the BPMN execution semantics leads to different interpretations of BPMN elements and difficulties in checking behavioral properties.
 In this article, we propose a formalization of the execution semantics of BPMN that, compared to existing approaches, covers more BPMN elements while also facilitating property checking.
 Our approach is based on a higher-order transformation from BPMN models to graph transformation systems.
-As proof of concept, we provide an implementation of our approach as an open-source web-based tool. 
+As proof of concept, we implement our approach as an open-source web-based tool. 
 \end{abstract}
 
 \maketitle
@@ -152,7 +152,7 @@ This article extends \cite{krauterFormalizationAnalysisBPMN2023} as follows.
 \textbf{Outline} The remainder of this article is structured as follows.
 First, in \autoref{sec:preliminaries}, we introduce BPMN and briefly explain the theoretical background of our contribution.
 Second, we describe the BPMN semantics formalization using the HOT (\autoref{sec:formalization}) before explaining how this can be utilized for model checking general BPMN and custom properties (\autoref{sec:modelChecking}).
-Then, we detail the BPMN Analyzer tool in \autoref{sec:impl} and we describe how we tested the scalability of our approach in \autoref{sec:scalability}.
+Then, we detail the BPMN Analyzer tool in \autoref{sec:impl}, and we describe how we tested the scalability of our approach in \autoref{sec:scalability}.
 Finally, we discuss related work regarding BPMN element coverage in \autoref{sec:relatedWork} and conclude in \autoref{sec:conclusion}.
 
 \section{Preliminaries} \label{sec:preliminaries}
@@ -177,8 +177,6 @@ Furthermore, gateways model conditions, parallelizations, and synchronizations \
   \caption{Excerpt of the BPMN metamodel \cite{objectmanagementgroupBusinessProcessModel2013}}
   \label{fig:bpmnMetamodel}
 \end{figure}
-% Containment: participants, messageFlows see fig. 9.33 in the BPMN spec.
-% Containment: flowNodes (Process is FlowElementsContainer fig. 8.23). FlowElementsContainer has a containment of flow elements (also includes sequence flows)
 
 The BPMN execution semantics is described using the concept of \textit{tokens} \cite{objectmanagementgroupBusinessProcessModel2013}, which can be located at sequence flows and specific flow nodes.
 Tokens are consumed and created by flow nodes according to the connected sequence flows.
@@ -276,9 +274,10 @@ An example of a start graph is shown in \autoref{fig:startGraph} using abstract 
     \label{fig:startGraph}
 \end{figure}
 
+
 The HOT generates one or more GT rules for each \textsf{FlowNode}, i.e., state-changing element in a BPMN model.
-In order to provide a better understanding of the transformation process, we will begin by presenting example results, namely the generated rules for an activity.
-Following this, we will delve into an explanation of how our HOT creates these rules as well as rules for the other elements in \autoref{fig:bpmnelementsOverview}.
+To provide a better understanding of the transformation process, we will begin by presenting example results, namely the generated rules for an activity.
+Following this, we will delve into an explanation of how our HOT creates these rules and rules for the other elements in \autoref{fig:bpmnelementsOverview}.
 
 \autoref{fig:gtRuleAbstract} depicts an example GT rule ($L \to R$) to start an activity in abstract syntax.
 The rule is straightforward: it moves a token from the incoming sequence flow to the activity.
