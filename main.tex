@@ -872,18 +872,11 @@ One can deduce from the table that adding fifty blocks adds around 400 BPMN elem
 All models, including their characteristics and how to generate them, can be found in \cite{timkrauterLMCS2024Artifacts2023}.
 Our BPMN model generation uses the camunda BPMN model API \cite{camundaservicesgmbhCamundaBPMNModel2023}.
 
-% The BPMN modeling tools we have used are already struggling with models that have 200 or more blocks.
-% Thus, we stopped at 300 blocks since we think BPMN models in practice are much smaller, and so we could still run our benchmark in a reasonable time.
-% BPMN models are developed together by the organization's business and development people.
-% Consequently, large models are divided into smaller submodels, i.e., subprocesses, so that humans still understand them.
-% Each of these subprocesses can then be analyzed independently.
-% From our experience, this best practice leads to models with less than 400 elements (comparable to less than 50 blocks in \autoref{table:bpmnModelCharacteristics}). 
-
-The BPMN modeling tools we have used (such as ...) are already struggling to handle models that have 200 or more blocks.
-In addition, BPMN models in practice tend to be much smaller since large models are usually divided into smaller submodels, i.e., subprocesses, to understand their understandability by non-technical domain experts.
+BPMN models in practice tend to be much smaller since large models are usually divided into smaller submodels \cite{fahlandAnalysisDemandInstantaneous2011}, i.e., subprocesses, to ensure they are understandable by modelers.
 Each of these subprocesses can then be analyzed independently.
-From our experience, this best practice leads to models with less than 400 elements (comparable to less than 50 blocks in \autoref{table:bpmnModelCharacteristics}). 
-Therefore, we stopped at 300 blocks. 
+From our experience and referring to other studies \cite{fahlandAnalysisDemandInstantaneous2011}, this best practice leads to models with less than 400 total elements (comparable to less than 50 blocks in \autoref{table:bpmnModelCharacteristics}).
+We ran our scalability test for models with up to 300 blocks since we wanted enough data to see trends in the average runtime.
+We did not go beyond 300 blocks since the whole test should still run in a reasonable time. 
 
 
 \begin{table}[ht]
