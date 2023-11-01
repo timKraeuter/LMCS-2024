@@ -86,8 +86,9 @@ Business Process Modeling Notation (BPMN) \cite{objectmanagementgroupBusinessPro
 However, the informal description of the BPMN execution semantics leads to different interpretations of BPMN models and difficulties in checking behavioral properties \cite{corradiniFormalApproachAnalysis2021}.
 Various studies have shown that business process models suffer from control-flow errors \cite{mendlingEmpiricalStudiesProcess2009}.
 Formalizing BPMN would drastically reduce the cost of business process automation by facilitating the detection of errors and optimization potentials in process models already during design time.
-To this end, we propose a formalization that covers most of the BPMN elements used in practice and, in addition, supports checking behavioral properties.
-General behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to BPMN in \cite{corradiniClassificationBPMNCollaborations2018}. They can uncover potential flaws in BPMN models leading to deadlocks or other undesirable execution states.
+For example, general behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to BPMN in \cite{corradiniClassificationBPMNCollaborations2018}.
+They can uncover errors in BPMN models leading to deadlocks or other undesirable execution states.
+To this end, we propose a formalization that covers most of the BPMN elements used in practice and, in addition, supports checking such behavioral properties.
 
 In this article, we consider two fundamental concepts when formalizing the execution semantics of BPMN.
 First, \textit{state structure}, i.e., how model instances are represented during execution.
@@ -123,18 +124,21 @@ To facilitate model checking of custom behavioral properties, we create specific
 
 The overview in \autoref{fig:approach} is divided into two separated parts, denoted by dashed rectangles, to indicate the versatility of the approach as it can be applied to formalize other behavioral languages, such as activity diagrams and state charts \cite{seidlUMLClassroom2015, objectmanagementgroupUnifiedModelingLanguage2017}.
 This formalization will require the language engineer to establish a new execution metamodel and a HOT for the new language.
+One could even change the \textit{target} of the HOT from GT to a different formalism (term rewriting, Petri Nets, process algebras) if this makes sense for a given behavioral language \cite{krauterBehavioralConsistencyMultimodeling2023}.
 
 % Contributions summary
-The contribution of this article is twofold.
+This article consists of two main contributions.
 First, we introduce a new approach utilizing a HOT to generate GT rules --- instead of providing fixed model-independent GT rules --- to formalize the semantics of a behavioral language.
 Second, we apply our approach to BPMN, resulting in a formalization covering most BPMN elements that supports behavioral property checking.
 Furthermore, our formalization is implemented as a user-friendly, open-source web-based tool, the \textit{BPMN Analyzer}, which can be used online without needing installation \cite{timkrauterLMCS2024Artifacts2023}.
-% Regarding GT, we utilize the single-pushout (SPO) approach with negative application conditions (NAC) \cite{ehrigALGEBRAICAPPROACHESGRAPH1997}, as implemented in Groove \cite{rensinkGROOVESimulatorTool2004}.
-% In addition, we utilize \textit{nested rules} with quantification to make parts of a rule repeatedly applicable or optional \cite{rensinkNestedQuantificationGraph2006,rensinkHowMuchAre2017}.
-% Moreover, we utilize the NACs to implement more intricate parts in the BPMN execution semantics, such as the termination of processes.
 
-% Formal definitions of SPO rules, their application, and the corresponding extensions of the theory (NACs, nested rules) are well-known, see \cite{ehrigALGEBRAICAPPROACHESGRAPH1997,rensinkNestedQuantificationGraph2006}.
-% We do not repeat them and instead focus on our practical contribution.
+Our contributions are practical, not theoretical.
+We build upon the comprehensive theory and tools available in the GT research field.
+Concretely, we utilize the single-pushout (SPO) approach with negative application conditions (NAC) \cite{ehrigALGEBRAICAPPROACHESGRAPH1997}, as implemented in Groove \cite{rensinkGROOVESimulatorTool2004}.
+In addition, we utilize \textit{nested rules} with quantification to make parts of a rule repeatedly applicable or optional \cite{rensinkNestedQuantificationGraph2006,rensinkHowMuchAre2017}.
+Moreover, we utilize the NACs to implement more intricate parts in the BPMN execution semantics, such as the termination of processes.
+Formal definitions of SPO rules, their application, and the corresponding extensions of the theory (NACs, nested rules) are well-known, see \cite{ehrigALGEBRAICAPPROACHESGRAPH1997,rensinkNestedQuantificationGraph2006}.
+We do not repeat them and instead focus on our practical contribution.
 
 % Compared to the conference version
 This article extends \cite{krauterFormalizationAnalysisBPMN2023} as follows.
