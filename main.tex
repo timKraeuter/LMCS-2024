@@ -597,9 +597,9 @@ The property \textit{Proper Completion} is not yet implemented, but all the info
 
 To make model checking user-friendly, we enable modelers to define atomic propositions using the concrete syntax of the extended BPMN execution metamodel introduced in \autoref{fig:bpmnExecutionMetamodel} (see \autoref{fig:shippedTwiceProposition}).
 An atomic proposition is defined as a process snapshot, together with a token distribution (see \autoref{fig:shippedTwiceAbstractAndGroove}A), which we can automatically convert to a graph condition in Groove (see \autoref{fig:shippedTwiceAbstractAndGroove}B).
-Recall that graph conditions are GT rules that are run in check mode, i.e., the are not allowed to delete or add elements.
-Atomic propositions may be connected by simple CTL-operators such as \textsf{G, F, $\to$} to create temporal formulae which should hold in the given BPMN model. 
-Furthermore, modelers may forbid certain states in the BPMN model by specifying that a certain token distribution should not should not exist.
+Recall that graph conditions are GT rules that are run in check mode, i.e., they are not allowed to delete or add elements.
+Atomic propositions may be connected by simple CTL operators such as \textsf{G, F, $\to$} to create temporal formulae that should hold in the given BPMN model. 
+Furthermore, modelers may forbid certain states in the BPMN model by specifying that a certain token distribution should not exist.
 These situations would lead to Negative Application Conditions (NACs) in the graph conditions. 
 
 
@@ -637,10 +637,10 @@ The GT system for the order handling process containing both propositions can be
 \end{figure}
 
 % Using a proposition editor based on our concrete syntax, a modeler can work with BPMN, which is well-known to him.
-% He does not need to define his propositions in the GT semantics used for execution since each proposition is automatically transformed as described earlier.
+% He does not need to define his propositions in the GT semantics used for execution since each proposition is automatically transformed, as described earlier.
 % To summarize, many propositions can defined using this simple method.
 
-Using an atomic proposition-editor based on the BPMN concrete syntax, modelers would not need to have extensive knowledge about the GT-based execution semantics. 
+Using an atomic proposition editor based on the BPMN concrete syntax, modelers would not need to have extensive knowledge about the GT-based execution semantics. 
 % However, the expressibility is not the same as in the GT semantics.
 % For example, one can use nested rules with quantification in graph conditions in Groove.
 % Thus, when defining a proposition editor, there is a clear tradeoff between \textit{simplicity} and \textit{expressibility}.
@@ -758,7 +758,7 @@ Our implementation is based on \textit{bpmn-js} \cite{camundaservicesgmbhBpmnjs2
 Since both implementations are published as libraries, they can be easily reused in other applications.
 
 \subsubsection{Graph rule generation}
-The graph-rule-generation library offers different classes to generate graphs, GT rules, or entire GT systems, following the \textit{builder pattern} \cite{gammaDesignPatternsElements1995}.
+The graph-rule-generation library offers various Java classes to generate graphs, GT rules, or entire GT systems, following the \textit{builder pattern} \cite{gammaDesignPatternsElements1995}.
 \autoref{lst:grooveRuleBuilder} shows an example code snippet to generate a GT rule using the GT rule builder implemented for Groove.
 
 \lstinputlisting [label=lst:grooveRuleBuilder, language=Java, numbers=left,
@@ -968,8 +968,8 @@ If a counterexample is found, there is no need to continue the state space gener
 
 \section{Related work} \label{sec:relatedWork}
 % Petri nets formalisms
-The most common formalizations of BPMN use Petri Nets.
-For example, \cite{dijkmanSemanticsAnalysisBusiness2008} formalizes a subset of BPMN elements by defining a mapping to Petri Nets conceptually close to our HOT-based formalization.
+The most common formalizations of BPMN execution semantics use Petri Nets.
+For example, \cite{dijkmanSemanticsAnalysisBusiness2008} formalizes a subset of BPMN elements by defining a mapping to Petri Nets that is conceptually close to our HOT-based formalization.
 % Difficulties with Petri net encodings
 Encoding basic BPMN modeling elements into Petri Nets is generally straightforward, but for some advanced elements, it can be complicated to define \cite{hofstedeWorkflowPatternsExpressive2002}.
 For example, representing \textit{termination end events} and \textit{interrupting boundary events}, which interrupt a running process, is usually unsupported because of the complexity of managing the non-local propagation of tokens in Petri Nets \cite{corradiniFormalApproachAnalysis2021}.
@@ -981,17 +981,17 @@ The formalization covers a substantial part of the BPMN specification, including
 In addition, the GT rules are visual and thus can be aligned with the informal description of the execution semantics of BPMN.
 A key difference to our approach is that the rules in \cite{vangorpVisualTokenbasedFormalization2013} are general and can be applied to every BPMN model, while we generate specific rules for each BPMN model using our HOT.
 Thus, our approach can be seen as a program specialization compared to \cite{vangorpVisualTokenbasedFormalization2013} since we process a concrete BPMN model before its execution.
-However, they do \textit{not} support property checking since their goal is only formalization.
+However, they do \textit{not} support property checking since their goal is only to formalize the BPMN execution semantics.
 
 % BProve/Corradini
 The tool \textit{BProVe} is based on formal BPMN semantics given in rewriting logic and implemented in the Maude system \cite{corradiniFormalApproachAnalysis2021}.
-Using this formal semantics, they can verify custom LTL properties and general BPMN properties, such as Safeness and Soundness.
+Using this formal semantics, \textit{BProVe} can verify custom LTL properties and general BPMN properties, such as Safeness and Soundness.
 
 % fbpmn/Houhou
 The verification framework \textsf{fbpmn} uses first-order logic to formalize and check BPMN models \cite{houhouFirstOrderLogicVerification2022}.
 This formalization is then realized in the TLA\textsuperscript{+} formal language and can be model-checked using TLC.
 Like BProVe, \textsf{fbpmn} allows checking general BPMN properties, such as Safeness and Soundness.
-Furthermore, they focus on different communication models besides the standard in the BPMN specification and support time-related constructs.
+Furthermore, \textit{fbpmn} focuses on different communication models besides the standard in the BPMN specification and supports time-related constructs.
 We currently disregard time-related constructs \cite{duranVerifyingTimedBPMN2017,houhouFirstOrderLogicVerification2022} and data flow \cite{corradiniFormalisingAnimatingMultiple2022,el-saberCMMICMComplianceChecking2015}.
 
 \autoref{tab:supportedelements} shows which BPMN elements are supported by our and the abovementioned approaches.
