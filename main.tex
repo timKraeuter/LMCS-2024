@@ -519,11 +519,11 @@ Terminating a process must also terminate its subprocesses, which is not shown i
 \section{Model checking BPMN} \label{sec:modelChecking}
 
 Model checking ---and verification in general--- of BPMN models is necessary to ensure the correctness and reliability of business processes, which ultimately leads to increased efficiency, reduced costs, and user satisfaction.
-Using our formalization approach, BPMN models may be verified against behavioral properties ---both general and user-defined--- by utilizing the generated GT system (see \autoref{fig:approach}).
+Using our formalization approach, BPMN models may be verified against behavioral properties ---both general and custom--- by utilizing the generated GT system (see \autoref{fig:approach}).
 These behavioral properties are defined using temporal logic, such as Computation Tree Logic (CTL) and Linear Temporal Logic (LTL) \cite{baierPrinciplesModelChecking2008}.
 % Using our approach, model checking a BPMN model is possible using the generated GT system and behavioral properties based on atomic propositions (see \autoref{fig:approach}).
 % Behavioral properties are defined using a temporal logic, such as CTL and LTL.
-As mentioned in section bla, modelers may use our approach to specify user-defined properties consisting of atomic propositions and logical operators from CTL.
+As mentioned in section bla, modelers may use our approach to specify custom properties consisting of atomic propositions and logical operators from CTL.
 The atomic propositions are transformed to graph conditions by the HOT.
 A graph condition is a GT rule which does not delete or add elements.
 A proposition holds in a given state if a match of the graph condition exists in the graph representing the state \cite{kastenbergModelCheckingDynamic2006}.
@@ -538,32 +538,39 @@ Then, we describe how custom properties can be defined and checked.
 A BPMN model is \textit{safe} if, during its execution, at most one token occurs along the same sequence flow \cite{corradiniClassificationBPMNCollaborations2018}.
 Soundness is further decomposed into (i) \textit{Option to complete}: any running process instance must eventually complete, (ii) \textit{Proper completion}: after completion, each token of the process instance must be consumed by a different end event, as well as (iii) \textit{No dead activities}: each activity can be executed in at least one process instance \cite{corradiniClassificationBPMNCollaborations2018}.
 Process completion is synonymous with process termination.
-In the following, we will describe how to implement the \textit{Safeness} and \textit{Option to complete} properties.
+In the following, we will describe how to implement the \textit{Safeness}, \textit{Option to complete}, and \textit{No dead activities} properties.
 
 % Safeness
 We specify \textit{Safeness} as the CTL property defined in \eqref{eq:safeness}.
-% TODO: describe CTL \cite{baierPrinciplesModelChecking2008}
+The path quantifier $A$ means the following proposition $G(\neg \,\text{Unsafe})$ should hold for \textit{all} paths starting from the current state.
+The temporal operator $G$ means the following proposition $\neg \,\text{Unsafe}$ should hold at all states in the future \cite{clarkeHandbookModelChecking2018}.
+More detailed information about CTL can be found in \cite{clarkeHandbookModelChecking2018, baierPrinciplesModelChecking2008}.
+Combining the path quantifier $A$ and temporal operator $G$ in \eqref{eq:safeness} means $\neg \,\text{Unsafe}$ should hold for all states in all paths starting from the initial state.
+Thus, \eqref{eq:safeness} describes that a state labeled as \textsf{Unsafe} should not be reachable.
 The atomic proposition \textsf{Unsafe} is true if two tokens of one process snapshot point to the same sequence flow.
-It is shown in \autoref{fig:unsafe} using abstract Groove syntax.
+It is shown in \autoref{fig:unsafe} using Groove syntax.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/Unsafe.pdf}
-    \caption{The atomic proposition \textit{Unsafe} as a Groove graph condition.}
+    \includegraphics[width=0.6\textwidth]{images/Unsafe.pdf}
+    \caption{The atomic proposition \textsf{Unsafe} as a Groove graph condition.}
     \label{fig:unsafe}
-\end{figure}
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/AllTerminated.pdf}
-    \caption{The atomic proposition \textit{AllTerminated} as a Groove graph condition.}
-    \label{fig:allTerminated}
 \end{figure}
 
 % Option to complete
 \textit{Option to complete} is specified using the CTL property defined in \eqref{eq:optionToComplete}.
+% F is a temporal operator finally "eventually" (same meaning as LTL)
+The temporal operator $F$ means the following proposition \textsf{AllTerminated} should hold at some state in the future \cite{clarkeHandbookModelChecking2018}.
+Thus, \eqref{eq:optionToComplete} describes that a state labeled as \textsf{AllTerminated} should be reached for all paths starting from the initial state.
 The atomic proposition \textsf{AllTerminated} is true if there exists no process snapshot in the state \textsf{Running}, i.e., all process snapshots are \textsf{Terminated}.
-It is shown in \autoref{fig:allTerminated} using abstract Groove syntax.
+It is shown in \autoref{fig:allTerminated} using Groove syntax.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/AllTerminated.pdf}
+    \caption{The atomic proposition \textsf{AllTerminated} as a Groove graph condition.}
+    \label{fig:allTerminated}
+\end{figure}
 
 \noindent\begin{minipage}{.5\linewidth}
 \begin{equation} \label{eq:safeness}
@@ -575,10 +582,11 @@ It is shown in \autoref{fig:allTerminated} using abstract Groove syntax.
   AF(\text{AllTerminated}) 
 \end{equation}
 \end{minipage}
-\vskip.3\baselineskip
+\vskip.5\baselineskip
 
-Checking the properties \textit{Safeness}, \textit{Option to Complete}, and \textit{No Dead Activities} is implemented in our tool \cite{timkrauterLMCS2024Artifacts2023}.
-The property \textit{Proper Completion} is not yet implemented, but all the information needed can be found in the GT systems state space.
+Checking the properties \textit{Safeness}, \textit{Option to complete} is implemented by checking the CTL properties above using Groove.
+\textit{No dead activities} is implemented by analyzing the GT system's state space to see if each activity has been executed at least once \cite{timkrauterLMCS2024Artifacts2023}.
+The property \textit{Proper Completion} is not yet implemented, but all the information needed can also be found in the GT system's state space.
 
 \subsection{Custom properties} \label{subsec:customProperties}
 % Defining atomic propositions in BPMN is a novelty.
