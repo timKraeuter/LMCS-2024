@@ -102,17 +102,15 @@ These elements are implemented using GT rules, which we automatically generate b
     \label{fig:approach}
 \end{figure}
 
+% Description of the overall approach
 To begin the BPMN modeling process, a modeler first defines the BPMN model. 
 The BMPN model may be checked against a predefined list of general behavioral properties, such as safeness and soundness.
+% Custom behavioral properties use the atomic propositions.
 Furthermore, the modeler may also define custom behavioral properties specifically defined for the BPMN model.
-%To begin the BPMN modeling process, a modeler first defines the BPMN model and its corresponding behavioral properties for evaluation.
-%He can also define atomic propositions for his BPMN model if he defines custom behavioral properties besides checking general BPMN properties.
+% Atomic propositions conform to the BPMN execution metamodel
+Custom properties require atomic propositions, which the modeler can define using our concrete syntax based on the BPMN syntax.
 The defined BPMN model must adhere to the BPMN metamodel as outlined in the BPMN specification by the Object Management Group \cite{objectmanagementgroupBusinessProcessModel2013}.
 The BPMN execution metamodel is defined by language engineers, utilizing the BPMN metamodel as a foundation to create the state structure for executing BPMN models. 
-%To create the state structure for BPMN, the BPMN execution metamodel is defined by language engineers, utilizing the BPMN metamodel as a foundation.
-%Typically, an execution metamodel is created by extending the languages metamodel.
-
-
 
 We define a HOT from BPMN models to GT systems.
 We call the transformation \textit{higher-order} since the resulting graph-transformation systems represent model-transformations themselves \cite{tisiUseHigherOrderModel2009}.
@@ -123,46 +121,38 @@ In the figure, we have colored both artifacts blue to visualize that they contai
 Ultimately, we use Groove as an execution engine for the GT system and to check the behavioral properties defined earlier.
 To facilitate model checking of custom behavioral properties, we create specific GT rules for the corresponding atomic propositions during the HOT.
 
-%Our approach has been implemented in
-We implement our approach as a user-friendly, open-source web-based tool, the \textit{BPMN Analyzer}, which can be used online without needing installation \cite{timkrauterLMCS2024Artifacts2023}.
-%%The BPMN Analyzer was validated using a comprehensive test suite.
-%Additionally, our approach is versatile as it can be applied to formalize other behavioral languages, such as activity diagrams, state charts, and more.
-%To define the execution semantics of a different behavioral language, one simply needs to establish a new execution metamodel and HOT (see the language engineer in \autoref{fig:approach}).
 The overview in \autoref{fig:approach} is divided into two separated parts, denoted by dashed rectangles, to indicate the versatility of the approach as it can be applied to formalize other behavioral languages, such as activity diagrams and state charts \cite{seidlUMLClassroom2015, objectmanagementgroupUnifiedModelingLanguage2017}.
 This formalization will require the language engineer to establish a new execution metamodel and a HOT for the new language.
-
 
 % Contributions summary
 The contribution of this article is twofold.
 First, we introduce a new approach utilizing a HOT to generate GT rules --- instead of providing fixed model-independent GT rules --- to formalize the semantics of a behavioral language.
 Second, we apply our approach to BPMN, resulting in a formalization covering most BPMN elements that supports behavioral property checking.
+Furthermore, our formalization is implemented as a user-friendly, open-source web-based tool, the \textit{BPMN Analyzer}, which can be used online without needing installation \cite{timkrauterLMCS2024Artifacts2023}.
+% Regarding GT, we utilize the single-pushout (SPO) approach with negative application conditions (NAC) \cite{ehrigALGEBRAICAPPROACHESGRAPH1997}, as implemented in Groove \cite{rensinkGROOVESimulatorTool2004}.
+% In addition, we utilize \textit{nested rules} with quantification to make parts of a rule repeatedly applicable or optional \cite{rensinkNestedQuantificationGraph2006,rensinkHowMuchAre2017}.
+% Moreover, we utilize the NACs to implement more intricate parts in the BPMN execution semantics, such as the termination of processes.
+
+% Formal definitions of SPO rules, their application, and the corresponding extensions of the theory (NACs, nested rules) are well-known, see \cite{ehrigALGEBRAICAPPROACHESGRAPH1997,rensinkNestedQuantificationGraph2006}.
+% We do not repeat them and instead focus on our practical contribution.
 
 % Compared to the conference version
 This article extends \cite{krauterFormalizationAnalysisBPMN2023} as follows.
-% BPMN semantics formalization: More elements/features described
 (i) We explain many more BPMN elements, which are covered by our approach (see elements highlighted in blue in \autoref{fig:bpmnelementsOverview}).
-% Model checking: Custom properties
 (ii) We enhance the explanation of the custom properties in \autoref{sec:modelChecking} by using an order handling example process to illustrate use cases for these properties.
-% Implementation: Custom properties editor and new three-step flow
-(iii) We detail the extensively improved BPMN analyzer tool in \autoref{sec:impl} in which modelers may use our new atomic proposition editor. %, which is created based on our concrete syntax for describing snapshots of processes.
-% Scalability
+(iii) We detail the extensively improved BPMN analyzer tool in \autoref{sec:impl} in which modelers may use our new atomic proposition editor.
 (iv) We test the scalability of our approach with 300 synthetically generated BPMN models of various sizes in \autoref{sec:scalability}. 
 
 % Article outline
 \textbf{Outline} The remainder of this article is structured as follows.
-First, in \autoref{sec:preliminaries}, we introduce BPMN and briefly explain the theoretical background of our contribution.
-Second, we describe the BPMN semantics formalization using the HOT (\autoref{sec:formalization}) before explaining how this can be utilized for model checking general BPMN and custom properties (\autoref{sec:modelChecking}).
+First, we describe the BPMN semantics formalization using the HOT (\autoref{sec:formalization}) before explaining how this can be utilized for model checking general BPMN and custom properties (\autoref{sec:modelChecking}).
 Then, we detail the BPMN Analyzer tool in \autoref{sec:impl}, and we describe how we tested the scalability of our approach in \autoref{sec:scalability}.
 Finally, we discuss related work regarding BPMN element coverage in \autoref{sec:relatedWork} and conclude in \autoref{sec:conclusion}.
 
-\section{Preliminaries} \label{sec:preliminaries}
-
-In this section, we briefly introduce the execution semantics of BPMN, and readers are encouraged to consult \cite{freundRealLifeBPMNUsing2019} or the BPMN specification \cite{objectmanagementgroupBusinessProcessModel2013} for more in-depth information. 
-Furthermore, we outline our application of GTs to formalize the execution semantics of BPMN.
-Finally, we provide a brief overview of the theoretical principles that underlie our use of GTs.
 
 
-\subsection{BPMN}
+\section{BPMN semantics formalization} \label{sec:formalization}
+
 \autoref{fig:bpmnMetamodel} depicts the structure of BPMN models with the corresponding concrete syntax BPMN symbols contained in clouds.
 A BPMN model is represented by a \textsf{Collaboration} that has participant \textsf{Process}es and \textsf{MessageFlow}s between \textsf{InteractionNode}s.
 Each participant is a \textsf{Process} containing \textsf{FlowNode}s connected by \textsf{SequenceFlow}s.
@@ -173,41 +163,10 @@ Furthermore, gateways model conditions, parallelizations, and synchronizations \
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.9\linewidth]{images/bpmn_semantics-bpmn-metamodel.pdf}
+  \includegraphics[width=0.8\linewidth]{images/bpmn_semantics-bpmn-metamodel.pdf}
   \caption{Excerpt of the BPMN metamodel \cite{objectmanagementgroupBusinessProcessModel2013}}
   \label{fig:bpmnMetamodel}
 \end{figure}
-
-The BPMN execution semantics is described using the concept of \textit{tokens} \cite{objectmanagementgroupBusinessProcessModel2013}, which can be located at sequence flows and specific flow nodes.
-Tokens are consumed and created by flow nodes according to the connected sequence flows.
-The \textsf{FlowNode} is colored purple in \autoref{fig:bpmnMetamodel} since it represents the \textit{state-changing elements} of BPMN, as described in \autoref{sec:formalization}.
-
-A BPMN process is triggered by one of its start events, leading to a token at each outgoing flow of the triggered start event.
-% Activities
-Activities can start when at least one token is on an incoming sequence flow.
-The start of an activity will move the incoming token to the activity.
-When an activity terminates, it deletes its token and adds one at each outgoing sequence flow.
-% Gateways
-Furthermore, different gateway types exist, such as parallel and exclusive gateways.
-Parallel gateways represent forks and joins, meaning they delete one token for each incoming sequence flow and add one for each outgoing sequence flow.
-Exclusive gateways represent an XOR by deleting a token from one incoming sequence flow and adding a token to exactly one of the outgoing sequence flows.
-% Events (basic)
-Events delete and add tokens similar to activities but have additional semantics depending on their type.
-For example, message events will add or delete messages.
-
-\subsection{Theoretical background}
-We use typed attributed graphs to formalize the BPMN execution semantics.
-Each state, i.e., token distribution during the execution of a BPMN model, is represented as an attributed graph typed by the BPMN execution type graph, which we introduce in \autoref{sec:formalization}.
-
-Regarding GT, we utilize the single-pushout (SPO) approach with negative application conditions (NAC) \cite{ehrigALGEBRAICAPPROACHESGRAPH1997}, as implemented in Groove \cite{rensinkGROOVESimulatorTool2004}.
-In addition, we utilize \textit{nested rules} with quantification to make parts of a rule repeatedly applicable or optional \cite{rensinkNestedQuantificationGraph2006,rensinkHowMuchAre2017}.
-Moreover, we utilize the NACs to implement more intricate parts in the BPMN execution semantics, such as the termination of processes.
-
-Formal definitions of SPO rules, their application, and the corresponding extensions of the theory (NACs, nested rules) are well-known, see \cite{ehrigALGEBRAICAPPROACHESGRAPH1997,rensinkNestedQuantificationGraph2006}.
-We do not repeat them and instead focus on our practical contribution.
-
-
-\section{BPMN semantics formalization} \label{sec:formalization}
 
 The approach supports all the BPMN elements depicted in \autoref{fig:bpmnelementsOverview}.
 These BPMN elements are divided into \textsf{Events}, \textsf{Gateways}, \textsf{Activities}, and \textsf{Edges}.
@@ -226,7 +185,11 @@ In the following, first, we define the BPMN execution metamodel to represent the
 
 \subsection{BPMN execution metamodel}
 
-In our formalization of BPMN, we utilize a token-based representation of the execution semantics, similar to the explanation in the informal description of the BPMN specification \cite{objectmanagementgroupBusinessProcessModel2013}.
+The BPMN execution semantics is described using the concept of \textit{tokens} \cite{objectmanagementgroupBusinessProcessModel2013, freundRealLifeBPMNUsing2019}, which can be located at sequence flows and specific flow nodes.
+Tokens are consumed and created by flow nodes according to the flow node's type and the connected sequence flows.
+The \textsf{FlowNode} is colored purple in \autoref{fig:bpmnMetamodel} since it represents the \textit{state-changing elements} of BPMN, as described in \autoref{sec:formalization}.
+In our formalization of BPMN, we follow this token-based representation of the execution semantics.
+
 To describe processes holding tokens during execution, we define the execution metamodel shown in \autoref{fig:bpmnExecutionMetamodel}, depicted as a UML class diagram.
 The first task of a language engineer in our approach is to define the execution metamodel (see \autoref{fig:approach}).
 
@@ -345,8 +308,10 @@ The thin black elements in \autoref{fig:terminationRule} need to be present and 
 Furthermore, the fat green elements will be created and the dashed fat red elements represent the NACs, whose presence prevent the rule from being applied.
 
 \subsection{Activities \& Subprocesses}
+% General description
+Activities represent work to be performed within a BPMN process, while subprocesses group parts of a BPMN model together, allowing for reusability and separation of concerns \cite{objectmanagementgroupBusinessProcessModel2013}.
 
-% Normal activities
+% Activities
 \autoref{fig:activityTemplates} depicts the rule generation templates for activities and subprocesses (see \autoref{fig:bpmnelementsOverview}).
 Activity execution is divided into two steps implemented in parts \textbf{(a)} and \textbf{(b)} in the rule generation template \textbf{(1)}.
 Part \textbf{(a)} generates one rule for each incoming sequence flow to start the activity.
@@ -367,7 +332,7 @@ This implicitly encodes a parallel gateway (see \autoref{fig:gatewayTemplates}) 
     \label{fig:activityTemplates}
 \end{figure}
 
-% Subprocesses/Call activities
+% Embedded subprocesses
 Subprocess execution is like activity execution.
 Part \textbf{(a)} of the template generates one rule for each incoming sequence flow.
 The rule deletes an incoming token and adds a process snapshot representing a subprocess. 
@@ -378,9 +343,12 @@ If the subprocess has no start events, a token will be added to every activity a
 Part \textbf{(b)} of the template generates one rule to delete a terminated process snapshot and adds tokens at each outgoing sequence flow.
 Subprocesses are terminated by the termination rule (see section \ref{subsec:instAndTermination}).
 
-
-% Send/Receive tasks (mentioned/shown with message events later)
 \subsection{Gateways}
+% General description
+Parallel gateways represent forking and joining in the sequence flow.
+Exclusive gateways represent exclusive choices and merges in the sequence flows \cite{objectmanagementgroupBusinessProcessModel2013}.
+
+
 \autoref{fig:gatewayTemplates} depicts the rule generation templates for parallel and exclusive gateways (see \autoref{fig:bpmnelementsOverview}).
 A parallel gateway can synchronize and fork the control flow simultaneously.
 Thus, one rule is generated that deletes one token from each incoming sequence flow and adds one to each outgoing sequence flow.
