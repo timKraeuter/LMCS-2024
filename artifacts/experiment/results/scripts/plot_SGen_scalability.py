@@ -16,11 +16,12 @@ with open(args.file) as f:
 
 all_means = [b["mean"] for b in results]
 blocks = list(range(1,301))
-plt.plot(blocks, all_means, label="average runtime data")
+plt.plot(blocks, all_means, label="average runtime")
 
 # plt.title("State space generation scalability")
 plt.xlabel("Blocks per BPMN model")
 plt.ylabel("Average runtime in s")
 plt.legend()
 
+plt.savefig('StateSpaceGeneration_scalability.pdf')
 plt.show()
