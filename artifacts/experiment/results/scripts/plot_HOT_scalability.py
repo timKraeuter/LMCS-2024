@@ -36,5 +36,5 @@ plt.xlabel("Blocks per BPMN model")
 plt.ylabel("Average runtime in s")
 plt.legend()
 
-plt.savefig('HOT_scalability.pdf')
+plt.savefig('../../../../images/HOT_scalability.pdf')
 plt.show()
