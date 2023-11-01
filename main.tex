@@ -95,6 +95,7 @@ First, \textit{state structure}, i.e., how model instances are represented durin
 The state structure corresponds to the type graph in Graph Transformation (GT) systems.
 Second, \textit{state-changing elements}, i.e., which elements in a model encode state changes.
 These elements are implemented using GT rules, which we automatically generate based on a Higher-Order model Transformation (HOT) \cite{tisiUseHigherOrderModel2009} for each specific BPMN model, as shown in \autoref{fig:approach}.
+Our HOT defines a formal execution semantics of BPMN, similar to other approaches that formalize BPMN by mapping to Petri Nets or other formalisms \cite{dijkmanSemanticsAnalysisBusiness2008}.
 
 \begin{figure}[ht]
     \centering
@@ -270,8 +271,6 @@ In the following subsections, we use our concrete syntax to define how our HOT g
 Elements of the HOT are depicted using rule generation templates that show how specific rules are created for various flow nodes.
 Defining the rule generation templates and, thus, the HOT from BPMN to GT systems is the second task of the language engineer in our approach (see \autoref{fig:approach}).
 
-Our HOT defines a formal execution semantics of BPMN, similar to other approaches that formalize BPMN by mapping to Petri Nets or other formalisms \cite{dijkmanSemanticsAnalysisBusiness2008}.
-
 \subsection{Process instantiation and termination} \label{subsec:instAndTermination}
 
 Start events do not need GT rules since the generated start graph of the GT system will contain a token for each outgoing sequence flow of an NSE.
@@ -296,20 +295,20 @@ In the example, \textsf{E.incSFs} means following all \textsf{incSFs} links for 
 The generated end event rules delete tokens one by one for each incoming sequence flow.
 However, they do not terminate processes.
 % General termination rule
-Process termination is implemented with a generic rule---independent of the input BPMN model---which is applicable to all process snapshots.
+Process termination is implemented with a generic rule---independent of the input BPMN model---which applies to all process snapshots.
 The termination rule in \autoref{fig:terminationRule} is automatically generated once during the HOT.
 The rule changes the state of the process snapshot from running to terminated if it has neither tokens nor subprocesses.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=.6\textwidth]{images/Terminate.pdf}
+    \includegraphics[width=.45\textwidth]{images/Terminate.pdf}
     \caption{Termination rule in Groove}
     \label{fig:terminationRule}
 \end{figure}
 
 The Groove syntax is the following.
 The thin black elements in \autoref{fig:terminationRule} need to be present and will be preserved during transformation, while the dashed blue elements need to be present but will be removed.
-Furthermore, the fat green elements will be created and the dashed fat red elements represent the NACs, whose presence prevent the rule from being applied.
+Furthermore, the fat green elements will be created, and the dashed fat red elements represent the NACs, whose presence prevents the rule from being applied.
 
 \subsection{Activities \& Subprocesses}
 % General description
