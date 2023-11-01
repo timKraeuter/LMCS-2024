@@ -121,15 +121,14 @@ It is defined using rule generation templates, which describe how GT rules shoul
 The obtained GT system conforms to the execution type graph, which corresponds to the BPMN execution metamodel.
 In the figure, we have colored both artifacts blue to visualize that they contain the same information.
 Ultimately, we use Groove as an execution engine for the GT system and to check the behavioral properties defined earlier.
-To facilitate model checking of custom behavioral properties, we create specific GT rules for the constituent atomic propositions during the HOT.
-%Atomic propositions are converted to specific GT rules for Groove during the HOT to facilitate model checking of custom behavioral properties.
+To facilitate model checking of custom behavioral properties, we create specific GT rules for the corresponding atomic propositions during the HOT.
 
 %Our approach has been implemented in
-We provide an implementation of our approach as a user-friendly, open-source web-based tool, the \textit{BPMN Analyzer}, which can be used online without needing installation \cite{timkrauterLMCS2024Artifacts2023}.
+We implement our approach as a user-friendly, open-source web-based tool, the \textit{BPMN Analyzer}, which can be used online without needing installation \cite{timkrauterLMCS2024Artifacts2023}.
 %%The BPMN Analyzer was validated using a comprehensive test suite.
 %Additionally, our approach is versatile as it can be applied to formalize other behavioral languages, such as activity diagrams, state charts, and more.
 %To define the execution semantics of a different behavioral language, one simply needs to establish a new execution metamodel and HOT (see the language engineer in \autoref{fig:approach}).
-The overview in \autoref{fig:approach} is divided into two separated parts, denoted by dashed rectangles, to indicate the versatility of the approach as it can be applied to formalize other behavioral languages, such as activity diagrams and state charts. %cite?
+The overview in \autoref{fig:approach} is divided into two separated parts, denoted by dashed rectangles, to indicate the versatility of the approach as it can be applied to formalize other behavioral languages, such as activity diagrams and state charts \cite{seidlUMLClassroom2015, objectmanagementgroupUnifiedModelingLanguage2017}.
 This formalization will require the language engineer to establish a new execution metamodel and a HOT for the new language.
 
 
@@ -164,16 +163,11 @@ Finally, we provide a brief overview of the theoretical principles that underlie
 
 
 \subsection{BPMN}
-% \autoref{fig:bpmnMetamodel} depicts the structure of BPMN models with the corresponding concrete syntax BPMN symbols contained in clouds.
-% A BPMN model is represented by a \textsf{Collaboration} that has \textsf{participants} and \textsf{messageFlows} between \textsf{InteractionNode}s.
-% Each participant is a \textsf{Process} containing \textsf{flowNodes} connected by \textsf{SequenceFlow}s.
-% A \textsf{FlowNode} is either an \textsf{Activity}, \textsf{Gateway}, or \textsf{Event}.
-% Many types of \textsf{Activities}, \textsf{Gateways}, and \textsf{Events} exist.
 \autoref{fig:bpmnMetamodel} depicts the structure of BPMN models with the corresponding concrete syntax BPMN symbols contained in clouds.
 A BPMN model is represented by a \textsf{Collaboration} that has participant \textsf{Process}es and \textsf{MessageFlow}s between \textsf{InteractionNode}s.
 Each participant is a \textsf{Process} containing \textsf{FlowNode}s connected by \textsf{SequenceFlow}s.
 A \textsf{FlowNode} is either an \textsf{Activity}, \textsf{Gateway}, or \textsf{Event}.
-Many types of activities, gateways, and events exist, such as send tasks, parallel gateways, and start events.
+Many types of activities, gateways, and events exist, such as call activities, parallel gateways, and start events.
 Activities represent certain tasks to be carried out during a process, while events may happen during the execution of these tasks.
 Furthermore, gateways model conditions, parallelizations, and synchronizations \cite{freundRealLifeBPMNUsing2019}.
 
@@ -197,7 +191,7 @@ The start of an activity will move the incoming token to the activity.
 When an activity terminates, it deletes its token and adds one at each outgoing sequence flow.
 % Gateways
 Furthermore, different gateway types exist, such as parallel and exclusive gateways.
-Parallel gateways represent forks and joins, meaning they delete one token for each incoming sequence flow and add one token for each outgoing sequence flow.
+Parallel gateways represent forks and joins, meaning they delete one token for each incoming sequence flow and add one for each outgoing sequence flow.
 Exclusive gateways represent an XOR by deleting a token from one incoming sequence flow and adding a token to exactly one of the outgoing sequence flows.
 % Events (basic)
 Events delete and add tokens similar to activities but have additional semantics depending on their type.
@@ -261,7 +255,7 @@ The concrete syntax was inspired by the bpmn-js-token-simulation \cite{camundase
 Our BPMN execution metamodel was not created by extending the BPMN metamodel and adding missing concepts such as tokens and messages.
 We chose to create a minimal execution model only containing concepts needed during execution.
 This is only possible since the HOT generates our rules for each specific BPMN model such that the structure of each model is already implicitly encoded in the rules.
-This design choice leads to smaller states in the GT system when compared to an execution metamodel that extends the BPMN metamodel.
+This design choice leads to smaller states in the GT system compared to an execution metamodel that extends the BPMN metamodel.
 
 The execution metamodel in \autoref{fig:bpmnExecutionMetamodel} is a UML class diagram without operations, which can be seen as an attributed type graph \cite{heckelGraphTransformationSoftware2020}.
 We keep the execution metamodel and the execution type graph separate (see \autoref{fig:approach}) because the execution metamodel should be independent of the formalism used to define the execution semantics.
@@ -646,7 +640,7 @@ Using an atomic proposition-editor based on the BPMN concrete syntax, modelers w
 % Currently, we favor simplicity in our tool and recommend defining propositions in GT semantics if more powerful constructs are needed.
 % In addition, expressibility varies and is achieved differently in GT tools, and we try to stay as independent as possible from specific GT tools.
 Although the expressiveness is not as powerful as in the GT-based execution semantics in Groove---e.g., one can use nested rules with quantification in graph conditions---we favor \textit{simplicity} over \textit{expressiveness}.
-In addition, we attempt to stay as independent as possible from the framework and tools used for the execution semantics (see the right module of \autoref{fig:approach}). %, and specific GT tools expressibility varies in this bla.
+In addition, we attempt to stay as independent as possible from the framework and tools used for the execution semantics (see the right module of \autoref{fig:approach}).
 
 Finally, the modeler must still know the temporal logic, such as LTL and CTL, to express his properties.
 To combat this problem, we added temporal logic templates to our tool to generate commonly occurring propositions without knowledge about temporal logic.
@@ -655,7 +649,7 @@ In the future, a domain-specific property language for BPMN would further lessen
 
 \section{Implementation} \label{sec:impl}
 In this section, we will present our tool, the BPMN Analyzer, which greatly improves the version published in \cite{krauterFormalizationAnalysisBPMN2023}.
-In addition, we will describe initial performance experiments of the tool.
+In addition, we will describe how we tested the tool's performance.
 
 \subsection{BPMN Analyzer}
 
@@ -691,14 +685,14 @@ The BPMN Analyzer interface is structured into three distinct sections where the
   \item The \textbf{Custom Propositions} section contains the atomic proposition editor.
   In this section, users may create atomic propositions, which may be used as ingredients using the custom properties builder.
   Users who are only interested in general BPMN properties may skip this step.
-  Atomic propositions are created using the concrete syntax detailed in \autoref{subsec:customProperties}, which is implemented as a custom diagram editor.
+  Atomic propositions are created using the concrete syntax detailed in \autoref{subsec:customProperties}, implemented as a custom diagram editor.
   As mentioned, to create a proposition, users attach tokens and process snapshots to the BPMN model created in the modeling section.
   %We implemented a custom diagram editor for this step to achieve the best possible usability.
   \item In the \textbf{Analysis} section, users may check the general BPMN properties and build custom properties using the atomic propositions. 
-  The properties builder utilizes a textual CTL-syntax to specify custom properties using the atomic propositions from the previous section.
+  The properties builder utilizes a textual CTL syntax to specify custom properties using the atomic propositions from the previous section.
   %Second, 
   The CTL properties builder comes with CTL templates to facilitate commonly occurring CTL properties.
-  These templates allow currently for checking whether a state (described by an atomic proposition) can be reached or not.
+  These templates allow users to check whether a state (described by an atomic proposition) can be reached.
   Thus, simple safety and liveness properties can be checked using these templates.
   Users who download the generated GT system may inspect and edit the graph conditions generated from the atomic propositions; they may also specify more properties in their favorite temporal logic and check them using Groove.
   Model-checking experts in an organization can define more templates in the future and share them for reuse. 
@@ -715,7 +709,7 @@ The BPMN Analyzer interface is structured into three distinct sections where the
 
 \subsection{Ruseable libraries}
 In addition to the BPMN Analyzer, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners.
-The BPMN metamodel extension needed to define custom propositions is published as an npm module (\textit{token-bpmn-moddle}) \cite{timkrauterLMCS2024Artifacts2023}.
+The BPMN metamodel extension needed to define atomic propositions is published as an npm module (\textit{token-bpmn-moddle}) \cite{timkrauterLMCS2024Artifacts2023}.
 Npm is the default package manager for the JavaScript programming language.
 In addition, the BPMN token editor to define atomic propositions is also published as an npm module (\textit{token-bpmn}) \cite{timkrauterLMCS2024Artifacts2023}.
 Furthermore, we published our \textit{graph-rule-generation} library to generate Groove GT systems to the Maven central repository \cite{timkrauterLMCS2024Artifacts2023}.
