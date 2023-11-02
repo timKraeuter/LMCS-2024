@@ -655,30 +655,19 @@ The BPMN Analyzer interface is structured into three distinct sections where the
   \item The \textbf{Modeling} section lets users upload or define the BPMN model.
   We utilize a properties panel in the modeling step such that IDs of BPMN elements can be viewed and edited directly in the model editor.
   This allows for better traceability between BPMN elements and generated GT rules when a user chooses to inspect the generated GT system.
-  \item The \textbf{Custom Propositions} section contains the atomic proposition editor.
-  In this section, users may create atomic propositions, which may be used as ingredients using the custom properties builder.
+  \item The \textbf{Custom Propositions} section contains our custom \textit{Token Editor}.
+  In this section, users may create atomic propositions, which can be used as ingredients in the custom CTL properties in the analysis section.
   Users who are only interested in general BPMN properties may skip this step.
-  Atomic propositions are created using the concrete syntax detailed in \autoref{subsec:customProperties}, implemented as a custom diagram editor.
+  Atomic propositions are created using the concrete syntax detailed in \autoref{subsec:customProperties}, implemented in our \textit{Token Editor}.
   As mentioned, to create a proposition, users attach tokens and process snapshots to the BPMN model created in the modeling section.
-  %We implemented a custom diagram editor for this step to achieve the best possible usability.
   \item In the \textbf{Analysis} section, users may check the general BPMN properties and build custom properties using the atomic propositions. 
   The properties builder utilizes a textual CTL syntax to specify custom properties using the atomic propositions from the previous section.
-  %Second, 
   The CTL properties builder comes with CTL templates to facilitate commonly occurring CTL properties.
-  These templates allow users to check whether a state (described by an atomic proposition) can be reached.
+  These templates allow users to check whether a state (described by an atomic proposition) can be reached or is never reached.
   Thus, simple safety and liveness properties can be checked using these templates.
-  Users who download the generated GT system may inspect and edit the graph conditions generated from the atomic propositions; they may also specify more properties in their favorite temporal logic and check them using Groove.
+  Users who download the generated GT system may inspect and edit the graph conditions generated from the atomic propositions; they may also specify more properties and check them using Groove.
   Model-checking experts in an organization can define more templates in the future and share them for reuse. 
-
 \end{enumerate}
-
-
-% we added CTL templates to the analysis of the step such that a modeler can generate commonly occurring CTL propositions.
-% He selects a template and a proposition to generate a CTL property.
-% So far, we have added two templates for checking if a state (described by a proposition) can be reached or is never reached.
-% Thus, simple safety and liveness properties can be checked using these templates.
-% Model-checking experts in an organization can define more templates in the future and share them for reuse. 
-
 
 \subsection{Reusable libraries}
 In addition to the BPMN Analyzer, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners.
