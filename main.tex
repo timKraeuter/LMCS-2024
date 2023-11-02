@@ -430,14 +430,13 @@ It shows how LTEs interact with link catch events (LCEs).
 
 % Rule template description
 Each rule deletes a token at that sequence flow and adds tokens to all outgoing sequence flows of matching LTEs.
-An LTE matches an LCE if they have the same name.
-In addition, they match despite different names if they have the same linked event definition (see \cite{objectmanagementgroupBusinessProcessModel2013}).
+An LTE matches an LCE if they have the same name or event definition (see \cite{objectmanagementgroupBusinessProcessModel2013}).
 Our HOT automatically finds matching LTEs during transformation and then applies the rule template shown in \autoref{fig:linkEventTemplates}.
 
 \subsection{Signal Events}
 % General description
-Each signal event references a named signal.
-Signal throw events \textit{broadcast} to all signal catch events with the same signal.
+Each signal event is assigned a signal name.
+Signal throw events \textit{broadcast} to all signal catch events with the same signal name.
 Signal broadcasts have a global scope, i.e., they can communicate across process levels and pools \cite{objectmanagementgroupBusinessProcessModel2013}.
 
 \autoref{fig:terminateEventTemplate} depicts the rule generation template for \textit{signal intermediate throw events} which interact with \textit{signal intermediate catch events} and \textit{signal start events} (\textsf{SITE}, \textsf{SICE}, and \textsf{SSE} in \autoref{fig:bpmnelementsOverview}).
@@ -554,7 +553,7 @@ It is shown in \autoref{fig:allTerminated} using Groove syntax.
 \end{minipage}
 \vskip.5\baselineskip
 
-Checking the properties \textit{Safeness}, \textit{Option to complete} is implemented by checking the CTL properties above using Groove.
+Checking the properties \textit{Safeness}, \textit{Option to complete} is implemented by checking the CTL properties above using Groove \cite{kastenbergModelCheckingDynamic2006, rensinkExplicitStateModel2008}.
 \textit{No dead activities} is implemented by analyzing the GT system's state space to see if each activity has been executed at least once \cite{timkrauterLMCS2024Artifacts2023}.
 The property \textit{Proper Completion} is not yet implemented, but all the information needed can also be found in the GT system's state space.
 
@@ -910,7 +909,7 @@ It shows the average runtime of five runs, calculated by hyperfine \cite{peterHy
 The increase in the runtime of the state space generation looks worse than linear.
 However, models of reasonable size (50 blocks or less) are handled in less than two seconds.
 To summarize, using our approach, we can conservatively estimate that these models can be checked (HOT followed by a full state space generation) in around three seconds or less.
-In addition, a full-state space exploration is not always needed for model checking.
+In addition, full-state space exploration might not be needed if \textit{on-the-fly} model checking is used \cite{clarkeHandbookModelChecking2018}.
 
 % Plenty of optimization potential
 Plenty of optimization potentials exist, starting from the HOT and ending with the state space generation in Groove.
@@ -934,7 +933,7 @@ Each GT rule is saved to a new file, and the number of generated GT rules increa
 Integrating our HOT and Groove more tightly can eliminate these costly I/O operations since the generated rules can stay in the main memory.
 This optimization is especially useful for our approach.
 Second, \textit{partial order reduction} methods could greatly reduce the time and space required for model checking \cite{clarkeHandbookModelChecking2018}.
-Third, Groove could use \textit{on-the-fly} model checking.
+Third, Groove could use \textit{on-the-fly} model checking \cite{kastenbergModelCheckingDynamic2006}.
 If a counterexample is found, there is no need to continue the state space generation \cite{clarkeHandbookModelChecking2018}.
 
 \section{Related work} \label{sec:relatedWork}
@@ -957,16 +956,17 @@ However, they do \textit{not} support property checking since their goal is only
 % BProve/Corradini
 The tool \textit{BProVe} is based on formal BPMN semantics given in rewriting logic and implemented in the Maude system \cite{corradiniFormalApproachAnalysis2021}.
 Using this formal semantics, \textit{BProVe} can verify custom LTL properties and general BPMN properties, such as Safeness and Soundness.
+However, \textit{BProVe} only supports the most common BPMN elements, as shown later.
 
 % fbpmn/Houhou
 The verification framework \textsf{fbpmn} uses first-order logic to formalize and check BPMN models \cite{houhouFirstOrderLogicVerification2022}.
 This formalization is then realized in the TLA\textsuperscript{+} formal language and can be model-checked using TLC.
 Like BProVe, \textsf{fbpmn} allows checking general BPMN properties, such as Safeness and Soundness.
 Furthermore, \textit{fbpmn} focuses on different communication models besides the standard in the BPMN specification and supports time-related constructs.
-We currently disregard time-related constructs \cite{duranVerifyingTimedBPMN2017,houhouFirstOrderLogicVerification2022} and data flow \cite{corradiniFormalisingAnimatingMultiple2022,el-saberCMMICMComplianceChecking2015}.
+We currently disregard time-related constructs \cite{duranVerifyingTimedBPMN2017,houhouFirstOrderLogicVerification2022} and data flow \cite{corradiniFormalisingAnimatingMultiple2022,el-saberCMMICMComplianceChecking2015} but rather support more BPMN elements.
 
 \autoref{tab:supportedelements} shows which BPMN elements are supported by our and the abovementioned approaches.
-Compared to other approaches, we cover most BPMN elements.
+Compared to the other approaches, we cover most BPMN elements.
 The coverage of BPMN elements greatly impacts how useful each approach is to check properties in practice.
 In addition, we cover the most important elements found in practice since we come close to the element coverage of popular process engines such as Camunda \cite{camundaservicesgmbhBPMNImplementationReference2023}.
 
