@@ -146,12 +146,12 @@ This article extends \cite{krauterFormalizationAnalysisBPMN2023} as follows.
 (i) We explain many more BPMN elements, which are covered by our approach (see elements highlighted in blue in \autoref{fig:bpmnelementsOverview}).
 (ii) We enhance the explanation of the custom properties in \autoref{sec:modelChecking} by using an order handling example process to illustrate use cases for these properties.
 (iii) We detail the extensively improved BPMN analyzer tool in \autoref{sec:impl} in which modelers may use our new atomic proposition editor.
-(iv) We test the scalability of our approach with 300 synthetically generated BPMN models of various sizes in \autoref{sec:scalability}. 
+(iv) We test the scalability of our approach with 300 synthetically generated BPMN models of various sizes in \autoref{subsec:scalability}. 
 
 % Article outline
 \textbf{Outline} The remainder of this article is structured as follows.
 First, we describe the BPMN semantics formalization using the HOT (\autoref{sec:formalization}) before explaining how this can be utilized for model checking general BPMN and custom properties (\autoref{sec:modelChecking}).
-Then, we detail the BPMN Analyzer tool in \autoref{sec:impl}, and we describe how we tested the scalability of our approach in \autoref{sec:scalability}.
+Then, we detail the BPMN Analyzer tool, which implements our approach in \autoref{sec:impl} and describe how we tested its performance and scalability.
 Finally, we discuss related work regarding BPMN element coverage in \autoref{sec:relatedWork} and conclude in \autoref{sec:conclusion}.
 
 
@@ -624,11 +624,7 @@ To combat this problem, we added temporal logic templates to our tool to generat
 This feature is discussed in detail in the implementation section.
 In the future, a domain-specific property language for BPMN would further lessen the knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}.
 
-\section{Implementation} \label{sec:impl}
-In this section, we will present our tool, the BPMN Analyzer, which greatly improves the version published in \cite{krauterFormalizationAnalysisBPMN2023}.
-In addition, we will describe how we tested the tool's performance.
-
-\subsection{BPMN Analyzer}
+\section{BPMN Analyzer} \label{sec:impl}
 
 Our approach is implemented as a web-based tool called \textit{BPMN Analyzer}, which is open-source, publicly available, and does not require any installation \cite{timkrauterLMCS2024Artifacts2023, krauterFormalizationAnalysisBPMN2023}.
 \autoref{fig:implScreenshot} depicts a screenshot of the BPMN Analyzer.
@@ -748,7 +744,7 @@ Similarly to the groove rule builder in \autoref{lst:grooveRuleBuilder}, we also
 Finally, the library provides a builder for GT systems using the graph and GT rule builders.
 The Groove UI and the Groove command-line tools can then consume the generated GT systems.
 
-\subsection{Experiments}
+\subsection{Performance testing}
 
 Model checking is a useful technique but often falls short in practice due to insufficient performance.
 Poor performance might have many reasons, most notably large models leading to state space explosion.
@@ -807,11 +803,11 @@ However, a comprehensive benchmark, including a detailed comparison to other too
 \label{table:stateSpaceBenchmark}
 \end{table}
 
-\section{Scalability test} \label{sec:scalability}
+\subsection{Scalability testing} \label{subsec:scalability}
 
 In this section, we test the scalability of our approach by applying it to 300 heterogeneous BPMN models with increasing model sizes. 
 
-\subsection{Setup}
+\subsubsection{Setup}
 
 We generated 300 BPMN models to test the scalability of our approach.
 We used the following approach to include different BPMN elements in our models.
@@ -875,7 +871,7 @@ We did not go beyond 300 blocks since the whole test should still run in a reaso
 \label{table:bpmnModelCharacteristics}
 \end{table}
 
-\subsection{Results}
+\subsubsection{Results}
 
 % Description
 \autoref{fig:hotScalability} depicts the results of benchmarking our HOT with the generated BPMN models.
