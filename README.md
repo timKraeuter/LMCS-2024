@@ -49,8 +49,8 @@ The **"noShipment"** proposition results in the following graph condition in Gro
 
 You can check that a shipment always occurs by using the following CTL proposition `!AG(noShipment)`.
 
-The GT system for the examples can be found [here](/artifacts/customPropositions/orderHandling.gps.zip).
-After downloading and unzipping, you can open it in [Groove](https://groove.ewi.utwente.nl/) to explore the state space in detail and run model checking.
+The GT systems for the examples can be found [here](/artifacts/customPropositions/).
+After downloading and unzipping, you can each Gt system in [Groove](https://groove.ewi.utwente.nl/) to explore the state space in detail and run model checking.
 
 # BPMN Analyzer tool
 
