@@ -41,15 +41,15 @@ The **"shipGoodsTwice"** proposition results in the following graph condition in
 
 ![Ship goods twice proposition in Groove.](./artifacts/customPropositions/shipGoodsTwice.png)
 
-You can check that this state is never reached by using the following CTL proposition `AG(!shipGoodsTwice)`.
+You can check that this state is never reached using the CTL proposition `AG(!shipGoodsTwice)`.
 
 The **"noShipment"** proposition results in the following graph condition in Groove:
 
 ![No shipment proposition in Groove.](./artifacts/customPropositions/noShipment.png)
 
-You can check that a shipment always occurs by using the following CTL proposition `!AG(noShipment)`.
+You can check that a shipment always occurs using the CTL proposition `!AG(noShipment)`.
 
-The GT systems for the examples can be found [here](/artifacts/customPropositions/).
+The GT systems for the examples can be found [here](/artifacts/customPropositions/) ending in `.gps`.
 After downloading and unzipping, you can each Gt system in [Groove](https://groove.ewi.utwente.nl/) to explore the state space in detail and run model checking.
 
 # BPMN Analyzer tool
