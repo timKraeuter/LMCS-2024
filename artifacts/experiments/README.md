@@ -4,12 +4,12 @@
    - The hyperfine windows release **1.18.0** is contained in `artifacts/dependencies`.
 2. Install Java version 20 (We used 20.0.2.1 Amazon Corretto).
 
-The experiment was run with Groove version **6.1.0**, which is contained in `groove-6_1_0` and does not have to be installed.
+The experiments were run with Groove version **6.1.0**, which is contained in `groove-6_1_0` and does not have to be installed.
 All experiments were run using a Windows 11 machine with an AMD Ryzen 7700X processor with 32 GB DDR5-5600 RAM on NVMe SSD storage.
 
-# Experiments
+# Performance
 
-## HOT transformation experiment
+## HOT transformation
 1. Clone this repository.
 2. Open a terminal in **this folder**.
 3. Run the following command:
@@ -24,7 +24,7 @@ We estimate most of the time is spent doing I/O, i.e., reading the input BPMN fi
 To summarize, the HOT runtime could be further optimized if one avoids writing the generated GT system to stable storage.
 Instead, the GT system could remain in the main memory and be accessed from there.
 
-## State space generation experiment
+## State space generation
 
 1. Clone this repository.
 2. Open a terminal in **this folder**.
@@ -41,7 +41,7 @@ The models for the scalability test were generated using `BPMNModelBuilder.creat
 One can also generate bigger models or change the contents of the generated models.
 The results were zipped and are contained in **scalability.zip** in the subdirectory `models`.
 
-## HOT Scalability
+## HOT transformation
 
 1. Clone this repository.
 2. Unzip **scalability.zip** in the subdirectory `models` to a directory called `scalability`.
@@ -56,7 +56,7 @@ hyperfine -L bpmnModel models/scalability/001.bpmn,models/scalability/002.bpmn,m
 The benchmark results are found in `/results/HOTScalability_stats.json`.
 The Python scripts we used to analyze the benchmark results can be found in [`/results/scripts/`](https://github.com/timKraeuter/LMCS-2024/tree/main/artifacts/experiment/results/scripts).
 
-## State space generation scalability
+## State space generation
 
 1. Clone this repository.
 2. Generate the GT-systems by following the steps in **HOT Scalability**. You can use the command `--runs 1` instead of `--runs 5` to only run each HOT once.
