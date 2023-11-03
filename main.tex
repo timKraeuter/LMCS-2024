@@ -144,9 +144,9 @@ We do not repeat them and instead focus on our practical contribution.
 % Compared to the conference version
 This article extends \cite{krauterFormalizationAnalysisBPMN2023} as follows.
 (i) We explain many more BPMN elements, which are covered by our approach (see elements highlighted in blue in \autoref{fig:bpmnelementsOverview}).
-(ii) We enhance the explanation of the custom properties in \autoref{sec:modelChecking} by using an order handling example process to illustrate use cases for these properties.
+(ii) We enhance the explanation of the custom properties in \autoref{sec:modelChecking} by using an order handling process to illustrate use cases for these properties.
 (iii) We detail the extensively improved BPMN analyzer tool in \autoref{sec:impl} in which modelers may use our new atomic proposition editor.
-(iv) We test the scalability of our approach with 300 synthetically generated BPMN models of various sizes in \autoref{subsec:scalability}. 
+(iv) We test the scalability of our approach with 300 synthetically generated BPMN models of increasing size in \autoref{subsec:scalability}. 
 
 % Article outline
 \textbf{Outline} The remainder of this article is structured as follows.
@@ -302,7 +302,7 @@ The rule changes the state of the process snapshot from running to terminated if
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=.45\textwidth]{images/Terminate.pdf}
+    \includegraphics[width=.4\textwidth]{images/Terminate.pdf}
     \caption{Termination rule in Groove}
     \label{fig:terminationRule}
 \end{figure}
@@ -359,7 +359,7 @@ Thus, one rule is generated that deletes one token from each incoming sequence f
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{images/gateways_template.pdf}
+    \includegraphics[width=0.85\textwidth]{images/gateways_template.pdf}
     \caption{Rule generation template for gateways}
     \label{fig:gatewayTemplates}
 \end{figure}
@@ -424,7 +424,7 @@ It shows how LTEs interact with link catch events (LCEs).
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{images/linkEvent_template.pdf}
+    \includegraphics[width=0.85\textwidth]{images/linkEvent_template.pdf}
     \caption{Rule generation template for LTEs interacting with LCEs}
     \label{fig:linkEventTemplates}
 \end{figure}
@@ -491,14 +491,14 @@ Terminating a process must also terminate its subprocesses, which is not shown i
 Model checking ---and verification in general--- of BPMN models is necessary to ensure the correctness and reliability of business processes, which ultimately leads to increased efficiency, reduced costs, and user satisfaction.
 Using our formalization approach, BPMN models may be verified against behavioral properties ---both general and custom--- by utilizing the generated GT system (see \autoref{fig:approach}).
 These behavioral properties are defined using temporal logic, such as Computation Tree Logic (CTL) and Linear Temporal Logic (LTL) \cite{baierPrinciplesModelChecking2008}.
-As mentioned in \autoref{sec:introduction}, modelers may use our approach to specify custom properties consisting of atomic propositions and logical operators from CTL.
+As mentioned in \autoref{sec:introduction}, modelers may use our approach to specify custom properties consisting of atomic propositions and operators from CTL/LTL.
 The atomic propositions are transformed to graph conditions by the HOT.
 A graph condition is a GT rule which does not delete or add elements.
 A proposition holds in a given state if a match of the graph condition exists in the graph representing the state \cite{kastenbergModelCheckingDynamic2006}.
 
 We differentiate between two types of behavioral properties: \textit{general BPMN properties} defined for all BPMN models and \textit{custom properties} tailored towards a particular BPMN model.
 We do not consider structural properties (like conformance to the syntax of BPMN) since they can be checked using a standard modeling tool without implementing execution semantics.
-We will now give an example of two predefined general BPMN properties and show how they can be checked using our approach.
+We will now give an example of predefined general BPMN properties and show how they can be checked using our approach.
 Then, we describe how custom properties can be defined and checked.
 
 \subsection{General BPMN properties}
@@ -520,7 +520,7 @@ It is shown in \autoref{fig:unsafe} using Groove syntax.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/Unsafe.pdf}
+    \includegraphics[width=0.5\textwidth]{images/Unsafe.pdf}
     \caption{The atomic proposition \textsf{Unsafe} as a Groove graph condition.}
     \label{fig:unsafe}
 \end{figure}
@@ -535,7 +535,7 @@ It is shown in \autoref{fig:allTerminated} using Groove syntax.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.45\textwidth]{images/AllTerminated.pdf}
+    \includegraphics[width=0.35\textwidth]{images/AllTerminated.pdf}
     \caption{The atomic proposition \textsf{AllTerminated} as a Groove graph condition.}
     \label{fig:allTerminated}
 \end{figure}
@@ -574,7 +574,7 @@ The modeling error leads to potentially shipping goods twice if the process is n
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.65\textwidth]{images/shippedTwiceProposition.pdf}
+    \includegraphics[width=0.6\textwidth]{images/shippedTwiceProposition.pdf}
     \caption{Atomic proposition \textit{shipGoodsTwice} defining shipping goods twice.}
     \label{fig:shippedTwiceProposition}
 \end{figure}
@@ -587,7 +587,7 @@ The modeling error leads to potentially shipping goods twice if the process is n
 \end{figure}
 
 Another proposition for the same process with a different error is shown in \autoref{fig:noShipment}.
-The proposition \textit{noShipment} defines that the activity \textit{Ship goods} should not run.
+The proposition \textit{noShipment} defines that the activity \textit{Ship goods} should not run (has no token).
 \enquote{Has no token} is depicted by crossing out the token symbol and represents an extension of our concrete syntax introduced for defining propositions.
 This proposition can be used to define a CTL property to check if shipping always occurs.
 % !AG(noShipment) -> Never no shipment
@@ -596,14 +596,14 @@ The GT systems for both variants of the order handling process containing the pr
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.65\textwidth]{images/noShipment.pdf}
+    \includegraphics[width=0.6\textwidth]{images/noShipment.pdf}
     \caption{Atomic proposition \textit{noShipment} defining no ongoing shipping of goods.}
     \label{fig:noShipment}
 \end{figure}
 
 Using an atomic proposition editor based on the BPMN concrete syntax, modelers do not need extensive knowledge about the GT-based execution semantics. 
 Although the expressiveness is not as powerful as in the GT-based execution semantics in Groove---e.g., one can use nested rules with quantification in graph conditions---we favor \textit{simplicity} over \textit{expressiveness}.
-In addition, we attempt to stay as independent as possible from the framework and tools used for the execution semantics (see the right module of \autoref{fig:approach}).
+In addition, we attempt to stay as independent as possible from the framework and tools used for the execution semantics (see the right part in \autoref{fig:approach}).
 
 Finally, the modeler must still know the temporal logic, such as LTL and CTL, to express his properties.
 To combat this problem, we added temporal logic templates to our tool to generate commonly occurring propositions without knowledge about temporal logic.
@@ -619,17 +619,17 @@ It is the same BPMN model as in \autoref{fig:shippedTwiceProposition} and \autor
 
 The modeler can create or upload a BPMN model, which can then be verified using either general BPMN properties or custom properties formulated in CTL.
 BPMN Analyzer generates a GT system for the supplied BPMN model and runs model checking against the specified properties in Groove \cite{kastenbergModelCheckingDynamic2006, rensinkExplicitStateModel2008}. 
-We have created a comprehensive test suite \cite{timkrauterLMCS2024Artifacts2023}, which verifies that rules are generated as defined by the rule generation templates in the previous section for each BPMN element.
+We have created a comprehensive test suite \cite{timkrauterLMCS2024Artifacts2023}, which verifies that rules are generated as defined by the rule generation templates in the previous section.
 The test suite covers over 90\% of our source code.
 
 \begin{figure}[ht]
     \centering
-    \frame{\includegraphics[width=.8\textwidth]{images/impl_step3.png}}
+    \frame{\includegraphics[width=.75\textwidth]{images/impl_step3.png}}
     \caption{Screenshot of the \textit{analysis step} in the BPMN Analyzer}
     \label{fig:impl_step1}
 \end{figure}
 
-The BPMN Analyzer interface is structured into three distinct steps where the user is transparently guided through the modeling and analysis processes by the application flow.
+The BPMN Analyzer interface is structured into three steps that guide the user transparently through the modeling and analysis process.
 
 \begin{enumerate}
   \item The \textbf{Modeling} step lets users upload or define the BPMN model.
@@ -645,7 +645,7 @@ The BPMN Analyzer interface is structured into three distinct steps where the us
 
 \begin{figure}[ht]
     \centering
-    \frame{\includegraphics[width=1\textwidth]{images/impl_step2.png}}
+    \frame{\includegraphics[width=0.9\textwidth]{images/impl_step2.png}}
     \caption{Screenshot of the \textit{propositions step} in the BPMN Analyzer}
     \label{fig:impl_step2}
 \end{figure}
@@ -654,14 +654,14 @@ The BPMN Analyzer interface is structured into three distinct steps where the us
   The properties builder utilizes a textual CTL syntax to specify custom properties using the atomic propositions from the previous step, see \autoref{fig:impl_step3_ctl}.
   The two atomic propositions created in the previous step (see \autoref{fig:impl_step2}) are available to the user.
   The CTL properties builder comes with CTL templates to facilitate commonly occurring CTL properties.
-  These templates allow users to check whether a state (described by an atomic proposition) can be reached or is never reached.
+  These templates allow users to check whether a state (described by an atomic proposition) can be reached or is never reached (see \autoref{fig:impl_step3_ctl}).
   Thus, simple safety and liveness properties can be checked using these templates.
   Users who download the generated GT system may inspect and edit the graph conditions generated from the atomic propositions; they may also specify more properties and check them using Groove.
   Model-checking experts in an organization can define more templates in the future and share them for reuse.
 
   \begin{figure}[ht]
       \centering
-      \frame{\includegraphics[width=.8\textwidth]{images/impl_step3_analysis.png}}
+      \frame{\includegraphics[width=.6\textwidth]{images/impl_step3_analysis.png}}
       \caption{CTL properties builder in the \textit{analysis step} of the BPMN Analyzer}
       \label{fig:impl_step3_ctl}
   \end{figure}
@@ -688,15 +688,14 @@ Our extension adds the \textsf{Token} and \textsf{ProcessSnapshot} types from th
 
 The library allows one to create token and process snapshot instances and stores them in the BPMN extension elements (lines 2-6 in the XML example in \autoref{lst:extension}).
 This is the recommended way to extend the BPMN metamodel \cite{objectmanagementgroupBusinessProcessModel2013}.
-Each token refers to its \textsf{elementID} (see BPMN execution metamodel in \autoref{fig:bpmnExecutionMetamodel}) and \textsf{processSnapshot}.
 
 The extension of the BPMN metamodel is realized by letting \textsf{Token} and \textsf{ProcessSnapshot} extend from \textsf{Element}, which is the type of elements of the extension elements, see \autoref{fig:token_extension}.
-Each \textsf{Token} points to the \textsf{element} it is currently positioned at, which can be an \textsf{Activity} or \textsf{SequenceFlow}, see BPMN metamodel in \autoref{fig:bpmnMetamodel}.
+Each \textsf{Token} points to the \textsf{FlowElement} it is currently positioned at, which can be an \textsf{Activity} or \textsf{SequenceFlow}, see BPMN metamodel in \autoref{fig:bpmnMetamodel}.
 In \autoref{lst:extension}, this is realized using the attribute \textsf{elementID}.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=.7\textwidth]{images/bpmn_extension.pdf}
+    \includegraphics[width=.6\textwidth]{images/bpmn_extension.pdf}
     \caption{Token Extension of the BPMN metamodel (simplified)}
     \label{fig:token_extension}
 \end{figure}
@@ -706,7 +705,7 @@ However, following sound model-driven principles and creating an extended metamo
 
 \subsubsection{Token Editor}
 The Token Editor implements the concrete syntax for tokens and process snapshots described in \autoref{fig:bpmnExecutionMetamodel}.
-Using our Token Editor, a user does not need to write XML since the complexity of extending the BPMN metamodel described in the previous chapter is hidden in the editor.
+Using our Token Editor, a user does not need to write XML, which hides the complexity of extending the BPMN metamodel in the graphical editor.
 
 \autoref{fig:impl_step2} shows the Token Editor embedded in the second step of the BPMN Analyzer.
 We simplify the user interface so users can only edit tokens and process snapshots, not the underlying BPMN model.
@@ -729,13 +728,14 @@ Using the rule builder, one can construct a GT rule by defining which nodes and 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/rule.pdf}
+    \includegraphics[width=0.35\textwidth]{images/rule.pdf}
     \caption{Groove GT rule generated by the code snippet in \autoref{lst:grooveRuleBuilder}}
     \label{fig:grooveRuleBuilderRule}
 \end{figure}
 
 Similarly to the groove rule builder in \autoref{lst:grooveRuleBuilder}, we also provide a builder for constructing graphs to create start graphs of GT systems \cite{timkrauterLMCS2024Artifacts2023}.
 Finally, the library provides a builder for GT systems using the graph and GT rule builders.
+It also automatically lays out graphs and GT rules using the Eclipse Layout Kernel (ELK).
 The Groove UI and the Groove command-line tools can then consume the generated GT systems.
 
 \subsection{Performance testing}
@@ -748,7 +748,6 @@ The models include realistic business process models (e.g., 001, 002, and 020) \
 
 To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2023} (version 1.18.0), which ran the HOT/state space exploration for each BPMN model ten times.
 The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 6.1.0 \cite{timkrauterLMCS2024Artifacts2023}.
-Compared to \cite{krauterFormalizationAnalysisBPMN2023}, we used the newest HOT implementation as well as the newest Groove and hyperfine versions.
 
 First, we ran our HOT for the BPMN models.
 The HOT takes approximately half a second to generate a GT system for each model.
@@ -766,7 +765,7 @@ For example, Groove reports only 722 ms for state space exploration for model \t
 
 \begin{tabular}{| c | c | c || c | c | c |}
  \hline
- BPMN model & Processes & Nodes (gw.) & States & Transitions & Total time \\
+ BPMN model & Processes & Nodes (gw.) & States & Transitions & Runtime \\
  \hline\hline
  001 & 2 & 17(2) & 68 & 118 & $\sim$ 1.00 s \\
  \hline
@@ -811,7 +810,7 @@ During the generation, we alternate between the three different blocks shown in 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/blocks.pdf}
+    \includegraphics[width=0.7\textwidth]{images/blocks.pdf}
     \caption{The three different blocks used for BPMN model generation}
     \label{fig:blocks}
 \end{figure}
@@ -823,7 +822,7 @@ We then repeat adding one block at a time for each new model until we reach 300 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{images/003.pdf}
+    \includegraphics[width=0.9\textwidth]{images/003.pdf}
     \caption{A generated BPMN model with three blocks}
     \label{fig:threeBlockModel}
 \end{figure}
