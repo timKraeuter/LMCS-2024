@@ -52,37 +52,29 @@ You can check if this state is ever reached by checking the following CTL propos
 The GT system for the examples can be found [here](/artifacts/customPropositions/orderHandling.gps.zip).
 After downloading and unzipping, you can open it in [Groove](https://groove.ewi.utwente.nl/) to explore the state space in detail and run model checking.
 
-# Implementation
-
-## BPMN Analyzer tool
+# BPMN Analyzer tool
 
 The BPMN Analyzer is available
 online [here](https://bpmnanalyzer.whitefield-c9fed487.northeurope.azurecontainerapps.io).
+The [wiki](https://github.com/timKraeuter/Rewrite_Rule_Generation/wiki) describes our [comprehensive test suite](https://github.com/timKraeuter/Rewrite_Rule_Generation/wiki/Test-Suite) to test our coverage of BPMN features. 
 
 [![Screenshot of the application.](./artifacts/impl_step3_long.png)](https://bpmnanalyzer.whitefield-c9fed487.northeurope.azurecontainerapps.io)
 
 The source code of the BPMN Analyzer is available [here](https://github.com/timKraeuter/Rewrite_Rule_Generation), and instructions how to run it locally on your machine can be found [here](https://github.com/timKraeuter/Rewrite_Rule_Generation/blob/master/server/README.md).
 
 
-### Published libraries for reuse
+## Reusable libraries
 The BPMN Analyzer is built using different libraries we have created.
 These libraries are also helpful in other contexts and have thus been shared independently of the tool:
 
 1. An editor library for defining a snapshot/state of a running BPMN process using tokens and process snapshots: [**_token-bpmn_** (npm)](https://www.npmjs.com/package/bpmn-token)
-2. An extension of the BPMN metamodel, adding process snapshots and tokens, i.e., our BPMN execution metamodel: [**_token-bpmn-moddle_** (npm)](https://www.npmjs.com/package/token-bpmn-moddle)
+2. An extension of the BPMN metamodel, the Token Editor, adding process snapshots and tokens: [**_token-bpmn-moddle_** (npm)](https://www.npmjs.com/package/token-bpmn-moddle)
 3. A library to generate graph transformation systems currently implemented for Groove: [**_graph rule generation_** (Maven central)](https://mvnrepository.com/artifact/io.github.timKraeuter/graph-rule-generation)
 
-### Test suite
-
-The [wiki](https://github.com/timKraeuter/Rewrite_Rule_Generation/wiki) describes our [comprehensive test suite](https://github.com/timKraeuter/Rewrite_Rule_Generation/wiki/Test-Suite) to test our coverage of BPMN features. 
-
-Feel free to contact me for further information.
-
-
-## Experiments
+## Performance testing
 
 The experiments are described [here](https://github.com/timKraeuter/LMCS-2024/tree/main/artifacts/experiment#readme).
 
-# Scalability test
+## Scalability testing
 
 The scalability test is described [here](https://github.com/timKraeuter/LMCS-2024/tree/main/artifacts/experiment#scalability).
