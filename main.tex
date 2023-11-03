@@ -292,7 +292,7 @@ In the example, \textsf{E.incSFs} means following all \textsf{incSFs} links for 
 \end{figure}
     
 % End Event
-The generated end event rules delete tokens one by one for each incoming sequence flow.
+The generated end event rules delete tokens individually for each incoming sequence flow.
 However, they do not terminate processes.
 % General termination rule
 Process termination is implemented with a generic rule---independent of the input BPMN model---which applies to all process snapshots.
@@ -742,11 +742,6 @@ Only model \textit{020} needs nearly two seconds due to its larger state space.
 Furthermore, up to one second is spent on startup, not model checking.
 For example, Groove reports only 722 ms for state space exploration for model \textit{020}.
 
-We conclude that our approach is sufficiently fast for models of average size.
-In addition, there is still room for optimization, such as avoiding costly I/O to disk or parallelizing the HOT.
-In the next section, we test the scalability of our approach.
-However, a comprehensive benchmark, including a detailed comparison to other tools, is left for future work.
-
 \begin{table}[ht]
 \centering
 \caption{Experimental results for a full state space exploration in Groove}
@@ -779,9 +774,14 @@ However, a comprehensive benchmark, including a detailed comparison to other too
 \label{table:stateSpaceBenchmark}
 \end{table}
 
+We conclude that our approach is sufficiently fast for models of average size.
+In the next section, we test the scalability of our approach when models increase in size.
+Furthermore, we discuss potential performance and scalability improvements.
+However, a comprehensive benchmark, including a detailed comparison to other tools, is left for future work.
+
 \subsection{Scalability testing} \label{subsec:scalability}
 
-In this section, we test the scalability of our approach by applying it to 300 heterogeneous BPMN models with increasing model sizes. 
+In this section, we test the scalability of our approach by applying it to 300 heterogeneous BPMN models with increasing model sizes.
 
 \subsubsection{Setup}
 
