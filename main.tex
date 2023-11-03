@@ -47,7 +47,7 @@ showstringspaces=false}
   stringstyle=\color{black},
   identifierstyle=\color{darkblue},
   keywordstyle=\color{cyan},
-  morekeywords={id,sourceRef,targetRef, processSnapshot}% list your attributes here
+  morekeywords={id,sourceRef,targetRef, processSnapshot, elementID}% list your attributes here
 }
 % My packages end
 
@@ -160,8 +160,9 @@ Finally, we discuss related work regarding BPMN element coverage in \autoref{sec
 
 \autoref{fig:bpmnMetamodel} depicts the structure of BPMN models with the corresponding concrete syntax BPMN symbols contained in clouds.
 A BPMN model is represented by a \textsf{Collaboration} that has participant \textsf{Process}es and \textsf{MessageFlow}s between \textsf{InteractionNode}s.
-Each participant is a \textsf{Process} containing \textsf{FlowNode}s connected by \textsf{SequenceFlow}s.
-A \textsf{FlowNode} is either an \textsf{Activity}, \textsf{Gateway}, or \textsf{Event}.
+Each participant is a \textsf{Process} containing \textsf{FlowElement}s.
+A \textsf{FlowElement} is either a \textsf{FlowNode} or \textsf{SequenceFlow}.
+A \textsf{FlowNode} is either an \textsf{Activity}, a \textsf{Gateway}, or an \textsf{Event} and can be connected to other \textsf{FlodNode}s using \textsf{SequenceFlow}s.
 Many types of activities, gateways, and events exist, such as call activities, parallel gateways, and start events.
 Activities represent certain tasks to be carried out during a process, while events may happen during the execution of these tasks.
 Furthermore, gateways model conditions, parallelizations, and synchronizations \cite{freundRealLifeBPMNUsing2019}.
@@ -683,12 +684,24 @@ Our extension adds the \textsf{Token} and \textsf{ProcessSnapshot} types from th
 \autoref{lst:extension} shows an example BPMN XML snippet, where a token and process snapshot was added.
 
 \lstinputlisting [label=lst:extension, language=XML, numbers=left,
-    stepnumber=1, caption=Simplified XML snippet showing the BPMN metamodel extension]{./listings/extension.xml}
+    stepnumber=1, caption=XML snippet showing the BPMN metamodel extension (simplified)]{./listings/extension_simplified.xml}
 
-The library allows one to create token and process snapshot instances and stores them in the BPMN extension elements (lines 2-5 in the XML example in \autoref{lst:extension}).
+The library allows one to create token and process snapshot instances and stores them in the BPMN extension elements (lines 2-6 in the XML example in \autoref{lst:extension}).
 This is the recommended way to extend the BPMN metamodel \cite{objectmanagementgroupBusinessProcessModel2013}.
-We use an association (lines 7-8 in \autoref{lst:extension}) to define the element at which the token is located, i.e., the token's \textsf{elementID} (see BPMN execution metamodel in \autoref{fig:bpmnExecutionMetamodel}).
-This XML model is consumed by our HOT to generate atomic propositions for Groove (see \autoref{fig:approach}).
+Each token refers to its \textsf{elementID} (see BPMN execution metamodel in \autoref{fig:bpmnExecutionMetamodel}) and \textsf{processSnapshot}.
+
+The extension of the BPMN metamodel is realized by letting \textsf{Token} and \textsf{ProcessSnapshot} extend from \textsf{Element}, which is the type of elements of the extension elements, see \autoref{fig:token_extension}.
+Each \textsf{Token} points to the \textsf{element} it is currently positioned at, which is either an \textsf{Activity} or \textsf{SequenceFlow}, see BPMN metamodel in \autoref{fig:bpmnMetamodel}.
+In \autoref{lst:extension}, this is realized using the attribute \textsf{elementID}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.7\textwidth]{images/bpmn_extension.pdf}
+    \caption{Token Extension of the BPMN metamodel (simplified)}
+    \label{fig:token_extension}
+\end{figure}
+
+The XML model in \autoref{lst:extension} can be consumed by our HOT to generate atomic propositions for Groove (see \autoref{fig:approach}).
 However, following sound model-driven principles and creating an extended metamodel, the XML model could also be used in other applications or for model checking with different tools.
 
 \subsubsection{Token Editor}
@@ -696,7 +709,7 @@ The Token Editor implements the concrete syntax for tokens and process snapshots
 Using our Token Editor, a user does not need to write XML since the complexity of extending the BPMN metamodel described in the previous chapter is hidden in the editor.
 
 \autoref{fig:impl_step2} shows the Token Editor embedded in the second step of the BPMN Analyzer.
-We simplify the user interface so users can only edit tokens and process snapshots, and not the underlying BPMN model.
+We simplify the user interface so users can only edit tokens and process snapshots, not the underlying BPMN model.
 Process snapshots are automatically assigned distinct colors, and tokens held by a process snapshot have the same color (see concrete syntax in \autoref{fig:bpmnExecutionMetamodel}).
 Tokens can be assigned to process snapshots, which changes the token's color to match the snapshot.
 
@@ -983,7 +996,7 @@ We plan to support these elements by extending our implementation and test suite
       Exclusive gateway & X & X & X & X & X\\
       Inclusive gateway (split) & X & X & X & X & X\\
       Inclusive gateway (merge) & & X & & X & X\\
-      Event-based gateway & & & X\tnote{1} & X & X\\ % No timer and conditional events after event based gateway supported.
+      Event-based gateway & & & X\tnote{1} & X & X\\ % No timer and conditional events after event-based gateway supported.
       Complex gateway & & & & &\\
       \\
       \textit{Events} \\
