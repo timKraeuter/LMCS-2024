@@ -490,7 +490,7 @@ Terminating a process must also terminate its subprocesses, which is not shown i
 Model checking ---and verification in general--- of BPMN models is necessary to ensure the correctness and reliability of business processes, which ultimately leads to increased efficiency, reduced costs, and user satisfaction.
 Using our formalization approach, BPMN models may be verified against behavioral properties ---both general and custom--- by utilizing the generated GT system (see \autoref{fig:approach}).
 These behavioral properties are defined using temporal logic, such as Computation Tree Logic (CTL) and Linear Temporal Logic (LTL) \cite{baierPrinciplesModelChecking2008}.
-As mentioned in section \autoref{sec:introduction}, modelers may use our approach to specify custom properties consisting of atomic propositions and logical operators from CTL.
+As mentioned in \autoref{sec:introduction}, modelers may use our approach to specify custom properties consisting of atomic propositions and logical operators from CTL.
 The atomic propositions are transformed to graph conditions by the HOT.
 A graph condition is a GT rule which does not delete or add elements.
 A proposition holds in a given state if a match of the graph condition exists in the graph representing the state \cite{kastenbergModelCheckingDynamic2006}.
@@ -603,7 +603,7 @@ In addition, we attempt to stay as independent as possible from the framework an
 
 Finally, the modeler must still know the temporal logic, such as LTL and CTL, to express his properties.
 To combat this problem, we added temporal logic templates to our tool to generate commonly occurring propositions without knowledge about temporal logic.
-This feature is discussed in detail in the implementation section.
+This feature is discussed in detail in the next section about the BPMN Analyzer.
 In the future, a domain-specific property language for BPMN would further lessen the knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}.
 
 \section{BPMN Analyzer} \label{sec:impl}
@@ -625,18 +625,18 @@ The test suite covers over 90\% of our source code.
     \label{fig:impl_step1}
 \end{figure}
 
-The BPMN Analyzer interface is structured into three distinct sections where the user is transparently guided through the modeling and analysis processes by the application flow.
+The BPMN Analyzer interface is structured into three distinct steps where the user is transparently guided through the modeling and analysis processes by the application flow.
 
 \begin{enumerate}
-  \item The \textbf{Modeling} section lets users upload or define the BPMN model.
+  \item The \textbf{Modeling} step lets users upload or define the BPMN model.
   We utilize a properties panel in the modeling step such that IDs of BPMN elements can be viewed and edited directly in the model editor.
   This allows for better traceability between BPMN elements and generated GT rules if a user inspects the GT system.
   
-  \item The \textbf{Custom Propositions} section contains our custom \textit{Token Editor} and is shown in \autoref{fig:impl_step2}.
-  In this section, users may create atomic propositions, which can be used as ingredients in the custom CTL properties in the analysis section.
+  \item The \textbf{Custom Propositions} step contains our custom \textit{Token Editor} and is shown in \autoref{fig:impl_step2}.
+  In this step, users may create atomic propositions, which can be used as ingredients in the custom CTL properties in the analysis step.
   Users who are only interested in general BPMN properties may skip this step.
   Atomic propositions are created using the concrete syntax detailed in \autoref{subsec:customProperties}, implemented in our \textit{Token Editor}.
-  As mentioned, to create a proposition, users attach tokens and process snapshots to the BPMN model created in the modeling section.
+  As mentioned, to create a proposition, users attach tokens and process snapshots to the BPMN model created in the modeling step.
 
 \begin{figure}[ht]
     \centering
@@ -646,8 +646,8 @@ The BPMN Analyzer interface is structured into three distinct sections where the
     \label{fig:impl_step2}
 \end{figure}
   
-  \item In the \textbf{Analysis} section, users may check the general BPMN properties and build custom CTL properties using the atomic propositions. 
-  The properties builder utilizes a textual CTL syntax to specify custom properties using the atomic propositions from the previous section, see \autoref{fig:impl_step3_ctl}.
+  \item In the \textbf{Analysis} step, users may check the general BPMN properties and build custom CTL properties using the atomic propositions. 
+  The properties builder utilizes a textual CTL syntax to specify custom properties using the atomic propositions from the previous step, see \autoref{fig:impl_step3_ctl}.
   The CTL properties builder comes with CTL templates to facilitate commonly occurring CTL properties.
   These templates allow users to check whether a state (described by an atomic proposition) can be reached or is never reached.
   Thus, simple safety and liveness properties can be checked using these templates.
