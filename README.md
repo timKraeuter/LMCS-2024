@@ -37,17 +37,17 @@ See, for example, the [BPMN Analyzer tool](https://github.com/timKraeuter/LMCS_2
 
 ## Custom properties
 
-The **"Shipping goods twice"** proposition results in the following graph condition in Groove:
+The **"shipGoodsTwice"** proposition results in the following graph condition in Groove:
 
-![Shipped goods twice proposition in Groove.](./artifacts/customPropositions/shippedTwice_groove.png)
+![Ship goods twice proposition in Groove.](./artifacts/customPropositions/shipGoodsTwice.png)
 
-You can check if this state is ever reached by checking the following CTL proposition `EF(shippedTwice)`.
+You can check that this state is never reached by using the following CTL proposition `AG(!shipGoodsTwice)`.
 
-The **"Shipping after retrieving payment"** proposition results in the following graph condition in Groove:
+The **"noShipment"** proposition results in the following graph condition in Groove:
 
-![Shipping after retrieving payment proposition in Groove.](./artifacts/customPropositions/shippingAfterPayment_groove.png)
+![No shipment proposition in Groove.](./artifacts/customPropositions/noShipment.png)
 
-You can check if this state is ever reached by checking the following CTL proposition `EF(shippingAfterPayment)`.
+You can check that a shipment always occurs by using the following CTL proposition `!AG(noShipment)`.
 
 The GT system for the examples can be found [here](/artifacts/customPropositions/orderHandling.gps.zip).
 After downloading and unzipping, you can open it in [Groove](https://groove.ewi.utwente.nl/) to explore the state space in detail and run model checking.
