@@ -76,7 +76,7 @@ The Business Process Modeling Notation (BPMN) is a widely used standard notation
 However, the informal description of the BPMN execution semantics leads to different interpretations of BPMN elements and difficulties in checking behavioral properties.
 In this article, we propose a formalization of the execution semantics of BPMN that, compared to existing approaches, covers more BPMN elements while also facilitating property checking.
 Our approach is based on a higher-order transformation from BPMN models to graph transformation systems.
-As proof of concept, we implement our approach as an open-source web-based tool. 
+To show the benefits of our approach, we implemented it as an open-source web-based tool. 
 \end{abstract}
 
 \maketitle
@@ -691,7 +691,7 @@ This is the recommended way to extend the BPMN metamodel \cite{objectmanagementg
 Each token refers to its \textsf{elementID} (see BPMN execution metamodel in \autoref{fig:bpmnExecutionMetamodel}) and \textsf{processSnapshot}.
 
 The extension of the BPMN metamodel is realized by letting \textsf{Token} and \textsf{ProcessSnapshot} extend from \textsf{Element}, which is the type of elements of the extension elements, see \autoref{fig:token_extension}.
-Each \textsf{Token} points to the \textsf{element} it is currently positioned at, which is either an \textsf{Activity} or \textsf{SequenceFlow}, see BPMN metamodel in \autoref{fig:bpmnMetamodel}.
+Each \textsf{Token} points to the \textsf{element} it is currently positioned at, which can be an \textsf{Activity} or \textsf{SequenceFlow}, see BPMN metamodel in \autoref{fig:bpmnMetamodel}.
 In \autoref{lst:extension}, this is realized using the attribute \textsf{elementID}.
 
 \begin{figure}[ht]
