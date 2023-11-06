@@ -637,7 +637,7 @@ The BPMN Analyzer interface is structured into three steps that guide the user t
   We utilize a properties panel in the modeling step such that IDs of BPMN elements can be viewed and edited directly in the model editor.
   This allows for better traceability between BPMN elements and generated GT rules if a user inspects the GT system.
   
-  \item The \textbf{Custom Propositions} step contains our custom \textit{Token Editor} and is shown in \autoref{fig:impl_step2}.
+  \item The \textbf{BPMN Propositions} step contains our custom \textit{Token Editor} and is shown in \autoref{fig:impl_step2}.
   In this step, users may create atomic propositions, which can be used as ingredients in the custom CTL properties in the analysis step.
   In \autoref{fig:impl_step2}, the user is editing one of two created propositions.
   Users who are only interested in general BPMN properties may skip this step.
@@ -673,7 +673,7 @@ The BPMN Analyzer interface is structured into three steps that guide the user t
 In addition to the BPMN Analyzer, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners.
 The BPMN metamodel extension needed to define atomic propositions is published as an npm module (\textit{token-bpmn-moddle}) \cite{timkrauterLMCS2024Artifacts2023}.
 Npm is the default package manager for the JavaScript programming language.
-In addition, the Token Editor to define atomic propositions is also published as an npm module (\textit{token-bpmn}) \cite{timkrauterLMCS2024Artifacts2023}.
+In addition, the Token Editor to create atomic propositions is also published as an npm module (\textit{token-bpmn}) \cite{timkrauterLMCS2024Artifacts2023}.
 Furthermore, we published our \textit{graph-rule-generation} library to generate Groove GT systems to the Maven central repository \cite{timkrauterLMCS2024Artifacts2023}.
 The Maven central repository is the standard repository for developing JVM-based applications.
 We explain each library in detail in the following sections.
