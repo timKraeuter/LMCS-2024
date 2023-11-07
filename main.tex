@@ -554,8 +554,8 @@ It is shown in \autoref{fig:allTerminated} using Groove syntax.
 \vskip.5\baselineskip
 
 Checking the properties \textit{Safeness}, \textit{Option to complete} is implemented by checking the CTL properties above using Groove \cite{kastenbergModelCheckingDynamic2006, rensinkExplicitStateModel2008}.
-\textit{No dead activities} is implemented by analyzing the GT system's state space to see if each activity has been executed at least once \cite{timkrauterLMCS2024Artifacts2023}.
-The property \textit{Proper Completion} is not yet implemented, but all the information needed can also be found in the GT system's state space.
+\textit{No dead activities} is implemented by analyzing the GT system's state space to see if each activity has been executed at least once.
+The property \textit{Proper Completion} is implemented by checking the GT system's state space for two executions of an end event in the same path \cite{timkrauterLMCS2024Artifacts2023}.
 
 \subsection{Custom properties} \label{subsec:customProperties}
 
