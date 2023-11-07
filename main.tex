@@ -507,7 +507,7 @@ Then, we describe how custom properties can be defined and checked.
 A BPMN model is \textit{safe} if, during its execution, at most one token occurs along the same sequence flow \cite{corradiniClassificationBPMNCollaborations2018}.
 Soundness is further decomposed into (i) \textit{Option to complete}: any running process instance must eventually complete, (ii) \textit{Proper completion}: after completion, each token of the process instance must be consumed by a different end event, as well as (iii) \textit{No dead activities}: each activity can be executed in at least one process instance \cite{corradiniClassificationBPMNCollaborations2018}.
 Process completion is synonymous with process termination.
-In the following, we will describe how to implement the \textit{Safeness}, \textit{Option to complete}, and \textit{No dead activities} properties.
+In the following, we will describe how to implement the \textit{Safeness} and \textit{Option to complete} using CTL, as well as \textit{Proper completion} \textit{No dead activities} by analyzing the GT system's state space.
 
 % Safeness
 We specify \textit{Safeness} as the CTL property defined in \eqref{eq:safeness}.
