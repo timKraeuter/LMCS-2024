@@ -115,13 +115,13 @@ Custom properties require atomic propositions, which the modeler can define usin
 The defined BPMN model must adhere to the BPMN metamodel as outlined in the BPMN specification by the Object Management Group \cite{objectmanagementgroupBusinessProcessModel2013}.
 The BPMN execution metamodel is defined by language engineers, utilizing the BPMN metamodel as a foundation to create the state structure for executing BPMN models. 
 
-We define a HOT from BPMN models to GT systems.
+We define a HOT from BPMN models and atomic propositions to GT systems (see purple-colored elements in \autoref{fig:approach}).
 We call the transformation \textit{higher-order} since the resulting graph-transformation systems represent model-transformations themselves \cite{tisiUseHigherOrderModel2009}.
-The HOT creates a GT system, i.e., GT rules and a start graph for a given BPMN model and atomic propositions (see purple-colored elements in \autoref{fig:approach}).
+The HOT creates a GT system, i.e., GT rules and a start graph for a given BPMN model.
 It is defined using rule generation templates, which describe how GT rules should be generated for each state-changing element in BPMN (see \autoref{sec:formalization}).
 The obtained GT system conforms to the execution type graph, which corresponds to the BPMN execution metamodel.
-In the figure, we have colored both artifacts blue to visualize that they contain the same information.
-Ultimately, we use Groove as an execution engine for the GT system and to check the behavioral properties defined earlier.
+In the figure, we have used the same color for artifacts that correspond to each other.
+Ultimately, we use Groove to execute the GT system and check the behavioral properties defined earlier.
 To facilitate model checking of custom behavioral properties, we create specific GT rules for the corresponding atomic propositions during the HOT.
 
 The overview in \autoref{fig:approach} is divided into two separated parts, denoted by dashed rectangles, to indicate the versatility of the approach as it can be applied to formalize other behavioral languages, such as activity diagrams and state charts \cite{seidlUMLClassroom2015, objectmanagementgroupUnifiedModelingLanguage2017}.
@@ -147,7 +147,7 @@ This article extends \cite{krauterFormalizationAnalysisBPMN2023} as follows.
 (i) We explain many more BPMN elements, which are covered by our approach (see elements highlighted in blue in \autoref{fig:bpmnelementsOverview}).
 (ii) We enhance the explanation of the custom properties in \autoref{sec:modelChecking} by using an order handling process to illustrate use cases for these properties.
 (iii) We detail the extensively improved BPMN analyzer tool in \autoref{sec:impl} in which modelers may use our new atomic proposition editor.
-(iv) We test the scalability of our approach with 300 synthetically generated BPMN models of increasing size in \autoref{subsec:scalability}. 
+(iv) We test the scalability of our approach with 300 synthetically generated BPMN models of increasing size in \autoref{sec:impl}. 
 
 % Article outline
 \textbf{Outline} The remainder of this article is structured as follows.
@@ -175,7 +175,7 @@ Furthermore, gateways model conditions, parallelizations, and synchronizations \
   \label{fig:bpmnMetamodel}
 \end{figure}
 
-The approach supports all the BPMN elements depicted in \autoref{fig:bpmnelementsOverview}.
+Our approach supports all the BPMN elements depicted in \autoref{fig:bpmnelementsOverview}.
 These BPMN elements are divided into \textsf{Events}, \textsf{Gateways}, \textsf{Activities}, and \textsf{Edges}.
 \textsf{Events} and \textsf{Activities} are further divided into subgroups.
 Although all these elements have been implemented and tested (see \cite{timkrauterLMCS2024Artifacts2023}), we only explain the realization of the elements marked with a blue background due to space limitations.
@@ -351,7 +351,7 @@ Subprocesses are terminated by the termination rule (see section \ref{subsec:ins
 \subsection{Gateways}
 % General description
 Parallel gateways represent forking and joining in the sequence flow.
-Exclusive gateways represent exclusive choices and merges in the sequence flows \cite{objectmanagementgroupBusinessProcessModel2013}.
+Exclusive gateways represent exclusive choices and merges in the sequence flow \cite{objectmanagementgroupBusinessProcessModel2013}.
 
 
 \autoref{fig:gatewayTemplates} depicts the rule generation templates for parallel and exclusive gateways (see \autoref{fig:bpmnelementsOverview}).
@@ -393,7 +393,7 @@ For each MSE, a new process snapshot is created with tokens located at its outgo
 We split the interaction of MITEs with MICEs and MSEs into two rule templates for better understanding.
 However, a MITE might interact with MICEs and MSEs simultaneously.
 Thus, our HOT implements a merge of both templates. 
-\textit{Message end events} (\textsf{MEE}) behave similarly to MITEs but only delete incoming tokens and do not add outgoing tokens.
+\textit{Message End Events} (\textsf{MEE}) behave similarly to MITEs but only delete incoming tokens and do not add outgoing tokens.
 
 \begin{figure}[ht]
     \centering
@@ -472,7 +472,7 @@ Thus, our HOT implements a merge of both templates.
 \subsection{Terminate Events}
 % General description
 A \textit{Terminate End Event} (TEE) abnormally terminates the running process \cite{objectmanagementgroupBusinessProcessModel2013}, meaning the process changes its state to terminated, and all its tokens are consumed.
-\autoref{fig:terminateEventTemplate} depicts the rule generation template for \textit{terminate end events} (\textsf{TEE} in \autoref{fig:bpmnelementsOverview}).
+\autoref{fig:terminateEventTemplate} depicts the rule generation template for TEEs (see \textsf{TEE} in \autoref{fig:bpmnelementsOverview}).
 
 \begin{figure}[ht]
     \centering
@@ -507,7 +507,7 @@ Then, we describe how custom properties can be defined and checked.
 A BPMN model is \textit{safe} if, during its execution, at most one token occurs along the same sequence flow \cite{corradiniClassificationBPMNCollaborations2018}.
 Soundness is further decomposed into (i) \textit{Option to complete}: any running process instance must eventually complete, (ii) \textit{Proper completion}: after completion, each token of the process instance must be consumed by a different end event, as well as (iii) \textit{No dead activities}: each activity can be executed in at least one process instance \cite{corradiniClassificationBPMNCollaborations2018}.
 Process completion is synonymous with process termination.
-In the following, we will describe how to implement the \textit{Safeness} and \textit{Option to complete} using CTL, as well as \textit{Proper completion} \textit{No dead activities} by analyzing the GT system's state space.
+In the following, we will describe how to implement the \textit{Safeness} and \textit{Option to complete} using CTL, as well as \textit{Proper completion} and \textit{No dead activities} by analyzing the GT system's state space.
 
 % Safeness
 We specify \textit{Safeness} as the CTL property defined in \eqref{eq:safeness}.
@@ -550,8 +550,8 @@ The atomic proposition \textsf{AllTerminated} is true if there exists no process
 \vskip.5\baselineskip
 
 Checking the properties \textit{Safeness} and \textit{Option to complete} is implemented by checking the CTL properties above using Groove \cite{kastenbergModelCheckingDynamic2006, rensinkExplicitStateModel2008}.
-\textit{No dead activities} is implemented by analyzing the GT system's state space to see if each activity has been executed at least once.
-The property \textit{Proper Completion} is implemented by checking the GT system's state space for two executions of an end event in the same path \cite{timkrauterLMCS2024Artifacts2023}.
+The property \textit{Proper Completion} is implemented by checking the GT system's state space for two executions of an end event in the same path.
+Similarly, \textit{No dead activities} is implemented by analyzing the GT system's state space to see if each activity has been executed at least once \cite{timkrauterLMCS2024Artifacts2023}.
 
 \subsection{Custom properties} \label{subsec:customProperties}
 
@@ -653,8 +653,8 @@ The BPMN Analyzer interface is structured into three steps that guide the user t
   The CTL properties builder comes with CTL templates to facilitate commonly occurring CTL properties.
   These templates allow users to check whether a state (described by an atomic proposition) can be reached or is never reached (see \autoref{fig:impl_step3_ctl}).
   Thus, simple safety and liveness properties can be checked using these templates.
-  Users who download the generated GT system may inspect and edit the graph conditions generated from the atomic propositions; they may also specify more properties and check them using Groove.
   Model-checking experts in an organization can define more templates in the future and share them for reuse.
+  Users who download the generated GT system may inspect and edit the graph conditions generated from the atomic propositions; they may also specify more properties and check them using Groove.
 
   \begin{figure}[ht]
       \centering
@@ -917,7 +917,6 @@ However, there is still optimization potential.
 First, GT rules should not be written to and read from the disk to interact with Groove.
 Each GT rule is saved to a new file, and the number of generated GT rules increases with the size of a BPMN model.
 Integrating our HOT and Groove more tightly can eliminate these costly I/O operations since the generated rules can stay in the main memory.
-This optimization is especially useful for our approach.
 Second, \textit{partial order reduction} methods could greatly reduce the time and space required for model checking \cite{clarkeHandbookModelChecking2018}.
 Third, Groove could use \textit{on-the-fly} model checking \cite{kastenbergModelCheckingDynamic2006}.
 If a counterexample is found, there is no need to continue the state space generation \cite{clarkeHandbookModelChecking2018}.
@@ -928,8 +927,8 @@ The most common formalizations of BPMN execution semantics use Petri Nets.
 For example, \cite{dijkmanSemanticsAnalysisBusiness2008} formalizes a subset of BPMN elements by defining a mapping to Petri Nets that is conceptually close to our HOT-based formalization.
 % Difficulties with Petri net encodings
 Encoding basic BPMN modeling elements into Petri Nets is generally straightforward, but for some advanced elements, it can be complicated to define \cite{hofstedeWorkflowPatternsExpressive2002}.
-For example, representing \textit{termination end events} and \textit{interrupting boundary events}, which interrupt a running process, is usually unsupported because of the complexity of managing the non-local propagation of tokens in Petri Nets \cite{corradiniFormalApproachAnalysis2021}.
-We solve these situations by using nested graph conditions, for example, to remove all tokens when reaching a \textit{termination end event}.
+For example, representing \textit{Termination End Events} and \textit{Interrupting Boundary Events}, which interrupt a running process, is usually unsupported because of the complexity of managing the non-local propagation of tokens in Petri Nets \cite{corradiniFormalApproachAnalysis2021}.
+We solve these situations by using nested graph conditions, for example, to remove all tokens when reaching a \textit{Termination End Event}.
  
 % Van gorp
 A BPMN formalization based on in-place GT rules is given in \cite{vangorpVisualTokenbasedFormalization2013}.
@@ -1040,7 +1039,7 @@ In addition, we can use this environment to visualize potential counterexamples 
 % TODO: Add after review
 % \section*{Acknowledgment}
 %   \noindent We thank the anonymous reviewers for their valuable comments and helpful suggestions.
-  
+
 \bibliographystyle{alphaurl} 
 \bibliography{bib}
 
