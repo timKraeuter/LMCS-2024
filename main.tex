@@ -517,7 +517,7 @@ More detailed information about CTL can be found in \cite{clarkeHandbookModelChe
 Combining the path quantifier $A$ and temporal operator $G$ in \eqref{eq:safeness} means $\neg \,\text{Unsafe}$ should hold for all states in all paths starting from the initial state.
 Thus, \eqref{eq:safeness} describes that a state labeled as \textsf{Unsafe} should not be reachable.
 The atomic proposition \textsf{Unsafe} is true if two tokens of one process snapshot point to the same sequence flow.
-It is shown in \autoref{fig:unsafe} using Groove syntax.
+\autoref{fig:unsafe} shows how \textsf{Unsafe} is represented as a graph condition in Groove.
 
 \begin{figure}[ht]
     \centering
@@ -532,7 +532,7 @@ It is shown in \autoref{fig:unsafe} using Groove syntax.
 The temporal operator $F$ means the following proposition \textsf{AllTerminated} should hold at some state in the future \cite{clarkeHandbookModelChecking2018}.
 Thus, \eqref{eq:optionToComplete} describes that a state labeled as \textsf{AllTerminated} should be reached for all paths starting from the initial state.
 The atomic proposition \textsf{AllTerminated} is true if there exists no process snapshot in the state \textsf{Running}, i.e., all process snapshots are \textsf{Terminated}.
-It is shown in \autoref{fig:allTerminated} using Groove syntax.
+\autoref{fig:allTerminated} shows how \textsf{Terminated} is represented as a graph condition in Groove.
 
 \begin{figure}[ht]
     \centering
@@ -541,19 +541,15 @@ It is shown in \autoref{fig:allTerminated} using Groove syntax.
     \label{fig:allTerminated}
 \end{figure}
 
-\noindent\begin{minipage}{.5\linewidth}
 \begin{equation} \label{eq:safeness}
   AG(\neg \,\text{Unsafe})
 \end{equation}
-\end{minipage}%
-\begin{minipage}{.5\linewidth}
 \begin{equation} \label{eq:optionToComplete}
   AF(\text{AllTerminated}) 
 \end{equation}
-\end{minipage}
 \vskip.5\baselineskip
 
-Checking the properties \textit{Safeness}, \textit{Option to complete} is implemented by checking the CTL properties above using Groove \cite{kastenbergModelCheckingDynamic2006, rensinkExplicitStateModel2008}.
+Checking the properties \textit{Safeness} and \textit{Option to complete} is implemented by checking the CTL properties above using Groove \cite{kastenbergModelCheckingDynamic2006, rensinkExplicitStateModel2008}.
 \textit{No dead activities} is implemented by analyzing the GT system's state space to see if each activity has been executed at least once.
 The property \textit{Proper Completion} is implemented by checking the GT system's state space for two executions of an end event in the same path \cite{timkrauterLMCS2024Artifacts2023}.
 
