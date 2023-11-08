@@ -800,7 +800,7 @@ In this section, we test the scalability of our approach by applying it to 300 h
 \subsubsection{Setup}
 
 We generated 300 BPMN models to test the scalability of our approach.
-We used the following approach to include different BPMN elements in our models.
+We used the following strategy to include different BPMN elements in the models.
 We generated the models incrementally, increasing the number of \textit{blocks} they contain.
 Thus, model one contains one block, model two contains two blocks, and so forth until the last model contains 300 blocks.
 During the generation, we alternate between the three different blocks shown in \autoref{fig:blocks}.
@@ -946,10 +946,11 @@ However, \textit{BProVe} only supports the most common BPMN elements, as shown l
 
 % fbpmn/Houhou
 The verification framework \textsf{fbpmn} uses first-order logic to formalize and check BPMN models \cite{houhouFirstOrderLogicVerification2022}.
-This formalization is then realized in the TLA\textsuperscript{+} formal language and can be model-checked using TLC.
+This formalization is then realized in the TLA\textsuperscript{+} formal language, which can be model-checked using TLC.
+TLC is an explicit state model checker for TLA\textsuperscript{+} specifications.
 Like BProVe, \textsf{fbpmn} allows checking general BPMN properties, such as Safeness and Soundness.
 Furthermore, \textit{fbpmn} focuses on different communication models besides the standard in the BPMN specification and supports time-related constructs.
-We currently disregard time-related constructs \cite{duranVerifyingTimedBPMN2017,houhouFirstOrderLogicVerification2022} and data flow \cite{corradiniFormalisingAnimatingMultiple2022,el-saberCMMICMComplianceChecking2015} but rather support more BPMN elements.
+In our approach, we currently disregard time-related constructs \cite{duranVerifyingTimedBPMN2017,houhouFirstOrderLogicVerification2022} and data flow \cite{corradiniFormalisingAnimatingMultiple2022,el-saberCMMICMComplianceChecking2015} but rather support more BPMN elements.
 
 \autoref{tab:supportedelements} shows which BPMN elements are supported by our and the abovementioned approaches.
 Compared to the other approaches, we cover most BPMN elements.
@@ -1020,7 +1021,7 @@ We plan to support these elements by extending our implementation and test suite
 
 
 \section{Conclusion \& future work} \label{sec:conclusion}
-This article makes two main practical contributions.
+This article reports two main practical contributions.
 First, we conceptualize a new approach utilizing a Higher-Order model Transformation (HOT) to formalize the semantics of behavioral languages.
 Our approach moves complexity from the GT rules to the rule templates, which constitute the HOT.
 Furthermore, the approach can be applied to any behavioral language if one can define its \textit{state structure} and identify its \textit{state-changing elements}.
