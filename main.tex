@@ -117,7 +117,7 @@ The BPMN execution metamodel is defined by language engineers, utilizing the BPM
 
 We define a HOT from BPMN models to GT systems.
 We call the transformation \textit{higher-order} since the resulting graph-transformation systems represent model-transformations themselves \cite{tisiUseHigherOrderModel2009}.
-The HOT creates a GT system, i.e., GT rules and a start graph for a given BPMN model.
+The HOT creates a GT system, i.e., GT rules and a start graph for a given BPMN model and atomic propositions (see purple-colored elements in \autoref{fig:approach}).
 It is defined using rule generation templates, which describe how GT rules should be generated for each state-changing element in BPMN (see \autoref{sec:formalization}).
 The obtained GT system conforms to the execution type graph, which corresponds to the BPMN execution metamodel.
 In the figure, we have colored both artifacts blue to visualize that they contain the same information.
@@ -1028,6 +1028,7 @@ Furthermore, the approach can be applied to any behavioral language if one can d
 
 Second, we apply our approach to BPMN, resulting in a comprehensive formalization regarding element coverage (compared to the literature and industrial process engines) that supports checking behavioral properties.
 Furthermore, our contribution is implemented in an open-source web-based tool to make our ideas easily accessible to other researchers and practitioners.
+In addition, our performance and scalability testing indicates that the tool can handle most BPMN models found in practice.
 
 Future work targets both of our main contributions.
 First, we plan a detailed comparison of our HOT approach with approaches that utilize fixed model-independent rules.
