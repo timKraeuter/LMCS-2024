@@ -76,20 +76,20 @@ The Business Process Modeling Notation (BPMN) is a widely used standard notation
 However, the informal description of the BPMN execution semantics leads to different interpretations of BPMN elements and difficulties in checking behavioral properties.
 In this article, we propose a formalization of the execution semantics of BPMN that, compared to existing approaches, covers more BPMN elements while also facilitating property checking.
 Our approach is based on a higher-order transformation from BPMN models to graph transformation systems.
-To show the benefits of our approach, we implemented it as an open-source web-based tool.
+To show the capabilities of our approach, we implemented it as an open-source web-based tool.
 A demonstration of our tool is available at \url{https://youtu.be/MxXbNUl6IjE}.
 \end{abstract}
 
 \maketitle
 \section{Introduction} \label{sec:introduction}
-In today's fast-paced business environment, organizations with complex workflows require a powerful means to accurately map, analyze, and optimize their processes. 
+In today's fast-paced business environment, organizations with complex workflows require powerful means to accurately map, analyze, and optimize their processes. 
 Business Process Modeling Notation (BPMN) \cite{objectmanagementgroupBusinessProcessModel2013} is a widely used standard to define these workflows.
 However, the informal description of the BPMN execution semantics leads to different interpretations of BPMN models and difficulties in checking behavioral properties \cite{corradiniFormalApproachAnalysis2021}.
 Various studies have shown that business process models suffer from control-flow errors \cite{mendlingEmpiricalStudiesProcess2009}.
 Formalizing BPMN would drastically reduce the cost of business process automation by facilitating the detection of errors and optimization potentials in process models already during design time.
 For example, general behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to BPMN in \cite{corradiniClassificationBPMNCollaborations2018}.
 They can uncover errors in BPMN models leading to deadlocks or other undesirable execution states.
-To this end, we propose a formalization that covers most of the BPMN elements used in practice and, in addition, supports checking such behavioral properties.
+To this end, we propose a formalization that covers nearly all of the BPMN elements used in practice and, in addition, supports checking such behavioral properties.
 
 In this article, we consider two fundamental concepts when formalizing the execution semantics of BPMN.
 First, \textit{state structure}, i.e., how model instances are represented during execution.
@@ -232,7 +232,7 @@ Using the execution metamodel as the type graph, we can now define how the start
 
 Since our approach is based on a HOT from BPMN to GT systems, we generate a \textit{start graph} and \textit{GT rules} for each given BPMN model (see \autoref{fig:approach}).
 Generating the start graph for a BPMN model is straightforward.
-First, for each process in the BPMN model, we generate a process snapshot if the process contains a \textit{none start event} (NSE).
+First, for each process in the BPMN model, we generate a process snapshot if the process contains a \textit{None Start Event} (NSE).
 An NSE describes a start event without a trigger (none).
 Then, for each NSE, we add one token to each outgoing sequence flow.
 An example of a start graph is shown in \autoref{fig:startGraph} using abstract and concrete syntax.
@@ -278,7 +278,7 @@ Defining the rule generation templates and, thus, the HOT from BPMN to GT system
 Start events do not need GT rules since the generated start graph of the GT system will contain a token for each outgoing sequence flow of an NSE.
 Other types of start events are triggered in corresponding throw event rules.
 
-\autoref{fig:endTemplate} depicts the rule generation template for \textit{none end events} (\textsf{NEE}s in \autoref{fig:bpmnelementsOverview}).
+\autoref{fig:endTemplate} depicts the rule generation template for \textit{None End Events} (\textsf{NEE}s in \autoref{fig:bpmnelementsOverview}).
 All rule generation templates show a state-changing element (\textsf{FlowNode}) with surrounding flows in the left column and the applicable rule generation in the right column.
 The left column shows instances of the BPMN metamodel (\autoref{fig:bpmnMetamodel}), and the right column shows the generated rules typed by the BPMN execution metamodel (see \autoref{fig:bpmnExecutionMetamodel}).
 If more than one rule is generated from a \textsf{FlowNode}, an expression defines how each rule is generated.
@@ -377,9 +377,9 @@ Message events are events directed at a single recipient.
 Thus, they are unicast compared to broadcast signal events discussed later in \autoref{subsec:signalEvents}.
 % Rule template description
 % MITE
-\autoref{fig:messageThrowEventTemplates} depicts the rule generation templates for \textit{message intermediate throw events} (\textsf{MITE} in \autoref{fig:bpmnelementsOverview}).
+\autoref{fig:messageThrowEventTemplates} depicts the rule generation templates for \textit{Message Intermediate Throw Events} (\textsf{MITE} in \autoref{fig:bpmnelementsOverview}).
 % MITE with MICE
-Rule generation template \textbf{(1)} describes how MITEs interact with \textit{message intermediate catch events} (MICEs).
+Rule generation template \textbf{(1)} describes how MITEs interact with \textit{Message Intermediate Catch Events} (MICEs).
 A MITE deletes an incoming token and adds one at each outgoing sequence flow.
 In addition, it sends one message to each process by adding it to the incoming messages of the process.
 However, sending each message is optional, meaning that if a process is not ready to consume a message immediately, the message is not added.
@@ -388,7 +388,7 @@ We implement optional message sending using nested rules with quantification.
 Concretely, we use an optional existential quantifier \cite{rensinkNestedQuantificationGraph2006} (see dotted rectangle labeled \textsf{Optional} in \autoref{fig:messageThrowEventTemplates}) to send a message only if the receiving process is ready to consume it.
 
 % MITE with MSE
-Rule generation template \textbf{(2)} describes how MITEs interact with Message Start Events (MSEs).
+Rule generation template \textbf{(2)} describes how MITEs interact with \textit{Message Start Events} (MSEs).
 For each MSE, a new process snapshot is created with tokens located at its outgoing sequence flows.
 We split the interaction of MITEs with MICEs and MSEs into two rule templates for better understanding.
 However, a MITE might interact with MICEs and MSEs simultaneously.
@@ -403,7 +403,7 @@ Thus, our HOT implements a merge of both templates.
 \end{figure}
 
 % MICE
-The rule generation template in \autoref{fig:messageCatchEventTemplates} shows the behavior of \textit{message intermediate catch events} (\textsf{MICE} in \autoref{fig:bpmnelementsOverview}).
+The rule generation template in \autoref{fig:messageCatchEventTemplates} shows the behavior of MICE (see \textsf{MICE} in \autoref{fig:bpmnelementsOverview}).
 To trigger a MICE, only one message at an incoming \textit{message flow} is needed.
 Thus, one rule is generated for each incoming \textit{message flow}.
 The rule template shows that MICEs delete one message and one token, as well as add a token at each outgoing sequence flow.
@@ -420,8 +420,8 @@ The rule template shows that MICEs delete one message and one token, as well as 
 % General description
 Link events are similar to \enquote{Go To} statements since they move tokens from link throw events to link catch events in the same process level (cannot link to subprocesses).
 They are meant to avoid long sequence flows and connect BPMN models spanning multiple pages but can also be used to create loops due to their \enquote{Go To} nature \cite{objectmanagementgroupBusinessProcessModel2013}.
-\autoref{fig:linkEventTemplates} depicts the rule generation template for link throw events (LTEs), see \textsf{LTE} in \autoref{fig:bpmnelementsOverview}.
-It shows how LTEs interact with link catch events (LCEs).
+\autoref{fig:linkEventTemplates} depicts the rule generation template for \textit{Link Throw Events} (LTEs), see \textsf{LTE} in \autoref{fig:bpmnelementsOverview}.
+It shows how LTEs interact with \textit{Link Catch Events} (LCEs).
 
 \begin{figure}[ht]
     \centering
@@ -441,8 +441,8 @@ Each signal event is assigned a signal name.
 Signal throw events \textit{broadcast} to all signal catch events with the same signal name.
 Signal broadcasts have a global scope, i.e., they can communicate across process levels and pools \cite{objectmanagementgroupBusinessProcessModel2013}.
 
-\autoref{fig:terminateEventTemplate} depicts the rule generation template for \textit{signal intermediate throw events} which interact with \textit{signal intermediate catch events} and \textit{signal start events} (\textsf{SITE}, \textsf{SICE}, and \textsf{SSE} in \autoref{fig:bpmnelementsOverview}).
-\textit{Signal end events} (\textsf{SEE}) behave similarly to SITEs but only consume incoming tokens and do not add outgoing tokens.
+\autoref{fig:terminateEventTemplate} depicts the rule generation template for \textit{Signal Intermediate Throw Events} which interact with \textit{Signal Intermediate Catch Events} and \textit{Signal Start Events} (\textsf{SITE}, \textsf{SICE}, and \textsf{SSE} in \autoref{fig:bpmnelementsOverview}).
+\textit{Signal End Events} (\textsf{SEE}) behave similarly to SITEs but only consume incoming tokens and do not add outgoing tokens.
 
 \begin{figure}[ht]
     \centering
@@ -471,7 +471,7 @@ Thus, our HOT implements a merge of both templates.
 
 \subsection{Terminate Events}
 % General description
-A terminate end event (TEE) abnormally terminates the running process \cite{objectmanagementgroupBusinessProcessModel2013}, meaning the process changes its state to terminated, and all its tokens are consumed.
+A \textit{Terminate End Event} (TEE) abnormally terminates the running process \cite{objectmanagementgroupBusinessProcessModel2013}, meaning the process changes its state to terminated, and all its tokens are consumed.
 \autoref{fig:terminateEventTemplate} depicts the rule generation template for \textit{terminate end events} (\textsf{TEE} in \autoref{fig:bpmnelementsOverview}).
 
 \begin{figure}[ht]
