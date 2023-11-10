@@ -566,6 +566,7 @@ A modeler could use this atomic proposition to check if the activity \textit{Shi
 % AG(!shippGoodsTwice)
 Shipping goods twice but only receiving one payment during an order-handling process would be a critical error for a business.
 The order handling process in \autoref{fig:shippedTwiceProposition} is taken from \cite{ruckerPracticalProcessAutomation2021} but changed to contain a modeling error.
+It contains an exclusive gateway instead of a parallel gateway.
 The modeling error leads to potentially shipping goods twice if the process is not corrected before deployment.
 
 \begin{figure}[ht]
@@ -601,10 +602,10 @@ Using an atomic proposition editor based on the BPMN concrete syntax, modelers d
 Although the expressiveness is not as powerful as in the GT-based execution semantics in Groove---e.g., one can use nested rules with quantification in graph conditions---we favor \textit{simplicity} over \textit{expressiveness}.
 In addition, we attempt to stay as independent as possible from the framework and tools used for the execution semantics (see the right part in \autoref{fig:approach}).
 
-Finally, the modeler must still know the temporal logic, such as LTL and CTL, to express his properties.
+Finally, the modeler must still know temporal logic to specify custom properties.
 To combat this problem, we added temporal logic templates to our tool to generate commonly occurring propositions without knowledge about temporal logic.
 This feature is discussed in detail in the next section about the BPMN Analyzer.
-In the future, a domain-specific property language for BPMN would further lessen the knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}.
+A domain-specific property language for BPMN would further lessen the knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}.
 
 \section{BPMN Analyzer} \label{sec:impl}
 
@@ -1023,7 +1024,7 @@ We plan to support these elements by extending our implementation and test suite
 This article reports two main practical contributions.
 First, we conceptualize a new approach utilizing a Higher-Order model Transformation (HOT) to formalize the semantics of behavioral languages.
 Our approach moves complexity from the GT rules to the rule templates, which constitute the HOT.
-Furthermore, the approach can be applied to any behavioral language if one can define its \textit{state structure} and identify its \textit{state-changing elements}.
+Furthermore, the approach can be applied to other behavioral languages as long as one can define the \textit{state structure} and identify \textit{state-changing elements} of the language.
 
 Second, we apply our approach to BPMN, resulting in a comprehensive formalization regarding element coverage (compared to the literature and industrial process engines) that supports checking behavioral properties.
 Furthermore, our contribution is implemented in an open-source web-based tool to make our ideas easily accessible to other researchers and practitioners.
