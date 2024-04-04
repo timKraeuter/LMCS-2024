@@ -288,7 +288,7 @@ In the example, \textsf{E.incSFs} means following all \textsf{incSFs} links for 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.8\textwidth]{images/end_template.pdf}
-    \caption{Rule generation template for end events}
+    \caption{Rule generation template for \textit{None End Events}}
     \label{fig:endTemplate}
 \end{figure}
     
@@ -440,7 +440,7 @@ Each signal event is assigned a signal name.
 Signal throw events \textit{broadcast} to all signal catch events with the same signal name.
 Signal broadcasts have a global scope, i.e., they can communicate across process levels and pools \cite{objectmanagementgroupBusinessProcessModel2013}.
 
-\autoref{fig:terminateEventTemplate} depicts the rule generation template for \textit{Signal Intermediate Throw Events} which interact with \textit{Signal Intermediate Catch Events} and \textit{Signal Start Events} (\textsf{SITE}, \textsf{SICE}, and \textsf{SSE} in \autoref{fig:bpmnelementsOverview}).
+\autoref{fig:signalEventTemplates} depicts the rule generation template for \textit{Signal Intermediate Throw Events} which interact with \textit{Signal Intermediate Catch Events} and \textit{Signal Start Events} (\textsf{SITE}, \textsf{SICE}, and \textsf{SSE} in \autoref{fig:bpmnelementsOverview}).
 \textit{Signal End Events} (\textsf{SEE}) behave similarly to SITEs but only consume incoming tokens and do not add outgoing tokens.
 
 \begin{figure}[ht]
@@ -509,13 +509,18 @@ Process completion is synonymous with process termination.
 In the following, we will describe how to implement the \textit{Safeness} and \textit{Option to complete} using CTL, as well as \textit{Proper completion} and \textit{No dead activities} by analyzing the GT system's state space.
 
 % Safeness
-We specify \textit{Safeness} as the CTL property defined in \eqref{eq:safeness}.
+We specify \textit{Safeness} as the following CTL property:
+\begin{equation} \label{eq:safeness}
+  AG(\neg \,\text{Unsafe})
+\end{equation}
+\vskip.1\baselineskip
 The path quantifier $A$ means the following proposition $G(\neg \,\text{Unsafe})$ should hold for \textit{all} paths starting from the current state.
 The temporal operator $G$ means the following proposition $\neg \,\text{Unsafe}$ should hold at all states in the future \cite{clarkeHandbookModelChecking2018}.
 More detailed information about CTL can be found in \cite{clarkeHandbookModelChecking2018, baierPrinciplesModelChecking2008}.
 Combining the path quantifier $A$ and temporal operator $G$ in \eqref{eq:safeness} means $\neg \,\text{Unsafe}$ should hold for all states in all paths starting from the initial state.
 Thus, \eqref{eq:safeness} describes that a state labeled as \textsf{Unsafe} should not be reachable.
 The atomic proposition \textsf{Unsafe} is true if two tokens of one process snapshot point to the same sequence flow.
+Atomic propositions are either fulfilled
 \autoref{fig:unsafe} shows how \textsf{Unsafe} is represented as a graph condition in Groove.
 
 \begin{figure}[ht]
@@ -525,10 +530,15 @@ The atomic proposition \textsf{Unsafe} is true if two tokens of one process snap
     \label{fig:unsafe}
 \end{figure}
 
+
 % Option to complete
-\textit{Option to complete} is specified using the CTL property defined in \eqref{eq:optionToComplete}.
+\textit{Option to complete} is specified using the following CTL property:
+\begin{equation} \label{eq:optionToComplete}
+  AF(\text{AllTerminated}) 
+\end{equation}
+\vskip.1\baselineskip
 % F is a temporal operator finally "eventually" (same meaning as LTL)
-The temporal operator $F$ means the following proposition \textsf{AllTerminated} should hold at some state in the future \cite{clarkeHandbookModelChecking2018}.
+The temporal operator $F$ means the following proposition \textsf{AllTerminated} should hold in some state in the future \cite{clarkeHandbookModelChecking2018}.
 Thus, \eqref{eq:optionToComplete} describes that a state labeled as \textsf{AllTerminated} should be reached for all paths starting from the initial state.
 The atomic proposition \textsf{AllTerminated} is true if there exists no process snapshot in the state \textsf{Running}, i.e., all process snapshots are \textsf{Terminated}.
 \autoref{fig:allTerminated} shows how \textsf{Terminated} is represented as a graph condition in Groove.
@@ -539,14 +549,6 @@ The atomic proposition \textsf{AllTerminated} is true if there exists no process
     \caption{The atomic proposition \textsf{AllTerminated} as a Groove graph condition.}
     \label{fig:allTerminated}
 \end{figure}
-
-\begin{equation} \label{eq:safeness}
-  AG(\neg \,\text{Unsafe})
-\end{equation}
-\begin{equation} \label{eq:optionToComplete}
-  AF(\text{AllTerminated}) 
-\end{equation}
-\vskip.5\baselineskip
 
 Checking the properties \textit{Safeness} and \textit{Option to complete} is implemented by checking the CTL properties above using Groove \cite{kastenbergModelCheckingDynamic2006, rensinkExplicitStateModel2008}.
 The property \textit{Proper Completion} is implemented by checking the GT system's state space for two executions of an end event in the same path.
@@ -567,7 +569,7 @@ A modeler could use this atomic proposition to check if the activity \textit{Shi
 Shipping goods twice but only receiving one payment during an order-handling process would be a critical error for a business.
 The order handling process in \autoref{fig:shippedTwiceProposition} is taken from \cite{ruckerPracticalProcessAutomation2021} but changed to contain a modeling error.
 It contains an exclusive gateway instead of a parallel gateway.
-The modeling error leads to potentially shipping goods twice if the process is not corrected before deployment.
+The modeling error could lead to shipping goods twice if the process is not corrected before deployment.
 
 \begin{figure}[ht]
     \centering
@@ -579,7 +581,7 @@ The modeling error leads to potentially shipping goods twice if the process is n
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{images/twice.pdf}
-    \caption{Abstract syntax \textbf{(a)} and graph condition in Groove \textbf{(b)} for \autoref{fig:shippedTwiceProposition}}
+    \caption{Abstract syntax \textbf{(a)} and graph condition in Groove \textbf{(b)} to define the snapshot and tokens for the atomic proposition in \autoref{fig:shippedTwiceProposition}.}
     \label{fig:shippedTwiceAbstractAndGroove}
 \end{figure}
 
@@ -671,7 +673,7 @@ In addition to the BPMN Analyzer, we published multiple parts of our application
 The BPMN metamodel extension needed to define atomic propositions is published as an npm module (\textit{token-bpmn-moddle}) \cite{timkrauterLMCS2024Artifacts2023}.
 Npm is the default package manager for the JavaScript programming language.
 In addition, the Token Editor to create atomic propositions is also published as an npm module (\textit{token-bpmn}) \cite{timkrauterLMCS2024Artifacts2023}.
-Furthermore, we published our \textit{graph-rule-generation} library to generate Groove GT systems to the Maven central repository \cite{timkrauterLMCS2024Artifacts2023}.
+Furthermore, we published our \textit{graph-rule-generation} library\footnote{\url{https://mvnrepository.com/artifact/io.github.timKraeuter/graph-rule-generation}} to generate Groove GT systems to the Maven central repository \cite{timkrauterLMCS2024Artifacts2023}.
 The Maven central repository is the standard repository for developing JVM-based applications.
 We explain each library in detail in the following sections.
 
@@ -738,8 +740,8 @@ The Groove UI and the Groove command-line tools can then consume the generated G
 
 \subsection{Performance testing}
 
-Model checking is a useful technique but often falls short in practice due to insufficient performance.
-Poor performance might have many reasons, most notably large models leading to state space explosion.
+Model checking is a useful technique but can fall short when transferred to the industry due to insufficient performance \cite{clarkeHandbookModelChecking2018}.
+Inadequate performance might have many reasons, most notably large models leading to state space explosion.
 We experimented with ten different BPMN models from \cite{houhouFirstOrderLogicVerification2022} to assess the performance of our implementation.
 We picked the models at random, but we disregarded some similar models.
 The models include realistic business process models (e.g., 001, 002, and 020) \cite{houhouFirstOrderLogicVerification2022}.
@@ -751,7 +753,7 @@ First, we ran our HOT for the BPMN models.
 The HOT takes approximately half a second to generate a GT system for each model.
 Thus, the generation of the GT systems for these models is fast enough.
 
-Second, we ran a full state exploration using the resulting ten GT systems, see \autoref{table:stateSpaceBenchmark}.
+Second, we ran a full state exploration using the resulting ten GT systems, see \autoref{table:stateSpaceBenchmark} (runtime only includes state space exploration).
 The exploration takes around one second for most of the models.
 Only model \textit{020} needs nearly two seconds due to its larger state space.
 Furthermore, up to one second is spent on startup, not model checking.
@@ -804,7 +806,8 @@ We generated 300 BPMN models to test the scalability of our approach.
 We used the following strategy to include different BPMN elements in the models.
 We generated the models incrementally, increasing the number of \textit{blocks} they contain.
 Thus, model one contains one block, model two contains two blocks, and so forth until the last model contains 300 blocks.
-During the generation, we alternate between the three different blocks shown in \autoref{fig:blocks}.
+A block is defined as one of the three BPMN model parts shown in \autoref{fig:blocks}.
+During the generation, we alternate between the three different blocks.
 
 \begin{figure}[ht]
     \centering
