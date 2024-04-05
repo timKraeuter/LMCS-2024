@@ -209,6 +209,11 @@ The first task of a language engineer in our approach is to define the execution
   \label{fig:bpmnExecutionMetamodel}
 \end{figure}
 
+The BPMN execution metamodel was not created by extending the BPMN metamodel and adding missing concepts such as tokens and messages.
+We chose to create a minimal execution model that only contains concepts needed during execution.
+This is only possible since the HOT generates our rules for each specific BPMN model such that the structure of each model is already implicitly encoded in the rules.
+This design choice leads to smaller states in the GT system compared to an execution metamodel that extends the BPMN metamodel.
+
 We use \textsf{ProcessSnapshot} to denote a running BPMN process with a specific token distribution that describes one state in the history of the process execution.
 Every \textsf{ProcessSnapshot} has a set of \textsf{tokens}, incoming \textsf{messages}, and \textsf{subprocesses}.
 A \textsf{ProcessSnapshot} has the state \textsf{Terminated} if it has no \textsf{tokens} or \textsf{subprocesses}.
@@ -221,11 +226,6 @@ Tokens are represented as colored circles drawn at their specified positions in 
 In addition, we use colored circles at the top left of the bounding box, representing instances of the BPMN \textsf{Process}; these circles represent process snapshots.
 The token's color must match the color of the process snapshot holding the token.
 The concrete syntax was inspired by the bpmn-js-token-simulation \cite{camundaservicesgmbhBpmnjsTokenSimulation2023}.
-
-Our BPMN execution metamodel was not created by extending the BPMN metamodel and adding missing concepts such as tokens and messages.
-We chose to create a minimal execution model only containing concepts needed during execution.
-This is only possible since the HOT generates our rules for each specific BPMN model such that the structure of each model is already implicitly encoded in the rules.
-This design choice leads to smaller states in the GT system compared to an execution metamodel that extends the BPMN metamodel.
 
 The execution metamodel in \autoref{fig:bpmnExecutionMetamodel} is a UML class diagram without operations, which can be seen as an attributed type graph \cite{heckelGraphTransformationSoftware2020}.
 We keep the execution metamodel and the execution type graph separate (see \autoref{fig:approach}) because the execution metamodel should be independent of the formalism used to define the execution semantics.
@@ -295,7 +295,7 @@ In the example, \textsf{E.incSFs} means following all \textsf{incSFs} links for 
     \label{fig:endTemplate}
 \end{figure}
     
-For example, if a BPMN model contains one \textsf{NEE} with two incoming sequence flows the HOT will generate two GT rules as defined in the rule generation template in \autoref{fig:endTemplate}.
+For example, if a BPMN model contains one \textsf{NEE} with two incoming sequence flows, the HOT will generate two GT rules as defined in the rule generation template in \autoref{fig:endTemplate}.
 
 % End Event
 The generated end event rules delete tokens individually for each incoming sequence flow.
