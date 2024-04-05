@@ -145,7 +145,7 @@ We do not repeat them and instead focus on our practical contribution.
 This article extends \cite{krauterFormalizationAnalysisBPMN2023} as follows.
 (i) We explain many more BPMN elements, which are covered by our approach (see elements highlighted in blue in \autoref{fig:bpmnelementsOverview}).
 (ii) We enhance the explanation of the custom properties in \autoref{sec:modelChecking} by using an order handling process to illustrate use cases for these properties.
-(iii) We detail the extensively improved BPMN analyzer tool in \autoref{sec:impl} in which modelers may use our new atomic proposition editor.
+(iii) We detail the extensively improved BPMN analyzer tool in \autoref{sec:impl} in which modelers can use our new atomic proposition editor.
 (iv) We test the scalability of our approach with 300 synthetically generated BPMN models of increasing size in \autoref{sec:impl}. 
 
 % Article outline
@@ -295,6 +295,8 @@ In the example, \textsf{E.incSFs} means following all \textsf{incSFs} links for 
     \label{fig:endTemplate}
 \end{figure}
     
+For example, if a BPMN model contains one \textsf{NEE} with two incoming sequence flows the HOT will generate two GT rules as defined in the rule generation template in \autoref{fig:endTemplate}.
+
 % End Event
 The generated end event rules delete tokens individually for each incoming sequence flow.
 However, they do not terminate processes.
