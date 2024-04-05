@@ -110,7 +110,7 @@ The BMPN model may be checked against a predefined list of general behavioral pr
 % Custom behavioral properties use the atomic propositions.
 Furthermore, the modeler may also define custom behavioral properties specifically defined for the BPMN model.
 % Atomic propositions conform to the BPMN execution metamodel
-Custom properties require atomic propositions, which the modeler can define using our concrete syntax based on the BPMN syntax.
+Custom properties require atomic propositions to describe desirable or undesirable states during execution, which the modeler can define using our concrete syntax based on the BPMN syntax.
 The defined BPMN model must adhere to the BPMN metamodel as outlined in the BPMN specification by the Object Management Group \cite{objectmanagementgroupBusinessProcessModel2013}.
 The BPMN execution metamodel is defined by language engineers, utilizing the BPMN metamodel as a foundation to create the state structure for executing BPMN models. 
 
@@ -156,7 +156,7 @@ Finally, we discuss related work regarding BPMN element coverage in \autoref{sec
 
 
 
-\section{BPMN semantics formalization} \label{sec:formalization}
+\section{BPMN syntax \& BPMN semantics formalization} \label{sec:formalization}
 
 \autoref{fig:bpmnMetamodel} depicts the structure of BPMN models with the corresponding concrete syntax BPMN symbols contained in clouds.
 A BPMN model is represented by a \textsf{Collaboration} that has participant \textsf{Process}es and \textsf{MessageFlow}s between \textsf{InteractionNode}s.
@@ -167,10 +167,13 @@ Many types of activities, gateways, and events exist, such as call activities, p
 Activities represent certain tasks to be carried out during a process, while events may happen during the execution of these tasks.
 Furthermore, gateways model conditions, parallelizations, and synchronizations \cite{freundRealLifeBPMNUsing2019}.
 
+\autoref{fig:bpmnMetamodel} is a simplified excerpt of the BPMN metamodel described in the BPMN specification \cite{objectmanagementgroupBusinessProcessModel2013}.
+Each class depicted in \autoref{fig:bpmnMetamodel} maintains consistent naming with the BPMN metamodel, and all associations are directly found in \cite{objectmanagementgroupBusinessProcessModel2013} or simplified, i.e., given by compositions of multiple existing associations.
+
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.8\linewidth]{images/bpmn_semantics-bpmn-metamodel.pdf}
-  \caption{Excerpt of the BPMN metamodel \cite{objectmanagementgroupBusinessProcessModel2013}}
+  \caption{Simplified excerpt of the BPMN metamodel \cite{objectmanagementgroupBusinessProcessModel2013}}
   \label{fig:bpmnMetamodel}
 \end{figure}
 
@@ -740,7 +743,7 @@ The Groove UI and the Groove command-line tools can then consume the generated G
 
 \subsection{Performance testing}
 
-Model checking is a useful technique but can fall short when transferred to the industry due to insufficient performance \cite{clarkeHandbookModelChecking2018}.
+Model checking is a useful technique but can fall short when applied in the industry due to insufficient performance \cite{clarkeHandbookModelChecking2018}.
 Inadequate performance might have many reasons, most notably large models leading to state space explosion.
 We experimented with ten different BPMN models from \cite{houhouFirstOrderLogicVerification2022} to assess the performance of our implementation.
 We picked the models at random, but we disregarded some similar models.
