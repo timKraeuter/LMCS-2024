@@ -210,11 +210,11 @@ The first task of a language engineer in our approach is to define the execution
 \end{figure}
 
 The BPMN execution metamodel was not created by extending the BPMN metamodel and adding missing concepts such as tokens and messages.
-We chose to create a minimal execution model that only contains concepts needed during execution.
+We created a minimal execution model that only contains concepts needed during execution.
 This is only possible since the HOT generates our rules for each specific BPMN model such that the structure of each model is already implicitly encoded in the rules.
 This design choice leads to smaller states in the GT system compared to an execution metamodel that extends the BPMN metamodel.
 
-We use \textsf{ProcessSnapshot} to denote a running BPMN process with a specific token distribution that describes one state in the history of the process execution.
+In \autoref{fig:bpmnExecutionMetamodel}, we use \textsf{ProcessSnapshot} to denote a running BPMN process with a specific token distribution that describes one state in the history of the process execution.
 Every \textsf{ProcessSnapshot} has a set of \textsf{tokens}, incoming \textsf{messages}, and \textsf{subprocesses}.
 A \textsf{ProcessSnapshot} has the state \textsf{Terminated} if it has no \textsf{tokens} or \textsf{subprocesses}.
 Otherwise, it has the state \textsf{Running}.
@@ -261,13 +261,13 @@ The rule is straightforward: it moves a token from the incoming sequence flow to
 \end{figure}
 
 For the rest of the article, we will depict all rules in the concrete syntax introduced earlier.
-The rule from \autoref{fig:gtRuleAbstract} depicted in concrete syntax is shown on the left in \autoref{fig:gtRuleConcrete}.
-The rule on the right in \autoref{fig:gtRuleConcrete} implements the termination of an activity, which will move one token from the activity to the outgoing sequence flow.
+The rule from \autoref{fig:gtRuleAbstract} depicted in concrete syntax is shown on the top in \autoref{fig:gtRuleConcrete}.
+The rule on the bottom in \autoref{fig:gtRuleConcrete} implements the termination of an activity, which will move one token from the activity to the outgoing sequence flow.
 
 \begin{figure}[ht]
     \centering
-  \includegraphics[width=1\textwidth]{images/rule_concrete.pdf}
-  \caption{Example GT rules to start (left) and terminate (right) an activity}
+  \includegraphics[width=0.7\textwidth]{images/rule_concrete.pdf}
+  \caption{Example GT rules to start (top) and terminate (bottom) an activity}
   \label{fig:gtRuleConcrete}
 \end{figure}
 
@@ -502,8 +502,8 @@ A graph condition is a GT rule which does not delete or add elements.
 A proposition holds in a given state if a match of the graph condition exists in the graph representing the state \cite{kastenbergModelCheckingDynamic2006}.
 
 We differentiate between two types of behavioral properties: \textit{general BPMN properties} defined for all BPMN models and \textit{custom properties} tailored towards a particular BPMN model.
-We do not consider structural properties (like conformance to the syntax of BPMN) since they can be checked using a standard modeling tool without implementing execution semantics.
-We will now give an example of predefined general BPMN properties and show how they can be checked using our approach.
+We do not consider structural properties (like conformance to BPMN syntax) since they can be checked using a standard modeling tool without implementing execution semantics.
+We will now give an example of predefined general BPMN properties and show how our approach can check them.
 Then, we describe how custom properties can be defined and checked.
 
 \subsection{General BPMN properties}
@@ -562,7 +562,7 @@ Similarly, \textit{No dead activities} is implemented by analyzing the GT system
 \subsection{Custom properties} \label{subsec:customProperties}
 
 To make model checking user-friendly, we enable modelers to define atomic propositions using the concrete syntax of the extended BPMN execution metamodel introduced in \autoref{fig:bpmnExecutionMetamodel} (see \autoref{fig:shippedTwiceProposition}).
-An atomic proposition is defined as a process snapshot, together with a token distribution (see \autoref{fig:shippedTwiceAbstractAndGroove} \textbf{(a)}), which we can automatically convert to a graph condition in Groove (see \autoref{fig:shippedTwiceAbstractAndGroove} \textbf{(b)}).
+An atomic proposition is defined as a process snapshot with a token distribution, which we can automatically convert to a graph condition in Groove (see \autoref{fig:shippedTwiceGroove}).
 Recall that graph conditions are GT rules that do not add or delete elements.
 Atomic propositions may be connected by CTL operators to create temporal formulas that should hold in the given BPMN model. 
 Furthermore, modelers may forbid certain states in the BPMN model by specifying that a certain token distribution should not exist.
@@ -585,9 +585,9 @@ The modeling error could lead to shipping goods twice if the process is not corr
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/twice.pdf}
-    \caption{Abstract syntax \textbf{(a)} and graph condition in Groove \textbf{(b)} to define the snapshot and tokens for the atomic proposition in \autoref{fig:shippedTwiceProposition}.}
-    \label{fig:shippedTwiceAbstractAndGroove}
+    \includegraphics[width=0.5\textwidth]{images/twice.pdf}
+    \caption{Generated Groove graph condition describing the atomic proposition in \autoref{fig:shippedTwiceProposition}.}
+    \label{fig:shippedTwiceGroove}
 \end{figure}
 
 Another proposition for the same process with a different error is shown in \autoref{fig:noShipment}.
