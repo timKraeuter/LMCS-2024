@@ -688,10 +688,10 @@ Our implementation \textit{token-bpmn-moddle} \cite{timkrauterLMCS2024Artifacts2
 Our extension adds the \textsf{Token} and \textsf{ProcessSnapshot} types from the BPMN execution metamodel shown in \autoref{fig:bpmnExecutionMetamodel} to the BPMN metamodel.
 \autoref{lst:extension} shows an example BPMN XML snippet, where a token and process snapshot was added.
 
-\lstinputlisting [label=lst:extension, language=XML, numbers=left,
+\lstinputlisting [basicstyle=\smaller\ttfamily, label=lst:extension, language=XML, numbers=left,
     stepnumber=1, caption=XML snippet showing the BPMN metamodel extension (simplified)]{./listings/extension_simplified.xml}
 
-The library allows one to create token and process snapshot instances and stores them in the BPMN extension elements (lines 2-6 in the XML example in \autoref{lst:extension}).
+The library allows one to create token and process snapshot instances and stores them in the BPMN extension elements (lines 2-7 in the XML example in \autoref{lst:extension}).
 This is the recommended way to extend the BPMN metamodel \cite{objectmanagementgroupBusinessProcessModel2013}.
 
 The extension of the BPMN metamodel is realized by letting \textsf{Token} and \textsf{ProcessSnapshot} extend from \textsf{Element}, which is the type of elements of the extension elements, see \autoref{fig:token_extension}.
@@ -705,7 +705,7 @@ In \autoref{lst:extension}, this is realized using the attribute \textsf{element
     \label{fig:token_extension}
 \end{figure}
 
-The XML model in \autoref{lst:extension} can be consumed by our HOT to generate atomic propositions for Groove (see \autoref{fig:approach}).
+The XML model in \autoref{lst:extension} can be used by our HOT to generate atomic propositions for Groove (see \autoref{fig:approach}).
 However, following sound model-driven principles and creating an extended metamodel, the XML model could also be used in other applications or for model checking with different tools.
 
 \subsubsection{Token Editor}
@@ -725,10 +725,10 @@ The graph-rule-generation library offers various Java classes to generate graphs
 \autoref{lst:grooveRuleBuilder} shows an example code snippet to generate a GT rule using the GT rule builder implemented for Groove.
 One could also implement the GT rule builder for a different GT tool than Groove, which would only result in changes in the first two lines of \autoref{lst:grooveRuleBuilder}.
 
-\lstinputlisting [label=lst:grooveRuleBuilder, language=Java, numbers=left,
+\lstinputlisting [basicstyle=\smaller\ttfamily, label=lst:grooveRuleBuilder, language=Java, numbers=left,
     stepnumber=1, caption=Code snippet to generate a GT rule using the GT rule builder]{./listings/gtRuleBuilderSnippet.txt}
 
-Using the rule builder, one can construct a GT rule by defining which nodes and edges should be present (lines 6-8), deleted (lines 10-12), added (lines 14-16), or NACs (lines 18-20), see \autoref{lst:grooveRuleBuilder}.
+Using the rule builder, one can construct a GT rule by defining which nodes and edges should be present (lines 6-9), deleted (lines 10-13), added (lines 14-17), or NACs (lines 18-21), see \autoref{lst:grooveRuleBuilder}.
 \autoref{fig:grooveRuleBuilderRule} shows the resulting GT rule specified by \autoref{lst:grooveRuleBuilder} in Groove syntax.
 
 \begin{figure}[ht]
@@ -747,8 +747,7 @@ The Groove UI and the Groove command-line tools can then consume the generated G
 
 Model checking is a useful technique but can fall short when applied in the industry due to insufficient performance \cite{clarkeHandbookModelChecking2018}.
 Inadequate performance might have many reasons, most notably large models leading to state space explosion.
-We experimented with ten different BPMN models from \cite{houhouFirstOrderLogicVerification2022} to assess the performance of our implementation.
-We picked the models at random, but we disregarded some similar models.
+We randomly picked ten different BPMN models from \cite{houhouFirstOrderLogicVerification2022} to assess the performance of our implementation.
 The models include realistic business process models (e.g., 001, 002, and 020) \cite{houhouFirstOrderLogicVerification2022}.
 
 To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2023} (version 1.18.0), which ran the HOT/state space exploration for each BPMN model ten times.
@@ -757,6 +756,7 @@ The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) usin
 First, we ran our HOT for the BPMN models.
 The HOT takes approximately half a second to generate a GT system for each model.
 Thus, the generation of the GT systems for these models is fast enough.
+In addition, \autoref{table:stateSpaceBenchmark} states how many GT rules are generated for each BPMN model. 
 
 Second, we ran a full state exploration using the resulting ten GT systems, see \autoref{table:stateSpaceBenchmark} (runtime only includes state space exploration).
 The exploration takes around one second for most of the models.
@@ -768,29 +768,29 @@ For example, Groove reports only 722 ms for state space exploration for model \t
 \centering
 \caption{Experimental results for a full state space exploration in Groove}
 
-\begin{tabular}{| c | c | c || c | c | c |}
+\begin{tabular}{| c | c | c || c || c | c | c |}
  \hline
- BPMN model & Processes & Nodes (gw.) & States & Transitions & Runtime \\
- \hline\hline
- 001 & 2 & 17(2) & 68 & 118 & $\sim$ 1.00 s \\
+ BPMN model & Processes & Nodes (gw.) & GT Rules & States & Transitions & Runtime \\
+ \hline\hline % TODO: Add number of generated rules
+ 001 & 2 & 17(2) & & 68 & 118 & $\sim$ 1.00 s \\
  \hline
- 002 & 2 & 16(2) & 62 & 108 & $\sim$ 0.97 s \\
+ 002 & 2 & 16(2) & & 62 & 108 & $\sim$ 0.97 s \\
  \hline
- 007 & 1 & 8(2) & 45 & 81 & $\sim$ 0.92 s \\
+ 007 & 1 & 8(2) & & 45 & 81 & $\sim$ 0.92 s \\
  \hline
- 008 & 1 & 11(2) & 49 & 85 & $\sim$ 0.93 s \\
+ 008 & 1 & 11(2) & & 49 & 85 & $\sim$ 0.93 s \\
  \hline
- 009 & 1 & 12(2) & 137 & 308 & $\sim$ 1.01 s \\
+ 009 & 1 & 12(2) & & 137 & 308 & $\sim$ 1.01 s \\
  \hline
- 010 & 1 & 15(2) & 162 & 357 & $\sim$ 1.04 s \\
+ 010 & 1 & 15(2) & & 162 & 357 & $\sim$ 1.04 s \\
  \hline
- 011 & 1 & 15(2) & 44 & 69 & $\sim$ 0.97 s \\
+ 011 & 1 & 15(2) & & 44 & 69 & $\sim$ 0.97 s \\
  \hline
- 015 & 1 & 14(2) & 53 & 86 & $\sim$ 0.95 s \\
+ 015 & 1 & 14(2) & & 53 & 86 & $\sim$ 0.95 s \\
  \hline
- 016 & 1 & 14(2) & 44 & 68 & $\sim$ 0.94 s \\
+ 016 & 1 & 14(2) & & 44 & 68 & $\sim$ 0.94 s \\
  \hline
- 020 & 1 & 39(6) & 3060 & 8584 & $\sim$ 1.75 s \\
+ 020 & 1 & 39(6) & & 3060 & 8584 & $\sim$ 1.75 s \\
  \hline
 \end{tabular}
 \label{table:stateSpaceBenchmark}
