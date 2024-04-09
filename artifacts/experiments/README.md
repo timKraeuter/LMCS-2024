@@ -59,7 +59,7 @@ The Python scripts we used to analyze the benchmark results can be found in [`/r
 ## State space generation
 
 1. Clone this repository.
-2. Generate the GT-systems by following the steps in **HOT Scalability**. You can use the command `--runs 1` instead of `--runs 5` to only run each HOT once.
+2. Generate the GT-systems by following the steps in **HOT transformation**. You can use the command `--runs 1` instead of `--runs 5` to only run each HOT once.
 3. Open a terminal in **this folder**.
 4. Run the following command:
 
@@ -70,3 +70,36 @@ hyperfine -L grammar grammars/001.gps,grammars/002.gps,grammars/003.gps,grammars
 
 The benchmark results are found in `/results/SGenScalability_stats.json`.
 The Python scripts we used to analyze the benchmark results can be found in [`/results/scripts/`](https://github.com/timKraeuter/LMCS-2024/tree/main/artifacts/experiment/results/scripts).
+
+# Increasing Parallel Branches
+
+
+The models for the test were generated using our [CLI applicationCLI application](./models/parallel/BPMNParallelBranchesModelGenerator.jar).
+One can also generate models with more than 10 parallel branches and even increase the number of activities per branch (run the CLI application with --help for more options).
+The resulting models are contained in the subdirectory `models/parallel/`.
+
+## HOT transformation
+
+1. Clone this repository.
+2. Open a terminal in **this folder**.
+3. Run the following command:
+
+**Command**:
+```bash
+hyperfine -L bpmnModel models/parallel/p01x01.bpmn,models/parallel/p02x01.bpmn,models/parallel/p03x01.bpmn,models/parallel/p04x01.bpmn,models/parallel/p05x01.bpmn,models/parallel/p06x01.bpmn,models/parallel/p07x01.bpmn,models/parallel/p08x01.bpmn,models/parallel/p09x01.bpmn,models/parallel/p10x01.bpmn "java -jar ruleGenerator-1.jar {bpmnModel} ./grammars" --output ./results/HOTParallel_output.txt --export-json ./results/HOTParallel_stats.json  --runs 5
+```
+
+The benchmark results are found in `/results/HOTParallel_stats.json`.
+
+## State space generation
+
+1. Clone this repository.
+2. Open a terminal in **this folder**.
+3. Run the following command:
+
+**Command**:
+```bash
+hyperfine -L grammar grammars/p01x01.gps,grammars/p02x01.gps,grammars/p03x01.gps,grammars/p04x01.gps,grammars/p05x01.gps,grammars/p06x01.gps,grammars/p07x01.gps,grammars/p08x01.gps,grammars/p09x01.gps,grammars/p10x01.gps "java -Xmx1024M -jar dependencies/groove-6_1_0/bin/Generator.jar {grammar}" --output ./results/SGenParallel_output.txt --export-json ./results/SGenParallel_stats.json --runs 5
+```
+
+The benchmark results are found in `/results/SGenParallel_stats.json`.
