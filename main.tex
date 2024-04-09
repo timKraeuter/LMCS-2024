@@ -496,7 +496,7 @@ Terminating a process must also terminate its subprocesses, which is not shown i
 
 Model checking ---and verification in general--- of BPMN models is necessary to ensure the correctness and reliability of business processes, which ultimately leads to increased efficiency, reduced costs, and user satisfaction.
 Using our formalization approach, BPMN models may be verified against behavioral properties ---both general and custom--- by utilizing the generated GT system (see \autoref{fig:approach}).
-These behavioral properties are defined using temporal logic, such as Computation Tree Logic (CTL) and Linear Temporal Logic (LTL) \cite{baierPrinciplesModelChecking2008}.
+These behavioral properties are defined using temporal logic, such as Computation Tree Logic (CTL) and Linear Temporal Logic (LTL) \cite{baierPrinciplesModelChecking2008,clarkeHandbookModelChecking2018}.
 As mentioned in \autoref{sec:introduction}, modelers may use our approach to specify custom properties consisting of atomic propositions and operators from CTL/LTL.
 The atomic propositions are transformed to graph conditions by the HOT.
 A graph condition is a GT rule which does not delete or add elements.
@@ -657,7 +657,7 @@ The BPMN Analyzer interface is structured into three steps that guide the user t
 \end{figure}
   
   \item In the \textbf{Analysis} step, users may check the general BPMN properties and build custom CTL properties using the atomic propositions.
-  The properties builder utilizes a textual CTL syntax to specify custom properties using the atomic propositions from the previous step, see \autoref{fig:impl_step3_ctl}.
+  The properties builder utilizes the textual CTL syntax implemented in Groove to specify custom properties using the atomic propositions from the previous step, see \autoref{fig:impl_step3_ctl}.
   The two atomic propositions created in the previous step (see \autoref{fig:impl_step2}) are available to the user.
   The CTL properties builder comes with CTL templates to facilitate commonly occurring CTL properties.
   These templates allow users to check whether a state (described by an atomic proposition) can be reached or is never reached (see \autoref{fig:impl_step3_ctl}).
@@ -687,7 +687,7 @@ We explain each library in detail in the following sections.
 % Same concrete syntax but slightly different to fit the UI/proposition needs.
 Our implementation \textit{token-bpmn-moddle} \cite{timkrauterLMCS2024Artifacts2023} extends \textit{bpmn-moddle} \cite{camundaservicesgmbhBpmnmoddle2023}, which implements the BPMN specification.
 Our extension adds the \textsf{Token} and \textsf{ProcessSnapshot} types from the BPMN execution metamodel shown in \autoref{fig:bpmnExecutionMetamodel} to the BPMN metamodel.
-\autoref{lst:extension} shows an example BPMN XML snippet, where a token and process snapshot was added.
+\autoref{lst:extension} shows an example BPMN XML snippet, where a token and process snapshot were added.
 
 \lstinputlisting [basicstyle=\smaller\ttfamily, label=lst:extension, language=XML, numbers=left,
     stepnumber=1, caption=XML snippet showing the BPMN metamodel extension (simplified)]{./listings/extension_simplified.xml}
@@ -744,7 +744,7 @@ Finally, the library provides a builder for GT systems using the graph and GT ru
 It also automatically lays out graphs and GT rules using the Eclipse Layout Kernel (ELK).
 The Groove UI and the Groove command-line tools can then consume the generated GT systems.
 
-\subsection{Performance testing}
+\subsection{Performance testing} \label{subsec:performance}
 
 Model checking is a useful technique but can fall short when applied in the industry due to insufficient performance \cite{clarkeHandbookModelChecking2018}.
 Inadequate performance might have many reasons, most notably large models leading to state space explosion.
@@ -907,8 +907,12 @@ However, models of reasonable size (50 blocks or less) are handled in less than 
 To summarize, using our approach, we can conservatively estimate that these models can be checked (HOT followed by a full state space generation) in around three seconds or less.
 In addition, full-state space exploration might not be needed if \textit{on-the-fly} model checking is used \cite{clarkeHandbookModelChecking2018}.
 
+\textit{On-the-fly} model checking allows to check temporal properties incrementally while the state space is constructed.
+If a property violation is detected, there is no need to further complete the construction of the state space.
+This can considerably reduce the time and memory required for verification \cite{clarkeHandbookModelChecking2018}.
+
 % Plenty of optimization potential
-Plenty of optimization potentials exist, starting from the HOT and ending with the state space generation in Groove.
+Plenty of optimization potential exists, starting from the HOT and ending with the state space generation in Groove.
 Currently, neither our HOT nor Groove are specifically optimized for performance with this use case in mind.
 % HOT optimization
 Regarding the HOT, multiple optimizations come to mind.
@@ -928,13 +932,14 @@ First, GT rules should not be written to and read from the disk to interact with
 Each GT rule is saved to a new file, and the number of generated GT rules increases with the size of a BPMN model.
 Integrating our HOT and Groove more tightly can eliminate these costly I/O operations since the generated rules can stay in the main memory.
 Second, \textit{partial order reduction} methods could greatly reduce the time and space required for model checking \cite{clarkeHandbookModelChecking2018}.
-Third, Groove could use \textit{on-the-fly} model checking \cite{kastenbergModelCheckingDynamic2006}.
-If a counterexample is found, there is no need to continue the state space generation \cite{clarkeHandbookModelChecking2018}.
+Third, Groove could use \textit{on-the-fly} model checking as mentioned by the Groove authors \cite{kastenbergModelCheckingDynamic2006}.
+If one combines verification and state space exploration and finds a counterexample, there is no need to continue the state space generation \cite{kastenbergModelCheckingDynamic2006,clarkeHandbookModelChecking2018}.
 
 \section{Related work} \label{sec:relatedWork}
 % Petri nets formalisms
 The most common formalizations of BPMN execution semantics use Petri Nets.
-For example, \cite{dijkmanSemanticsAnalysisBusiness2008} formalizes a subset of BPMN elements by defining a mapping to Petri Nets that is conceptually close to our HOT-based formalization.
+For example, \cite{dijkmanSemanticsAnalysisBusiness2008} formalizes a subset of BPMN elements by defining a mapping to Petri Nets conceptually close to our HOT-based formalization.
+Especially Petri net model checkers such as LoLA show great performance when analysing business process models \cite{fahlandAnalysisDemandInstantaneous2011} but supporting the same variety of BPMN elements can be problematic.
 % Difficulties with Petri net encodings
 Encoding basic BPMN modeling elements into Petri Nets is generally straightforward, but for some advanced elements, it can be complicated to define \cite{hofstedeWorkflowPatternsExpressive2002}.
 For example, representing \textit{Termination End Events} and \textit{Interrupting Boundary Events}, which interrupt a running process, is usually unsupported because of the complexity of managing the non-local propagation of tokens in Petri Nets \cite{corradiniFormalApproachAnalysis2021}.
@@ -952,6 +957,8 @@ However, they do \textit{not} support property checking since their goal is only
 The tool \textit{BProVe} is based on formal BPMN semantics given in rewriting logic and implemented in the Maude system \cite{corradiniFormalApproachAnalysis2021}.
 Using this formal semantics, \textit{BProVe} can verify custom LTL properties and general BPMN properties, such as Safeness and Soundness.
 However, \textit{BProVe} only supports the most common BPMN elements, as shown later.
+% TODO: Performance
+
 
 % fbpmn/Houhou
 The verification framework \textsf{fbpmn} uses first-order logic to formalize and check BPMN models \cite{houhouFirstOrderLogicVerification2022}.
@@ -960,6 +967,8 @@ TLC is an explicit state model checker for TLA\textsuperscript{+} specifications
 Like BProVe, \textsf{fbpmn} allows checking general BPMN properties, such as Safeness and Soundness.
 Furthermore, \textit{fbpmn} focuses on different communication models besides the standard in the BPMN specification and supports time-related constructs.
 In our approach, we currently disregard time-related constructs \cite{duranVerifyingTimedBPMN2017,houhouFirstOrderLogicVerification2022} and data flow \cite{corradiniFormalisingAnimatingMultiple2022,el-saberCMMICMComplianceChecking2015} but rather support more BPMN elements.
+% Performance
+Regarding performance \cite{houhouFirstOrderLogicVerification2022} report 3.66-10.26s on a machine with less powerful hardware compared to our 1-1.75s for the models in section \autoref{subsec:performance}.
 
 \autoref{tab:supportedelements} shows which BPMN elements are supported by our and the abovementioned approaches.
 Compared to the other approaches, we cover most BPMN elements.
