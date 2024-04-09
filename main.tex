@@ -304,6 +304,7 @@ However, they do not terminate processes.
 Process termination is implemented with a generic rule---independent of the input BPMN model---which applies to all process snapshots.
 The termination rule in \autoref{fig:terminationRule} is automatically generated once during the HOT.
 The rule changes the state of the process snapshot from running to terminated if it has neither tokens nor subprocesses.
+We use Groove Syntax instead of our concrete syntax since it is a special, more complex rule, and we do not want the concrete syntax to become too complex.
 
 \begin{figure}[ht]
     \centering
