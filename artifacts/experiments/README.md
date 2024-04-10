@@ -40,8 +40,8 @@ hyperfine -L grammar grammars/e001.gps,grammars/e002.gps,grammars/e007.gps,gramm
 ## Increasing Parallel Branches
 
 
-The models for the test were generated using our [CLI application](./models/parallel/BPMNParallelBranchesModelGenerator.jar).
-One can also generate models with more than 10 parallel branches and even increase the number of activities per branch (run the CLI application with --help for more options).
+The models for the test were generated using our [CLI tool](./cli-tools/BPMNParallelBranchesModelGenerator.jar).
+One can also generate models with more than 10 parallel branches and even increase the number of activities per branch (see [documentation](https://github.com/timKraeuter/BPMN-Model-Generators/tree/master?tab=readme-ov-file#bpmnparallelbranchmodelgenerator)).
 The resulting models are contained in the subdirectory `models/parallel/`.
 
 ### HOT transformation
@@ -72,7 +72,7 @@ The benchmark results are found in `/results/SGenParallel_stats.json`.
 
 # Scalability
 
-The models for the scalability test were generated using `BPMNModelBuilder.createModelsWithUpToXBlocks(300)`, see the class [ScalabilityTest](https://github.com/timKraeuter/Rewrite_Rule_Generation/blob/master/generator/src/test/java/no/tk/scalability/ScalabilityTest.java).
+The models for the scalability test were generated using our [CLI tool](./cli-tools/BPMNBlockModelGenerator.jar), see [documentation](https://github.com/timKraeuter/BPMN-Model-Generators/tree/master?tab=readme-ov-file#bpmnblockmodelgenerator).
 One can also generate bigger models or change the contents of the generated models.
 The results were zipped and are contained in **scalability.zip** in the subdirectory `models`.
 
