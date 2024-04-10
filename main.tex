@@ -749,7 +749,7 @@ The Groove UI and the Groove command-line tools can then consume the generated G
 Model checking is a useful technique but can fall short when applied in the industry due to insufficient performance \cite{clarkeHandbookModelChecking2018}.
 Inadequate performance might have many reasons, most notably large models leading to state space explosion.
 We randomly picked ten different BPMN models from \cite{houhouFirstOrderLogicVerification2022} to assess the performance of our implementation.
-The models include realistic business process models (e.g., 001, 002, and 020) \cite{houhouFirstOrderLogicVerification2022}.
+The models include realistic BPMN models (e.g., 001, 002, and 020) \cite{houhouFirstOrderLogicVerification2022}.
 
 To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2023} (version 1.18.0), which ran the HOT/state space exploration for each BPMN model ten times.
 The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 6.1.0 \cite{timkrauterLMCS2024Artifacts2023}.
@@ -957,7 +957,7 @@ However, they do \textit{not} support property checking since their goal is only
 The tool \textit{BProVe} is based on formal BPMN semantics given in rewriting logic and implemented in the Maude system \cite{corradiniFormalApproachAnalysis2021}.
 Using this formal semantics, \textit{BProVe} can verify custom LTL properties and general BPMN properties, such as Safeness and Soundness.
 However, \textit{BProVe} only supports the most common BPMN elements, as shown later.
-% TODO: Performance
+% TODO: Performance: Add numbers here with ref to artifacts. Update the artifacts on zenodo once we are fully done.
 
 
 % fbpmn/Houhou
