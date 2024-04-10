@@ -15,7 +15,7 @@
 \definecolor{javared}{rgb}{0.6,0,0} % for strings
 \definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
 \definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
-\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % Javadoc
  
 \lstset{language=Java,
 basicstyle=\ttfamily,
@@ -748,11 +748,18 @@ The Groove UI and the Groove command-line tools can then consume the generated G
 
 Model checking is a useful technique but can fall short when applied in the industry due to insufficient performance \cite{clarkeHandbookModelChecking2018}.
 Inadequate performance might have many reasons, most notably large models leading to state space explosion.
+We assess the performance of our implementation for two sets of BPMN models.
+First, we pick ten BPMN models from the literature which includes realistic BPMN models.
+Second, we generated ten BPMN models with an exponential state space growth to test how our tool deals with increasing complexity.
+We explain each benchmark and its results in the following subsections and provide all necessary information and artifacts to reproduce them in \cite{timkrauterLMCS2024Artifacts2023}
+
+To calculate the average runtime, we use the hyperfine benchmarking tool \cite{peterHyperfine2023} (version 1.18.0), which runs the HOT/state space exploration for each BPMN model ten or more times.
+The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 6.1.0 \cite{timkrauterLMCS2024Artifacts2023}.
+
+\subsubsection{BPMN models from the literature}
+
 We randomly picked ten different BPMN models from \cite{houhouFirstOrderLogicVerification2022} to assess the performance of our implementation.
 The models include realistic BPMN models (e.g., 001, 002, and 020) \cite{houhouFirstOrderLogicVerification2022}.
-
-To calculate the average runtime, we used the hyperfine benchmarking tool \cite{peterHyperfine2023} (version 1.18.0), which ran the HOT/state space exploration for each BPMN model ten times.
-The experiment was run on Windows 11 (AMD Ryzen 7700X processor, 32 GB RAM) using Groove version 6.1.0 \cite{timkrauterLMCS2024Artifacts2023}.
 
 First, we ran our HOT for the BPMN models.
 The HOT takes approximately half a second to generate a GT system for each model.
@@ -767,37 +774,92 @@ For example, Groove reports only 722 ms for state space exploration for model \t
 
 \begin{table}[ht]
 \centering
-\caption{Experimental results for a full state space exploration in Groove}
+\caption{Results for a full state space exploration of realistic models}
 
 \begin{tabular}{| c | c | c || c || c | c | c |}
  \hline
  BPMN model & Processes & Nodes (gw.) & GT Rules & States & Transitions & Runtime \\
  \hline\hline
- 001 & 2 & 17(2) & 26 & 68 & 118 & $\sim$ 1.00 s \\
+ 001 & 2 & 17 (2) & 26 & 68 & 118 & $\sim$ 1.00 s \\
  \hline
- 002 & 2 & 16(2) & 24 & 62 & 108 & $\sim$ 0.97 s \\
+ 002 & 2 & 16 (2) & 24 & 62 & 108 & $\sim$ 0.97 s \\
  \hline
- 007 & 1 & 8(2) & 14 & 45 & 81 & $\sim$ 0.92 s \\
+ 007 & 1 & 8 (2) & 14 & 45 & 81 & $\sim$ 0.92 s \\
  \hline
- 008 & 1 & 11(2) & 17 & 49 & 85 & $\sim$ 0.93 s \\
+ 008 & 1 & 11 (2) & 17 & 49 & 85 & $\sim$ 0.93 s \\
  \hline
- 009 & 1 & 12(2) & 17 & 137 & 308 & $\sim$ 1.01 s \\
+ 009 & 1 & 12 (2) & 17 & 137 & 308 & $\sim$ 1.01 s \\
  \hline
- 010 & 1 & 15(2) & 20 & 162 & 357 & $\sim$ 1.04 s \\
+ 010 & 1 & 15 (2) & 20 & 162 & 357 & $\sim$ 1.04 s \\
  \hline
- 011 & 1 & 15(2) & 20 & 44 & 69 & $\sim$ 0.97 s \\
+ 011 & 1 & 15 (2) & 20 & 44 & 69 & $\sim$ 0.97 s \\
  \hline
- 015 & 1 & 14(2) & 20 & 53 & 86 & $\sim$ 0.95 s \\
+ 015 & 1 & 14 (2) & 20 & 53 & 86 & $\sim$ 0.95 s \\
  \hline
- 016 & 1 & 14(2) & 19 & 44 & 68 & $\sim$ 0.94 s \\
+ 016 & 1 & 14 (2) & 19 & 44 & 68 & $\sim$ 0.94 s \\
  \hline
- 020 & 1 & 39(6) & 59 & 3060 & 8584 & $\sim$ 1.75 s \\
+ 020 & 1 & 39 (6) & 59 & 3060 & 8584 & $\sim$ 1.75 s \\
  \hline
 \end{tabular}
 \label{table:stateSpaceBenchmark}
 \end{table}
 
-We conclude that our approach is sufficiently fast for models of average size.
+\subsubsection{BPMN models with increasing complexity}
+
+To increase the state space complexity, we generate BPMN models with a growing number of parallel branches, similar to~\cite{corradiniFormalApproachAnalysis2021}.
+\autoref{fig:increasingParallelBranches} shows our schema to generate models.
+The possible interleavings of executing activities in parallel lead to an exponential increase in the state space.
+Concretely, we generated ten BPMN models with one to ten parallel branches containing one activity \cite{timkrauterLMCS2024Artifacts2023}.
+We use these models to benchmark our implementation.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/parallel_branches.pdf}
+    \caption{BPMN model generation with an increasing number of parallel branches}
+    \label{fig:increasingParallelBranches}
+\end{figure}
+
+First, we ran our HOT for the BPMN models.
+The HOT takes less than a second to generate a GT system for each model.
+Thus, the generation of the GT systems for these models is fast enough.
+
+Second, we ran a full state exploration using the resulting ten GT systems, see \autoref{table:parallelBranchesStateSpaceBenchmark} (runtime only includes state space exploration).
+The exploration takes from one second to nine seconds for the models.
+One can see an exponential increase in runtime which is due to the exponential increase in state space complexity.
+
+\begin{table}[ht]
+\centering
+\caption{Results for a full state space exploration of models with increasing complexity}
+
+\begin{tabular}{| c | c || c || c | c | c |}
+ \hline
+ Branches & Nodes (gw.) & GT Rules & States & Transitions & Runtime \\
+ \hline\hline
+ 1 & 5 (2) & 9 & 7 & 7 & $\sim$ 0.87 s \\
+ \hline
+ 2 & 6 (2) & 11 & 13 & 17 & $\sim$ 0.86 s \\
+ \hline
+ 3 & 7 (2) & 13 & 31 & 59 & $\sim$ 0.88 s \\
+ \hline
+ 4 & 8 (2) & 15 & 85 & 221 & $\sim$ 0.95 s \\
+ \hline
+ 5 & 9 (2) & 17 & 247 & 815 & $\sim$ 1.03 s \\
+ \hline
+ 6 & 10 (2) & 19 & 733 & 2921 & $\sim$ 1.15 s \\
+ \hline
+ 7 & 11 (2) & 21 & 2119 & 10.211 & $\sim$ 1.49 s \\
+ \hline
+ 8 & 12 (2) & 23 & 6.565 & 34.997 & $\sim$ 2.13 s \\
+ \hline
+ 9 & 13 (2) & 25 & 19.687 & 118.103 & $\sim$ 3.85 s \\
+ \hline
+ 10 & 14 (2) & 27 & 59.053 & 393.665 & $\sim$ 9.16 s \\
+ \hline
+\end{tabular}
+\label{table:parallelBranchesStateSpaceBenchmark}
+\end{table}
+
+We conclude that our approach is sufficiently fast for models of average size and complexity.
 In the next section, we test the scalability of our approach when models increase in size.
 Furthermore, we discuss potential performance and scalability improvements.
 However, a comprehensive benchmark, including a detailed comparison to other tools, is left for future work.
@@ -957,8 +1019,8 @@ However, they do \textit{not} support property checking since their goal is only
 The tool \textit{BProVe} is based on formal BPMN semantics given in rewriting logic and implemented in the Maude system \cite{corradiniFormalApproachAnalysis2021}.
 Using this formal semantics, \textit{BProVe} can verify custom LTL properties and general BPMN properties, such as Safeness and Soundness.
 However, \textit{BProVe} only supports the most common BPMN elements, as shown later.
-% TODO: Performance: Add numbers here with ref to artifacts. Update the artifacts on zenodo once we are fully done.
-
+Regarding performance, \cite{corradiniFormalApproachAnalysis2021} describe a timeout (runtime greater than 600 seconds) for state space generation of a model with five parallel branches.
+In \autoref{subsec:performance}, we show that our tool takes less than ten seconds for the state space exploration of a model with ten parallel branches.
 
 % fbpmn/Houhou
 The verification framework \textsf{fbpmn} uses first-order logic to formalize and check BPMN models \cite{houhouFirstOrderLogicVerification2022}.
@@ -968,11 +1030,13 @@ Like BProVe, \textsf{fbpmn} allows checking general BPMN properties, such as Saf
 Furthermore, \textit{fbpmn} focuses on different communication models besides the standard in the BPMN specification and supports time-related constructs.
 In our approach, we currently disregard time-related constructs \cite{duranVerifyingTimedBPMN2017,houhouFirstOrderLogicVerification2022} and data flow \cite{corradiniFormalisingAnimatingMultiple2022,el-saberCMMICMComplianceChecking2015} but rather support more BPMN elements.
 % Performance
-Regarding performance \cite{houhouFirstOrderLogicVerification2022} report 3.66-10.26s on a machine with less powerful hardware compared to our 1-1.75s for the models in section \autoref{subsec:performance}.
+Regarding performance, \cite{houhouFirstOrderLogicVerification2022} report 3.66-10.26s on a machine with less powerful hardware compared to our 1-1.75s for the models in section \autoref{subsec:performance}.
+Thus, including the previous comparison to BProVe, we conclude that our tool performs well.
+However, assessing tool performance is difficult when there are no standardized benchmarks which allow for a direct comparison of results in the same environment.
 
 \autoref{tab:supportedelements} shows which BPMN elements are supported by our and the abovementioned approaches.
 Compared to the other approaches, we cover most BPMN elements.
-The coverage of BPMN elements greatly impacts how useful each approach is to check properties in practice.
+The coverage of BPMN elements significantly impacts how practical each approach is in checking properties in real-life \cite{fahlandAnalysisDemandInstantaneous2011}.
 In addition, we cover the most important elements found in practice since we come close to the element coverage of popular process engines such as Camunda \cite{camundaservicesgmbhBPMNImplementationReference2023}.
 
 The BPMN elements that our approach does not support, compared to Camunda, are transactions, cancel events, and compensation events.
