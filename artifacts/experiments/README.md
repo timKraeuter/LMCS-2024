@@ -40,7 +40,7 @@ hyperfine -L grammar grammars/e001.gps,grammars/e002.gps,grammars/e007.gps,gramm
 ## Increasing Parallel Branches
 
 
-The models for the test were generated using our [CLI applicationCLI application](./models/parallel/BPMNParallelBranchesModelGenerator.jar).
+The models for the test were generated using our [CLI application](./models/parallel/BPMNParallelBranchesModelGenerator.jar).
 One can also generate models with more than 10 parallel branches and even increase the number of activities per branch (run the CLI application with --help for more options).
 The resulting models are contained in the subdirectory `models/parallel/`.
 
