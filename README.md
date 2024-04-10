@@ -75,7 +75,7 @@ These libraries are also helpful in other contexts and have thus been shared ind
 
 ## Performance testing
 
-The performance tests are described [here](https://github.com/timKraeuter/LMCS-2024/tree/main/artifacts/experiments#readme).
+The performance tests are described [here](https://github.com/timKraeuter/LMCS-2024/tree/main/artifacts/experiments#performance).
 
 ## Scalability testing
 
