@@ -85,10 +85,10 @@ In today's fast-paced business environment, organizations with complex workflows
 Business Process Modeling Notation (BPMN) \cite{objectmanagementgroupBusinessProcessModel2013} is a widely used standard to define these workflows.
 However, the informal description of the BPMN execution semantics leads to different interpretations of BPMN models and difficulties in checking behavioral properties \cite{corradiniFormalApproachAnalysis2021}.
 Various studies have shown that business process models suffer from control-flow errors \cite{mendlingEmpiricalStudiesProcess2009}.
-Formalizing BPMN would drastically reduce the cost of business process automation by facilitating the detection of errors and optimization potentials in process models already during design time.
+Formalizing BPMN can drastically reduce the cost of business process automation by facilitating the detection of errors and optimization potentials in process models already during design time.
 For example, general behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to BPMN in \cite{corradiniClassificationBPMNCollaborations2018}.
-They can uncover errors in BPMN models leading to deadlocks or other undesirable execution states.
-To this end, we propose a formalization that covers nearly all of the BPMN elements used in practice and, in addition, supports checking such behavioral properties.
+They can uncover control-flow errors in BPMN models leading to deadlocks, dead activities or other undesirable execution states.
+To this end, we propose a formalization that covers nearly all of the BPMN elements used in practice and supports checking behavioral properties to uncover control-flow errors in a reasonable amount of time.
 
 In this article, we consider two fundamental concepts when formalizing the execution semantics of BPMN.
 First, \textit{state structure}, i.e., how model instances are represented during execution.
