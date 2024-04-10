@@ -9,7 +9,9 @@ All experiments were run using a Windows 11 machine with an AMD Ryzen 7700X proc
 
 # Performance
 
-## HOT transformation
+## Realistic models
+
+### HOT transformation
 1. Clone this repository.
 2. Open a terminal in **this folder**.
 3. Run the following command:
@@ -24,7 +26,7 @@ We estimate most of the time is spent doing I/O, i.e., reading the input BPMN fi
 To summarize, the HOT runtime could be further optimized if one avoids writing the generated GT system to stable storage.
 Instead, the GT system could remain in the main memory and be accessed from there.
 
-## State space generation
+### State space generation
 
 1. Clone this repository.
 2. Open a terminal in **this folder**.
@@ -34,6 +36,39 @@ Instead, the GT system could remain in the main memory and be accessed from ther
 ```bash
 hyperfine -L grammar grammars/e001.gps,grammars/e002.gps,grammars/e007.gps,grammars/e008.gps,grammars/e009.gps,grammars/e010.gps,grammars/e011.gps,grammars/e015.gps,grammars/e016.gps,grammars/e020.gps "java -jar dependencies/groove-6_1_0/bin/Generator.jar {grammar}" --output ./results/SGenoutput.txt --export-json ./results/Sgenstats.json
 ```
+
+## Increasing Parallel Branches
+
+
+The models for the test were generated using our [CLI applicationCLI application](./models/parallel/BPMNParallelBranchesModelGenerator.jar).
+One can also generate models with more than 10 parallel branches and even increase the number of activities per branch (run the CLI application with --help for more options).
+The resulting models are contained in the subdirectory `models/parallel/`.
+
+### HOT transformation
+
+1. Clone this repository.
+2. Open a terminal in **this folder**.
+3. Run the following command:
+
+**Command**:
+```bash
+hyperfine -L bpmnModel models/parallel/p01x01.bpmn,models/parallel/p02x01.bpmn,models/parallel/p03x01.bpmn,models/parallel/p04x01.bpmn,models/parallel/p05x01.bpmn,models/parallel/p06x01.bpmn,models/parallel/p07x01.bpmn,models/parallel/p08x01.bpmn,models/parallel/p09x01.bpmn,models/parallel/p10x01.bpmn "java -jar ruleGenerator-1.jar {bpmnModel} ./grammars" --output ./results/HOTParallel_output.txt --export-json ./results/HOTParallel_stats.json  --runs 5
+```
+
+The benchmark results are found in `/results/HOTParallel_stats.json`.
+
+### State space generation
+
+1. Clone this repository.
+2. Open a terminal in **this folder**.
+3. Run the following command:
+
+**Command**:
+```bash
+hyperfine -L grammar grammars/p01x01.gps,grammars/p02x01.gps,grammars/p03x01.gps,grammars/p04x01.gps,grammars/p05x01.gps,grammars/p06x01.gps,grammars/p07x01.gps,grammars/p08x01.gps,grammars/p09x01.gps,grammars/p10x01.gps "java -Xmx1024M -jar dependencies/groove-6_1_0/bin/Generator.jar {grammar}" --output ./results/SGenParallel_output.txt --export-json ./results/SGenParallel_stats.json --runs 5
+```
+
+The benchmark results are found in `/results/SGenParallel_stats.json`.
 
 # Scalability
 
@@ -70,36 +105,3 @@ hyperfine -L grammar grammars/001.gps,grammars/002.gps,grammars/003.gps,grammars
 
 The benchmark results are found in `/results/SGenScalability_stats.json`.
 The Python scripts we used to analyze the benchmark results can be found in [`/results/scripts/`](https://github.com/timKraeuter/LMCS-2024/tree/main/artifacts/experiment/results/scripts).
-
-# Increasing Parallel Branches
-
-
-The models for the test were generated using our [CLI applicationCLI application](./models/parallel/BPMNParallelBranchesModelGenerator.jar).
-One can also generate models with more than 10 parallel branches and even increase the number of activities per branch (run the CLI application with --help for more options).
-The resulting models are contained in the subdirectory `models/parallel/`.
-
-## HOT transformation
-
-1. Clone this repository.
-2. Open a terminal in **this folder**.
-3. Run the following command:
-
-**Command**:
-```bash
-hyperfine -L bpmnModel models/parallel/p01x01.bpmn,models/parallel/p02x01.bpmn,models/parallel/p03x01.bpmn,models/parallel/p04x01.bpmn,models/parallel/p05x01.bpmn,models/parallel/p06x01.bpmn,models/parallel/p07x01.bpmn,models/parallel/p08x01.bpmn,models/parallel/p09x01.bpmn,models/parallel/p10x01.bpmn "java -jar ruleGenerator-1.jar {bpmnModel} ./grammars" --output ./results/HOTParallel_output.txt --export-json ./results/HOTParallel_stats.json  --runs 5
-```
-
-The benchmark results are found in `/results/HOTParallel_stats.json`.
-
-## State space generation
-
-1. Clone this repository.
-2. Open a terminal in **this folder**.
-3. Run the following command:
-
-**Command**:
-```bash
-hyperfine -L grammar grammars/p01x01.gps,grammars/p02x01.gps,grammars/p03x01.gps,grammars/p04x01.gps,grammars/p05x01.gps,grammars/p06x01.gps,grammars/p07x01.gps,grammars/p08x01.gps,grammars/p09x01.gps,grammars/p10x01.gps "java -Xmx1024M -jar dependencies/groove-6_1_0/bin/Generator.jar {grammar}" --output ./results/SGenParallel_output.txt --export-json ./results/SGenParallel_stats.json --runs 5
-```
-
-The benchmark results are found in `/results/SGenParallel_stats.json`.
