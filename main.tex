@@ -106,7 +106,7 @@ Our HOT defines a formal execution semantics of BPMN, similar to other approache
 
 % Description of the overall approach
 To begin the BPMN modeling process, a modeler first defines the BPMN model. 
-The BMPN model may be checked against a predefined list of general behavioral properties, such as safeness and soundness.
+The BPMN model may be checked against a predefined list of general behavioral properties, such as safeness and soundness.
 % Custom behavioral properties use the atomic propositions.
 Furthermore, the modeler may also define custom behavioral properties specifically defined for the BPMN model.
 % Atomic propositions conform to the BPMN execution metamodel
@@ -249,8 +249,8 @@ An example of a start graph is shown in \autoref{fig:startGraph} using abstract 
 
 
 The HOT generates one or more GT rules for each \textsf{FlowNode}, i.e., state-changing element in a BPMN model.
-To provide a better understanding of the transformation process, we will begin by presenting example results, namely the generated rules for an activity.
-Following this, we will delve into an explanation of how our HOT creates these rules and rules for the other elements in \autoref{fig:bpmnelementsOverview}.
+To better understand the transformation process, we will begin by presenting example results, namely the generated rules for an activity.
+Following this, we will explain how our HOT creates these rules and rules for the other elements in \autoref{fig:bpmnelementsOverview}.
 
 \autoref{fig:gtRuleAbstract} depicts an example GT rule ($L \to R$) to start an activity in abstract syntax.
 The rule is straightforward: it moves a token from the incoming sequence flow to the activity.
@@ -613,7 +613,7 @@ In addition, we attempt to stay as independent as possible from the framework an
 
 Finally, the modeler must still know temporal logic to specify custom properties.
 To combat this problem, we added temporal logic templates to our tool to generate commonly occurring propositions without knowledge about temporal logic.
-This feature is discussed in detail in the next section about the BPMN Analyzer.
+The next section about the BPMN Analyzer discusses this feature in detail.
 A domain-specific property language for BPMN would further lessen the knowledge required from the modeler \cite{meyersProMoBoxFrameworkGenerating2014}.
 
 \section{BPMN Analyzer} \label{sec:impl}
@@ -640,7 +640,7 @@ The BPMN Analyzer interface is structured into three steps that guide the user t
 
 \begin{enumerate}
   \item The \textbf{Modeling} step lets users upload or define the BPMN model.
-  We utilize a properties panel in the modeling step such that IDs of BPMN elements can be viewed and edited directly in the model editor.
+  We utilize a properties panel in the modeling step so that IDs of BPMN elements can be viewed and edited directly in the model editor.
   This allows for better traceability between BPMN elements and generated GT rules if a user inspects the GT system.
   
   \item The \textbf{BPMN Propositions} step contains our custom \textit{Token Editor} and is shown in \autoref{fig:impl_step2}.
@@ -648,7 +648,7 @@ The BPMN Analyzer interface is structured into three steps that guide the user t
   In \autoref{fig:impl_step2}, the user is editing one of two created propositions.
   Users who are only interested in general BPMN properties may skip this step.
   Atomic propositions are created using the concrete syntax detailed in \autoref{subsec:customProperties}, implemented in our \textit{Token Editor}.
-  As mentioned, to create a proposition, users attach tokens and process snapshots to the BPMN model created in the modeling step.
+  As mentioned, users attach tokens and process snapshots to the BPMN model created in the modeling step to create a proposition.
 
 \begin{figure}[ht]
     \centering
@@ -676,7 +676,7 @@ The BPMN Analyzer interface is structured into three steps that guide the user t
 \end{enumerate}
 
 \subsection{Reusable libraries}
-In addition to the BPMN Analyzer, we published multiple parts of our application as libraries such that they can be reused seamlessly by other researchers and practitioners.
+In addition to the BPMN Analyzer, we published multiple parts of our application as libraries that can be reused seamlessly by other researchers and practitioners.
 The BPMN metamodel extension needed to define atomic propositions is published as an npm module (\textit{token-bpmn-moddle}) \cite{timkrauterLMCS2024Artifacts2023}.
 Npm is the default package manager for the JavaScript programming language.
 In addition, the Token Editor to create atomic propositions is also published as an npm module (\textit{token-bpmn}) \cite{timkrauterLMCS2024Artifacts2023}.
@@ -688,12 +688,12 @@ We explain each library in detail in the following sections.
 % Same concrete syntax but slightly different to fit the UI/proposition needs.
 Our implementation \textit{token-bpmn-moddle} \cite{timkrauterLMCS2024Artifacts2023} extends \textit{bpmn-moddle} \cite{camundaservicesgmbhBpmnmoddle2023}, which implements the BPMN specification.
 Our extension adds the \textsf{Token} and \textsf{ProcessSnapshot} types from the BPMN execution metamodel shown in \autoref{fig:bpmnExecutionMetamodel} to the BPMN metamodel.
-\autoref{lst:extension} shows an example BPMN XML snippet, where a token and process snapshot were added.
+\autoref{lst:extension} shows an example BPMN XML snippet, where a token and process snapshot was added.
 
 \lstinputlisting [basicstyle=\smaller\ttfamily, label=lst:extension, language=XML, numbers=left,
     stepnumber=1, caption=XML snippet showing the BPMN metamodel extension (simplified)]{./listings/extension_simplified.xml}
 
-The library allows one to create token and process snapshot instances and stores them in the BPMN extension elements (lines 2-7 in the XML example in \autoref{lst:extension}).
+The library allows one to create tokens and process snapshots and stores them in the BPMN extension elements (lines 2-7 in the XML example in \autoref{lst:extension}).
 This is the recommended way to extend the BPMN metamodel \cite{objectmanagementgroupBusinessProcessModel2013}.
 
 The extension of the BPMN metamodel is realized by letting \textsf{Token} and \textsf{ProcessSnapshot} extend from \textsf{Element}, which is the type of elements of the extension elements, see \autoref{fig:token_extension}.
@@ -747,11 +747,11 @@ The Groove UI and the Groove command-line tools can then consume the generated G
 
 \subsection{Performance testing} \label{subsec:performance}
 
-Model checking is a useful technique but can fall short when applied in the industry due to insufficient performance \cite{clarkeHandbookModelChecking2018}.
+Model checking is a valuable technique but can fall short when applied in the industry due to insufficient performance \cite{clarkeHandbookModelChecking2018}.
 Inadequate performance might have many reasons, most notably large models leading to state space explosion.
 We assess the performance of our implementation for two sets of BPMN models.
-First, we pick ten BPMN models from the literature which includes realistic BPMN models.
-Second, we generated ten BPMN models with an exponential state space growth to test how our tool deals with increasing complexity.
+First, we pick ten BPMN models from the literature, including realistic ones.
+Second, we generated ten BPMN models with exponential state space growth to test how our tool deals with increasing complexity.
 We explain each benchmark and its results in the following subsections and provide all necessary information and artifacts to reproduce them in \cite{timkrauterLMCS2024Artifacts2023}
 
 To calculate the average runtime, we use the hyperfine benchmarking tool \cite{peterHyperfine2023} (version 1.18.0), which runs the HOT/state space exploration for each BPMN model ten or more times.
@@ -825,8 +825,8 @@ The HOT takes less than a second to generate a GT system for each model.
 Thus, the generation of the GT systems for these models is fast enough.
 
 Second, we ran a full state exploration using the resulting ten GT systems, see \autoref{table:parallelBranchesStateSpaceBenchmark} (runtime only includes state space exploration).
-The exploration takes from one second to nine seconds for the models.
-One can see an exponential increase in runtime which is due to the exponential increase in state space complexity.
+The models take one to nine seconds to explore.
+One can see an exponential increase in runtime due to the exponential increase in state space complexity.
 
 \begin{table}[ht]
 \centering
@@ -970,7 +970,7 @@ However, models of reasonable size (50 blocks or less) are handled in less than 
 To summarize, using our approach, we can conservatively estimate that these models can be checked (HOT followed by a full state space generation) in around three seconds or less.
 In addition, full-state space exploration might not be needed if \textit{on-the-fly} model checking is used \cite{clarkeHandbookModelChecking2018}.
 
-\textit{On-the-fly} model checking allows to check temporal properties incrementally while the state space is constructed.
+\textit{On-the-fly} model checking allows temporal properties to be checked incrementally while the state space is constructed.
 If a property violation is detected, there is no need to further complete the construction of the state space.
 This can considerably reduce the time and memory required for verification \cite{clarkeHandbookModelChecking2018}.
 
@@ -1020,7 +1020,7 @@ However, they do \textit{not} support property checking since their goal is only
 The tool \textit{BProVe} is based on formal BPMN semantics given in rewriting logic and implemented in the Maude system \cite{corradiniFormalApproachAnalysis2021}.
 Using this formal semantics, \textit{BProVe} can verify custom LTL properties and general BPMN properties, such as Safeness and Soundness.
 However, \textit{BProVe} only supports the most common BPMN elements, as shown later.
-Regarding performance, \cite{corradiniFormalApproachAnalysis2021} describe a timeout (runtime greater than 600 seconds) for state space generation of a model with five parallel branches.
+Regarding performance, \cite{corradiniFormalApproachAnalysis2021} describes a timeout (runtime greater than 600 seconds) for state space generation of a model with five parallel branches.
 In \autoref{subsec:performance}, we show that our tool takes less than ten seconds for the state space exploration of a model with ten parallel branches.
 
 % fbpmn/Houhou
@@ -1033,11 +1033,11 @@ In our approach, we currently disregard time-related constructs \cite{duranVerif
 % Performance
 Regarding performance, \cite{houhouFirstOrderLogicVerification2022} report 3.66-10.26s on a machine with less powerful hardware compared to our 1-1.75s for the models in section \autoref{subsec:performance}.
 Thus, including the previous comparison to BProVe, we conclude that our tool performs well.
-However, assessing tool performance is difficult when there are no standardized benchmarks which allow for a direct comparison of results in the same environment.
+However, assessing tool performance is difficult when there are no standardized benchmarks that allow for a direct comparison of results in the same environment.
 
 \autoref{tab:supportedelements} shows which BPMN elements are supported by our and the abovementioned approaches.
 Compared to the other approaches, we cover most BPMN elements.
-The coverage of BPMN elements significantly impacts how practical each approach is in checking properties in real-life \cite{fahlandAnalysisDemandInstantaneous2011}.
+The coverage of BPMN elements significantly impacts how practical each approach is in checking properties in real life \cite{fahlandAnalysisDemandInstantaneous2011}.
 In addition, we cover the most important elements found in practice since we come close to the element coverage of popular process engines such as Camunda \cite{camundaservicesgmbhBPMNImplementationReference2023}.
 
 The BPMN elements that our approach does not support, compared to Camunda, are transactions, cancel events, and compensation events.
