@@ -297,6 +297,7 @@ In the example, \textsf{E.incSFs} means following all \textsf{incSFs} links for 
 \end{figure}
     
 For example, if a BPMN model contains one \textsf{NEE} with two incoming sequence flows, the HOT will generate two GT rules as defined in the rule generation template in \autoref{fig:endTemplate}.
+Thus, each rule generation template defines part of the HOT, and all rule generation templates together represent the HOT, which can be applied to a given BPMN model to generate concrete rules as specified in each template.
 
 % End Event
 The generated end event rules delete tokens individually for each incoming sequence flow.
@@ -1120,9 +1121,8 @@ Second, we aim to improve our formalization and the resulting tool in multiple w
 We intend to extend our formalization to support the remaining few BPMN elements used in practice and want to turn the modeling environment of our tool into an interactive simulation environment.
 In addition, we can use this environment to visualize potential counterexamples in cases where behavioral properties are violated.
 
-% TODO: Add after review
-% \section*{Acknowledgment}
-%   \noindent We thank the anonymous reviewers for their valuable comments and helpful suggestions.
+\section*{Acknowledgment}
+\noindent We thank the anonymous reviewers for their valuable comments and helpful suggestions.
 
 \bibliographystyle{alphaurl} 
 \bibliography{bib}
