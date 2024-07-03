@@ -87,8 +87,13 @@ However, the informal description of the BPMN execution semantics leads to diffe
 Various studies have shown that business process models suffer from control-flow errors \cite{mendlingEmpiricalStudiesProcess2009}.
 Formalizing BPMN can drastically reduce the cost of business process automation by facilitating the detection of errors and optimization potentials in process models already during design time.
 For example, general behavioral properties such as \textit{Safeness} and \textit{Soundness} were adapted to BPMN in \cite{corradiniClassificationBPMNCollaborations2018}.
-They can uncover control-flow errors in BPMN models leading to deadlocks, dead activities or other undesirable execution states.
-To this end, we propose a formalization that covers nearly all of the BPMN elements used in practice and supports checking behavioral properties to uncover control-flow errors in a reasonable amount of time.
+They can uncover control-flow errors in BPMN models leading to deadlocks, dead activities, or other undesirable execution states.
+To this end, we propose a formalization that covers nearly all of the BPMN elements used in practice and supports checking behavioral properties to uncover control-flow errors quickly.
+
+\cite{fahlandAnalysisDemandInstantaneous2011} identifies \textit{coverage}, \textit{immediacy}, and \textit{consumability} as the main challenges for applying formal analysis to BPMN models in practice.
+In this paper, we focus on \textit{coverage} while we touch upon immediacy (analysis runtime) and consumability (tool usability) when describing the implementation of our approach in \autoref{sec:impl}. 
+Even tho many formalizations of BPMN already exist, for example, based on Petri Nets \cite{dijkmanSemanticsAnalysisBusiness2008} or first-order logic \cite{houhouFirstOrderLogicSemantics2019,houhouFirstOrderLogicVerification2022} they do not cover all the elements commonly used in BPMN processes, as discussed in \autoref{sec:relatedWork}.
+Thus, we developed a new formalization with greatly improved coverage, which we can achieve using advanced graph transformation theory concepts.
 
 In this article, we consider two fundamental concepts when formalizing the execution semantics of BPMN.
 First, \textit{state structure}, i.e., how model instances are represented during execution.
@@ -1039,7 +1044,7 @@ However, assessing tool performance is difficult when there are no standardized 
 \autoref{tab:supportedelements} shows which BPMN elements are supported by our and the abovementioned approaches.
 Compared to the other approaches, we cover most BPMN elements.
 The coverage of BPMN elements significantly impacts how practical each approach is in checking properties in real life \cite{fahlandAnalysisDemandInstantaneous2011}.
-In addition, we cover the most important elements found in practice since we come close to the element coverage of popular process engines such as Camunda \cite{camundaservicesgmbhBPMNImplementationReference2023}.
+In addition, we cover the most important elements found in practice since we come close to the element coverage of popular process orchestration platforms such as Camunda \cite{camundaservicesgmbhBPMNImplementationReference2023}.
 
 The BPMN elements that our approach does not support, compared to Camunda, are transactions, cancel events, and compensation events.
 These elements are rather complex, but \cite{vangorpVisualTokenbasedFormalization2013} shows how cancel and compensation events can be formalized.
