@@ -92,16 +92,18 @@ To this end, we propose a formalization that covers nearly all of the BPMN eleme
 
 \cite{fahlandAnalysisDemandInstantaneous2011} identifies \textit{coverage}, \textit{immediacy}, and \textit{consumability} as the main challenges for applying formal analysis to BPMN models in practice.
 In this paper, we focus on \textit{coverage} while we touch upon immediacy (analysis runtime) and consumability (tool usability) when describing the implementation of our approach in \autoref{sec:impl}. 
-Even tho many formalizations of BPMN already exist, for example, based on Petri Nets \cite{dijkmanSemanticsAnalysisBusiness2008} or first-order logic \cite{houhouFirstOrderLogicSemantics2019,houhouFirstOrderLogicVerification2022} they do not cover all the elements commonly used in BPMN processes, as discussed in \autoref{sec:relatedWork}.
-Thus, we developed a new formalization with greatly improved coverage, which we can achieve using advanced graph transformation theory concepts.
-Implementing the same depth of coverage, for example, using Petri Nets, is not straightforward.
+Many formalizations of BPMN already exist, for example, based on Petri Nets \cite{dijkmanSemanticsAnalysisBusiness2008}, first-order logic \cite{houhouFirstOrderLogicSemantics2019,houhouFirstOrderLogicVerification2022}, and graph transformation \cite{vangorpVisualTokenbasedFormalization2013}.
+However, they either do not cover commonly used elements in BPMN~\cite{dijkmanSemanticsAnalysisBusiness2008,houhouFirstOrderLogicSemantics2019,houhouFirstOrderLogicVerification2022} or do not facilitate property checking~\cite{vangorpVisualTokenbasedFormalization2013} (see \autoref{sec:relatedWork}).
+Thus, we developed a new formalization that \textbf{(1)} covers all commonly used BPMN elements and \textbf{(2)} supports property checking to uncover control-flow errors.
+We can achieve both requirements using advanced graph transformation theory concepts.
+Implementing the same coverage, for example, using Petri Nets, is not straightforward.
 
 In this article, we consider two fundamental concepts when formalizing the execution semantics of BPMN.
 First, \textit{state structure}, i.e., how model instances are represented during execution.
 The state structure corresponds to the type graph in Graph Transformation (GT) systems.
 Second, \textit{state-changing elements}, i.e., which elements in a model encode state changes.
 These elements are implemented using GT rules, which we automatically generate based on a Higher-Order model Transformation (HOT) \cite{tisiUseHigherOrderModel2009} for each specific BPMN model, as shown in \autoref{fig:approach}.
-Our HOT defines a formal execution semantics of BPMN, similar to other approaches that formalize BPMN by mapping to Petri Nets or other formalisms \cite{dijkmanSemanticsAnalysisBusiness2008}.
+Our HOT defines a formal execution semantics of BPMN, like approaches that formalize BPMN by mapping to Petri Nets or other formalisms \cite{dijkmanSemanticsAnalysisBusiness2008}.
 
 \begin{figure}[ht]
     \centering
