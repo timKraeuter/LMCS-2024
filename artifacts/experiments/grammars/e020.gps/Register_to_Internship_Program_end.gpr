@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="Register_to_Internship_Program_end" role="rule" edgeids="false" edgemode="directed">
+        <node id="n131"/>
+        <edge from="n131" to="n131">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n131" to="n131">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n137"/>
+        <edge from="n137" to="n137">
+            <attr name="label">
+                <string>type:Message</string>
+            </attr>
+        </edge>
+        <edge from="n137" to="n137">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n129"/>
+        <edge from="n129" to="n129">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n129" to="n129">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n126"/>
+        <edge from="n126" to="n126">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n127"/>
+        <edge from="n127" to="n127">
+            <attr name="label">
+                <string>string:"Company"</string>
+            </attr>
+        </edge>
+        <node id="n128"/>
+        <edge from="n128" to="n128">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n130"/>
+        <edge from="n130" to="n130">
+            <attr name="label">
+                <string>string:"Register_to_Internship_Program (Task_1ukgtgd)"</string>
+            </attr>
+        </edge>
+        <node id="n132"/>
+        <edge from="n132" to="n132">
+            <attr name="label">
+                <string>string:"Register_to_Internship_Program -&gt; ExclusiveGateway_1ojvmkc (SequenceFlow_0upqxnz)"</string>
+            </attr>
+        </edge>
+        <node id="n133"/>
+        <edge from="n133" to="n133">
+            <attr name="label">
+                <string>existsx:</string>
+            </attr>
+        </edge>
+        <node id="n134"/>
+        <edge from="n134" to="n134">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n135"/>
+        <edge from="n135" to="n135">
+            <attr name="label">
+                <string>string:"Internship_Office"</string>
+            </attr>
+        </edge>
+        <node id="n136"/>
+        <edge from="n136" to="n136">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n138"/>
+        <edge from="n138" to="n138">
+            <attr name="label">
+                <string>string:"registration"</string>
+            </attr>
+        </edge>
+        <node id="n139"/>
+        <edge from="n139" to="n139">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <node id="n140"/>
+        <edge from="n140" to="n140">
+            <attr name="label">
+                <string>string:"EventBasedGateway_1d92ix7 (EventBasedGateway_1d92ix7)"</string>
+            </attr>
+        </edge>
+        <edge from="n126" to="n131">
+            <attr name="label">
+                <string>new:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n131" to="n132">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n134" to="n137">
+            <attr name="label">
+                <string>new:messages</string>
+            </attr>
+        </edge>
+        <edge from="n137" to="n138">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n126" to="n129">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n129" to="n130">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n126" to="n127">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n126" to="n128">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+        <edge from="n134" to="n135">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n134" to="n136">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+        <edge from="n134" to="n133">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n136" to="n133">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n137" to="n133">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n134" to="n139">
+            <attr name="label">
+                <string>tokens</string>
+            </attr>
+        </edge>
+        <edge from="n139" to="n140">
+            <attr name="label">
+                <string>position</string>
+            </attr>
+        </edge>
+        <edge from="n139" to="n133">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>

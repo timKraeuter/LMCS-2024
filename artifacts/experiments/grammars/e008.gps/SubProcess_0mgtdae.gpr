@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="SubProcess_0mgtdae" role="rule" edgeids="false" edgemode="directed">
+        <node id="n15"/>
+        <edge from="n15" to="n15">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <edge from="n15" to="n15">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n17"/>
+        <edge from="n17" to="n17">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <edge from="n17" to="n17">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n18"/>
+        <edge from="n18" to="n18">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n18" to="n18">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n13"/>
+        <edge from="n13" to="n13">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n13" to="n13">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n10"/>
+        <edge from="n10" to="n10">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n11"/>
+        <edge from="n11" to="n11">
+            <attr name="label">
+                <string>string:"A"</string>
+            </attr>
+        </edge>
+        <node id="n12"/>
+        <edge from="n12" to="n12">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n14"/>
+        <edge from="n14" to="n14">
+            <attr name="label">
+                <string>string:"StartEvent_0ayuyd2 -&gt; SubProcess_0mgtdae (SequenceFlow_1vue23p)"</string>
+            </attr>
+        </edge>
+        <node id="n16"/>
+        <edge from="n16" to="n16">
+            <attr name="label">
+                <string>string:"SubProcess_0mgtdae"</string>
+            </attr>
+        </edge>
+        <node id="n19"/>
+        <edge from="n19" to="n19">
+            <attr name="label">
+                <string>string:"StartEvent_1 -&gt; ExclusiveGateway_1j1chqb (SequenceFlow_0z2xwql)"</string>
+            </attr>
+        </edge>
+        <edge from="n15" to="n16">
+            <attr name="label">
+                <string>new:name</string>
+            </attr>
+        </edge>
+        <edge from="n15" to="n17">
+            <attr name="label">
+                <string>new:state</string>
+            </attr>
+        </edge>
+        <edge from="n10" to="n15">
+            <attr name="label">
+                <string>new:subprocess</string>
+            </attr>
+        </edge>
+        <edge from="n15" to="n18">
+            <attr name="label">
+                <string>new:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n18" to="n19">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n10" to="n13">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n13" to="n14">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n10" to="n11">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n10" to="n12">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>

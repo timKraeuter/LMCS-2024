@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="SequenceFlow_0b7efwa_ExclusiveGateway_0079typ" role="rule" edgeids="false" edgemode="directed">
+        <node id="n90"/>
+        <edge from="n90" to="n90">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n91"/>
+        <edge from="n91" to="n91">
+            <attr name="label">
+                <string>string:"SubProcess_0mgtdae"</string>
+            </attr>
+        </edge>
+        <node id="n92"/>
+        <edge from="n92" to="n92">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n93"/>
+        <edge from="n93" to="n93">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <node id="n94"/>
+        <edge from="n94" to="n94">
+            <attr name="label">
+                <string>string:"Task_A -&gt; ExclusiveGateway_0079typ (SequenceFlow_0b7efwa)"</string>
+            </attr>
+        </edge>
+        <node id="n95"/>
+        <edge from="n95" to="n95">
+            <attr name="label">
+                <string>string:"ExclusiveGateway_0079typ -&gt; Task_C (SequenceFlow_1fuwd1z)"</string>
+            </attr>
+        </edge>
+        <edge from="n93" to="n95">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n93" to="n94">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n90" to="n91">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n90" to="n92">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+        <edge from="n90" to="n93">
+            <attr name="label">
+                <string>tokens</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>

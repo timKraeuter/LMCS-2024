@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="Internship_Registered" role="rule" edgeids="false" edgemode="directed">
+        <node id="n433"/>
+        <edge from="n433" to="n433">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n433" to="n433">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n431"/>
+        <edge from="n431" to="n431">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n432"/>
+        <edge from="n432" to="n432">
+            <attr name="label">
+                <string>string:"Internship_Delegate"</string>
+            </attr>
+        </edge>
+        <node id="n434"/>
+        <edge from="n434" to="n434">
+            <attr name="label">
+                <string>string:"Register_Internship_Completion -&gt; Internship_Registered (SequenceFlow_0ol0c8s)"</string>
+            </attr>
+        </edge>
+        <node id="n435"/>
+        <edge from="n435" to="n435">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <edge from="n431" to="n433">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n433" to="n434">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n431" to="n432">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n431" to="n435">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>

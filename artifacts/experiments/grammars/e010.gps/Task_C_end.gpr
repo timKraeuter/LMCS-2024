@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph id="Task_C_end" role="rule" edgeids="false" edgemode="directed">
+        <node id="n99"/>
+        <edge from="n99" to="n99">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n99" to="n99">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n105"/>
+        <edge from="n105" to="n105">
+            <attr name="label">
+                <string>type:Message</string>
+            </attr>
+        </edge>
+        <edge from="n105" to="n105">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <node id="n97"/>
+        <edge from="n97" to="n97">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <edge from="n97" to="n97">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <node id="n94"/>
+        <edge from="n94" to="n94">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n95"/>
+        <edge from="n95" to="n95">
+            <attr name="label">
+                <string>string:"SP"</string>
+            </attr>
+        </edge>
+        <node id="n96"/>
+        <edge from="n96" to="n96">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n98"/>
+        <edge from="n98" to="n98">
+            <attr name="label">
+                <string>string:"Task_C (Task_1rt44mz)"</string>
+            </attr>
+        </edge>
+        <node id="n100"/>
+        <edge from="n100" to="n100">
+            <attr name="label">
+                <string>string:"Task_C -&gt; EndEvent_0v9lt5i (SequenceFlow_0uzla8o)"</string>
+            </attr>
+        </edge>
+        <node id="n101"/>
+        <edge from="n101" to="n101">
+            <attr name="label">
+                <string>existsx:</string>
+            </attr>
+        </edge>
+        <node id="n102"/>
+        <edge from="n102" to="n102">
+            <attr name="label">
+                <string>type:ProcessSnapshot</string>
+            </attr>
+        </edge>
+        <node id="n103"/>
+        <edge from="n103" to="n103">
+            <attr name="label">
+                <string>string:"B"</string>
+            </attr>
+        </edge>
+        <node id="n104"/>
+        <edge from="n104" to="n104">
+            <attr name="label">
+                <string>type:Running</string>
+            </attr>
+        </edge>
+        <node id="n106"/>
+        <edge from="n106" to="n106">
+            <attr name="label">
+                <string>string:"m1"</string>
+            </attr>
+        </edge>
+        <node id="n107"/>
+        <edge from="n107" to="n107">
+            <attr name="label">
+                <string>type:Token</string>
+            </attr>
+        </edge>
+        <node id="n108"/>
+        <edge from="n108" to="n108">
+            <attr name="label">
+                <string>string:"StartEvent_13qwxem -&gt; Task_D (SequenceFlow_1rma85g)"</string>
+            </attr>
+        </edge>
+        <edge from="n94" to="n99">
+            <attr name="label">
+                <string>new:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n99" to="n100">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n102" to="n105">
+            <attr name="label">
+                <string>new:messages</string>
+            </attr>
+        </edge>
+        <edge from="n105" to="n106">
+            <attr name="label">
+                <string>new:position</string>
+            </attr>
+        </edge>
+        <edge from="n94" to="n97">
+            <attr name="label">
+                <string>del:tokens</string>
+            </attr>
+        </edge>
+        <edge from="n97" to="n98">
+            <attr name="label">
+                <string>del:position</string>
+            </attr>
+        </edge>
+        <edge from="n94" to="n95">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n94" to="n96">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+        <edge from="n102" to="n103">
+            <attr name="label">
+                <string>name</string>
+            </attr>
+        </edge>
+        <edge from="n102" to="n104">
+            <attr name="label">
+                <string>state</string>
+            </attr>
+        </edge>
+        <edge from="n102" to="n101">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n104" to="n101">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n105" to="n101">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n102" to="n107">
+            <attr name="label">
+                <string>tokens</string>
+            </attr>
+        </edge>
+        <edge from="n107" to="n108">
+            <attr name="label">
+                <string>position</string>
+            </attr>
+        </edge>
+        <edge from="n107" to="n101">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>
