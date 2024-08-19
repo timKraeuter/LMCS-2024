@@ -50,9 +50,6 @@
 % if the user or some other package uses this package with different options.
 \PassOptionsToPackage{shortlabels}{enumitem}
 \PassOptionsToPackage{inline}{enumitem}
-% We prefer plain \autoref over \cref from cleveref. But if the authors insist on using
-% cleveref, then they should use the 'capitalise' option:
-\PassOptionsToPackage{capitalise}{cleveref}
 \RequirePackage{enumitem}
 \setlist[enumerate]{font=\normalfont,labelindent=*,leftmargin=*,start=1}
 \setlist[itemize]{labelindent=*,leftmargin=*}
@@ -837,15 +834,6 @@ baseline=(current bounding box.south)]
 % Bibliographystyle
 
 \bibliographystyle{alphaurl}
-
-
-\ifcsname bibfont\endcsname%
-  % if \bibfont is defined, then the authors probably use biblatex
-  % and so we fix biblatex's \bibfont to match the font size of LMCS's
-  % bibtex style, which is specified in \bibliofont (usually \footnotesize):
-  \renewcommand*{\bibfont}{\normalfont\bibliofont}
-\else
-\fi
 
 
 \def\eqalign#1{\null\,\vcenter{\openup\jot\mathsurround=0 pt
