@@ -27,7 +27,7 @@ blue parts are deleted, and green parts are added.
 
 ## General BPMN properties
 
-General BPMN properties can be checked in the [web-based tool](https://bpmnanalyzer.whitefield-c9fed487.northeurope.azurecontainerapps.io), which runs Groove in the cloud (no local installation needed).
+General BPMN properties can be checked in the [web-based tool](https://bpmn-analyzer.wittyrock-9d6a3c00.northeurope.azurecontainerapps.io), which runs Groove in the cloud (no local installation needed).
 
 The [BPMN Analyzer tool](https://github.com/timKraeuter/LMCS_2024#bpmn-analyzer-tool) subsection shows a screenshot with an example verification result.
 
@@ -57,10 +57,10 @@ After downloading and unzipping, you can each Gt system in [Groove](https://groo
 # BPMN Analyzer tool
 
 The BPMN Analyzer is available
-online [here](https://bpmnanalyzer.whitefield-c9fed487.northeurope.azurecontainerapps.io).
+online [here](https://bpmn-analyzer.wittyrock-9d6a3c00.northeurope.azurecontainerapps.io).
 The [wiki](https://github.com/timKraeuter/Rewrite_Rule_Generation/wiki) describes our [comprehensive test suite](https://github.com/timKraeuter/Rewrite_Rule_Generation/wiki/Test-Suite) to test our coverage of BPMN features. 
 
-[![Screenshot of the application.](./artifacts/impl_step3_long.png)](https://bpmnanalyzer.whitefield-c9fed487.northeurope.azurecontainerapps.io)
+[![Screenshot of the application.](./artifacts/impl_step3_long.png)](https://bpmn-analyzer.wittyrock-9d6a3c00.northeurope.azurecontainerapps.io)
 
 The source code of the BPMN Analyzer is available [here](https://github.com/timKraeuter/Rewrite_Rule_Generation), and instructions how to run it locally on your machine can be found [here](https://github.com/timKraeuter/Rewrite_Rule_Generation/blob/master/server/README.md).
 
